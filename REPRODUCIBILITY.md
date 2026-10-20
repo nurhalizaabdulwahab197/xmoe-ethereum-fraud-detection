@@ -475,26 +475,49 @@ This is a troubleshooting recommendation, not a claim that OneDrive necessarily 
 
 ---
 
-## 15. Future GPU Validation
+## 15. Verified GPU Reproduction
 
-GPU reproduction will be added after the four models have been validated using the GPU environment.
+GPU reproduction was completed using the same clean protocol, seeds 100-109, and 300 training epochs.
 
-The GPU update will record:
+Verified GPU environment:
 
-- GPU model;
-- operating system;
-- NVIDIA driver;
-- CUDA version;
-- PyTorch CUDA build;
-- PyTorch Geometric version;
-- Python version;
-- dependency snapshot;
-- exact experimental commands;
-- training runtime;
-- ten-seed results;
-- CPU versus GPU comparison.
+`	ext
+GPU:                  NVIDIA GeForce GTX 1660 SUPER
+VRAM:                 6 GB
+NVIDIA Driver:        595.95
+Driver-reported CUDA: 13.2
+PyTorch:              2.14.1+cu126
+CUDA runtime:         12.6
+PyTorch Geometric:    2.8.0.post1
+Python:               3.11.9
+`
 
-GPU results will be added to this same repository after verification.
+The final 10-seed GPU results are:
+
+| Model | Accuracy mean | Accuracy std | Macro-F1 mean | Macro-F1 std |
+|---|---:|---:|---:|---:|
+| GCN | 0.884409 | 0.030307 | 0.363670 | 0.017636 |
+| GAT | 0.598466 | 0.044165 | 0.275000 | 0.029484 |
+| GraphSAGE | 0.988444 | 0.002025 | 0.495760 | 0.031397 |
+| **X-MoE** | **0.996385** | **0.001714** | **0.657782** | **0.065579** |
+
+The model ranking is preserved across the tested CPU and GPU environments:
+
+`	ext
+X-MoE > GraphSAGE > GCN > GAT
+`
+
+On GPU, X-MoE improves mean Macro-F1 over GraphSAGE by 0.162022, corresponding to +16.20 percentage points or approximately +32.68% relative improvement.
+
+The CPU and GPU results are closely consistent but are not expected to be bitwise identical.
+
+Detailed GPU environment and result files:
+
+`	ext
+requirements-gpu-tested.txt
+REPRODUCTION_METADATA_GPU.txt
+results/reference/gpu_10seed_summary.csv
+`
 
 ---
 

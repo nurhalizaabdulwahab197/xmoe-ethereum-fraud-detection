@@ -355,15 +355,22 @@ xmoe-ethereum-fraud-detection/
 |-- README.md
 |-- REPRODUCIBILITY.md
 |-- REPRODUCTION_METADATA_CPU.txt
+|-- REPRODUCTION_METADATA_GPU.txt
 |-- requirements-cpu-tested.txt
+|-- requirements-gpu-tested.txt
 |-- .gitignore
 |
 |-- src/
 |   `-- reproduce.py
 |
+|-- docs/
+|   `-- figures/
+|       `-- architecture_comparison.png
+|
 |-- results/
 |   `-- reference/
 |       |-- cpu_10seed_summary.csv
+|       |-- gpu_10seed_summary.csv
 |       `-- CPU_REFERENCE_RESULTS.txt
 |
 `-- upstream-paper/        # created locally; not committed
@@ -724,22 +731,6 @@ Additional reproducibility details are documented in:
 ```text
 REPRODUCIBILITY.md
 ```
-
-## GPU Reproduction
-
-GPU reproduction will be added to this repository after validation on the GPU environment.
-
-The GPU section will document:
-
-- GPU model
-- driver and CUDA configuration
-- PyTorch/CUDA build
-- dependency versions
-- exact commands
-- seeds
-- runtime
-- final GCN, GAT, GraphSAGE, and X-MoE results
-- comparison with the verified CPU results
 
 ## Demo Application
 
