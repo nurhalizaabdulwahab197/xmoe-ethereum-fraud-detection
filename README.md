@@ -452,6 +452,7 @@ sklearn=1.9.1
 scipy=1.17.1
 cuda=False
 ```
+Note: `pip freeze` records the installed package metadata as `torch==2.14.1`, while the PyTorch runtime reports the CPU build as `torch.__version__ == 2.14.1+cpu`. These refer to the same verified CPU environment.
 
 A PyTorch Geometric `torch.jit.script` FutureWarning may appear. It does not prevent the experiments from running.
 
