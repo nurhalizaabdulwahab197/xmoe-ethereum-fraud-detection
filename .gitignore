@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+.venv-cpu/
+venv/
+
+# Upstream dataset/artifacts
+upstream-paper/
+
+# Model checkpoints
+*.pt
+*.pth
+
+# Generated experiment outputs
+results/smoke_*/
+results/final_*/
+
+# Keep curated reference results
+!results/reference/
+!results/reference/*
+
+# Temporary / cache
+.pytest_cache/
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local backup
+src/reproduce_backup.py
