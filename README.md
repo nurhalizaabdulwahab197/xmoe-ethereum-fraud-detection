@@ -21,6 +21,291 @@ The models perform three-class classification:
 - Phishing
 - Scamming
 
+## Architecture Comparison
+
+The figure below compares the architectures of the three baseline GNN models and the proposed X-MoE model used in this repository.
+
+![Architecture comparison for Ethereum fraud detection](docs/figures/architecture_comparison.png)
+
+All four models solve the same three-class Ethereum address classification problem:
+
+- **Normal**
+- **Phishing**
+- **Scamming**
+
+However, they differ substantially in how node features and graph information are processed.
+
+### A) GCN
+
+The Graph Convolutional Network (GCN) propagates and aggregates information from neighboring addresses using shared graph convolution.
+
+The implemented pipeline is:
+
+```text
+Node features + graph edges
+        |
+        v
+   GCNConv(64)
+        |
+       ReLU
+        |
+   Dropout(0.5)
+        |
+        v
+   GCNConv(64)
+        |
+       ReLU
+        |
+   Dropout(0.5)
+        |
+ Linear classifier
+        |
+        v
+Normal | Phishing | Scamming
+```
+
+GCN provides a simple mechanism for incorporating graph structure. However, neighborhood information is aggregated using the same convolutional mechanism for all nodes. In highly imbalanced fraud detection, minority-class signals can therefore be difficult to preserve when fraudulent addresses are sparse relative to the Normal class.
+
+### B) GAT
+
+The Graph Attention Network (GAT) extends neighborhood aggregation by learning attention weights over neighboring nodes.
+
+The implemented pipeline is:
+
+```text
+Node features + graph edges
+        |
+        v
+GATConv(32, heads=4)
+        |
+       ReLU
+        |
+   Dropout(0.5)
+        |
+        v
+GATConv(32, heads=1)
+        |
+ Linear classifier
+        |
+        v
+Normal | Phishing | Scamming
+```
+
+Unlike GCN, GAT does not treat all neighbors equally. It learns which neighboring addresses should receive greater attention.
+
+This provides additional flexibility, but attention alone does not explicitly address severe class imbalance, expert disagreement, or the fact that some Ethereum addresses may have little or no useful neighborhood structure.
+
+### C) GraphSAGE
+
+GraphSAGE learns node representations by aggregating information from local neighborhoods.
+
+The implemented pipeline is:
+
+```text
+Node features + graph edges
+        |
+        v
+   SAGEConv(64)
+        |
+       ReLU
+        |
+   Dropout(0.5)
+        |
+        v
+   SAGEConv(64)
+        |
+       ReLU
+        |
+   Dropout(0.5)
+        |
+ Linear classifier
+        |
+        v
+Normal | Phishing | Scamming
+```
+
+GraphSAGE is the strongest conventional GNN baseline in the verified CPU experiments.
+
+Its neighborhood aggregation is effective for learning relational fraud patterns, particularly when meaningful graph connectivity exists.
+
+However, it still relies on a single graph-learning mechanism. Its usefulness can therefore be reduced when an address is isolated or when the discriminative evidence is primarily contained in node-level features rather than neighborhood structure.
+
+### D) X-MoE: Proposed Architecture
+
+X-MoE differs fundamentally from the three baseline models.
+
+Instead of relying on a single GNN backbone, X-MoE combines two complementary experts through an adaptive gating mechanism.
+
+The architecture can be summarized as:
+
+```text
+                         Node features
+                              |
+                  +-----------+-----------+
+                  |                       |
+                  v                       v
+        Conflict-aware              GraphSAGE
+        multitask expert               expert
+                  |                       |
+                  v                       v
+           Expert 1 logits         Expert 2 logits
+                  |                       |
+                  +-----------+-----------+
+                              |
+                    Expert disagreement
+                              |
+                 Node connectivity / degree
+                              |
+                              v
+                       Gating network
+                              |
+                              v
+                 Class-specific mixture
+                         weights
+             w_Normal | w_Phishing | w_Scamming
+                              |
+                              v
+                  Adaptive weighted fusion
+                              |
+                              v
+               Normal | Phishing | Scamming
+```
+
+#### Expert 1: Conflict-aware multitask expert
+
+The first expert captures feature-level and task-specific evidence.
+
+It produces class predictions for:
+
+```text
+Normal
+Phishing
+Scamming
+```
+
+and auxiliary task-specific signals.
+
+This gives the model an alternative source of evidence when graph structure is weak or insufficient.
+
+#### Expert 2: GraphSAGE expert
+
+The second expert is a GraphSAGE-based graph-structure expert.
+
+It captures relational information from neighboring Ethereum addresses and produces its own three-class prediction.
+
+This expert is especially useful when graph connectivity provides meaningful evidence of fraudulent behavior.
+
+#### Expert disagreement
+
+X-MoE explicitly measures disagreement between the two experts:
+
+```text
+| Expert 1 logits - Expert 2 logits |
+```
+
+This disagreement is used as an input to the gating mechanism.
+
+When both experts agree, the prediction has mutually supporting evidence. When they disagree, the gating network can learn which expert should receive greater influence for the current node.
+
+#### Connectivity-aware gating
+
+The gating network receives:
+
+```text
+Expert 1 logits
+Expert 2 logits
+Expert disagreement
+Node connectivity / log-degree
+```
+
+It then learns adaptive mixture weights.
+
+A key design feature is that graph-based contribution can be reduced for isolated nodes, where neighborhood aggregation provides little meaningful information.
+
+This prevents X-MoE from assuming that every Ethereum address should rely equally on graph structure.
+
+#### Class-specific mixture weights
+
+X-MoE does not use one global mixture weight for the complete prediction.
+
+Instead, it learns class-specific expert weights:
+
+```text
+w_Normal
+w_Phishing
+w_Scamming
+```
+
+Therefore, the importance of the feature/task-aware expert and the GraphSAGE expert can differ for each fraud class.
+
+This is particularly relevant because Normal, Phishing, and Scamming addresses need not exhibit the same behavioral or structural patterns.
+
+### Why the X-MoE Architecture Helps Fraud Detection
+
+The central motivation of X-MoE is that **no single source of evidence is equally reliable for every Ethereum address**.
+
+For a strongly connected address, graph relationships may contain useful fraud evidence.
+
+For an isolated or weakly connected address, node-level features may be more informative than message passing.
+
+For difficult minority-class cases, the two experts may disagree, and this disagreement itself provides useful information about prediction uncertainty.
+
+X-MoE therefore combines four complementary signals:
+
+1. feature/task-aware evidence;
+2. graph-structural evidence;
+3. disagreement between the experts; and
+4. node connectivity.
+
+The gating network uses these signals to determine how the two experts should be combined for each class.
+
+This produces an adaptive decision mechanism rather than applying the same graph-learning rule to every address.
+
+### Architecture-Level Interpretation by Class
+
+For **Normal addresses**, the model must avoid incorrectly converting the large majority of legitimate-looking addresses into fraud predictions. X-MoE can reduce unnecessary graph influence when structural evidence is weak and preserve strong node-level evidence for the Normal class.
+
+For **Phishing addresses**, discriminative evidence may arise from both account-level behavioral features and relational patterns. The mixture-of-experts design allows these two evidence sources to complement each other rather than forcing the decision through a single GNN pathway.
+
+For **Scamming addresses**, graph relationships can provide strong structural information when suspicious interaction patterns are present. The class-specific gating mechanism allows the GraphSAGE expert to receive a different contribution for Scamming than for Normal or Phishing.
+
+### Key Takeaway
+
+GCN, GAT, and GraphSAGE each rely on a single graph-learning mechanism.
+
+X-MoE instead combines a **feature/task-aware expert** and a **graph-structure expert** through a **connectivity-aware, disagreement-aware, class-specific gating network**.
+
+This adaptive fusion is the main architectural distinction of X-MoE and provides a mechanism for improving balanced detection across Normal, Phishing, and Scamming addresses.
+
+The verified CPU experiments support this architectural motivation:
+
+| Model | Accuracy (mean +/- std) | Macro-F1 (mean +/- std) |
+|---|---:|---:|
+| GCN | 0.881178 +/- 0.032824 | 0.363702 +/- 0.020403 |
+| GAT | 0.587321 +/- 0.033070 | 0.266464 +/- 0.020491 |
+| GraphSAGE | 0.988206 +/- 0.002095 | 0.493079 +/- 0.034075 |
+| **X-MoE** | **0.996887 +/- 0.001234** | **0.662575 +/- 0.072090** |
+
+Relative to GraphSAGE, X-MoE improves mean Macro-F1 by:
+
+```text
+0.662575 - 0.493079 = 0.169496
+```
+
+equivalent to:
+
+```text
++16.95 percentage points
+```
+
+or approximately:
+
+```text
++34.4% relative improvement
+```
+
+Because the dataset is highly imbalanced, this improvement in Macro-F1 is more informative than accuracy alone for assessing balanced performance across Normal, Phishing, and Scamming.
+
 ## CPU Reproduction Status
 
 The CPU experiments in this repository were reproduced using:
@@ -459,4 +744,5 @@ The GPU section will document:
 A separate demonstration application will be developed after CPU and GPU reproducibility validation is complete.
 
 The demo will be intended for model demonstration and reference use and will be linked from this repository when available.
+
 
