@@ -1,0 +1,120 @@
+X-MoE Ethereum Fraud Detection
+GPU Reproduction Metadata
+========================================
+
+Repository:
+https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection
+
+Branch:
+main
+
+Reproduction date:
+20 October 2026
+
+GPU hardware:
+NVIDIA GeForce GTX 1660 SUPER
+VRAM: 6144 MiB
+
+NVIDIA driver:
+595.95
+
+Driver-reported CUDA capability:
+13.2
+
+PyTorch CUDA runtime used:
+12.6
+
+Environment:
+Python 3.11.9
+pip 24.0
+PyTorch 2.14.1+cu126
+PyTorch Geometric 2.8.0.post1
+NumPy 2.4.6
+Pandas 3.0.6
+scikit-learn 1.9.1
+SciPy 1.17.1
+
+Protocol:
+clean
+
+Seeds:
+100-109
+
+Epochs:
+300
+
+Models:
+GCN
+GAT
+GraphSAGE
+X-MoE
+
+X-MoE configuration:
+x_moe_normal_phishing_penalty = 0.30
+
+GPU 10-seed results
+===================
+
+GCN
+Accuracy:        0.884409 +/- 0.030307
+Macro-Precision: 0.361506 +/- 0.011699
+Macro-Recall:    0.758172 +/- 0.038931
+Macro-F1:        0.363670 +/- 0.017636
+Weighted-F1:     0.936596 +/- 0.016992
+
+GAT
+Accuracy:        0.598466 +/- 0.044165
+Macro-Precision: 0.347507 +/- 0.012028
+Macro-Recall:    0.594551 +/- 0.075397
+Macro-F1:        0.275000 +/- 0.029484
+Weighted-F1:     0.746308 +/- 0.034266
+
+GraphSAGE
+Accuracy:        0.988444 +/- 0.002025
+Macro-Precision: 0.445192 +/- 0.031153
+Macro-Recall:    0.757525 +/- 0.064761
+Macro-F1:        0.495760 +/- 0.031397
+Weighted-F1:     0.992838 +/- 0.001121
+
+X-MoE
+Accuracy:        0.996385 +/- 0.001714
+Macro-Precision: 0.649981 +/- 0.074228
+Macro-Recall:    0.768335 +/- 0.064574
+Macro-F1:        0.657782 +/- 0.065579
+Weighted-F1:     0.997264 +/- 0.001029
+
+X-MoE vs GraphSAGE
+==================
+
+Macro-F1 absolute improvement:
+0.657782 - 0.495760 = 0.162022
+
+Absolute improvement:
++16.20 percentage points
+
+Relative improvement:
+approximately +32.68%
+
+CPU/GPU reproducibility note
+============================
+
+The ranking of the four models is preserved across the tested CPU and GPU environments:
+
+X-MoE > GraphSAGE > GCN > GAT
+
+GPU results are closely consistent with the CPU reference results. Small numerical differences are expected across CPU and CUDA execution paths even when deterministic settings and identical seeds are used.
+
+The GPU results should therefore be interpreted as reproducibly consistent with the CPU reference, rather than bitwise identical.
+
+Reference files
+===============
+
+CPU:
+results/reference/cpu_10seed_summary.csv
+
+GPU:
+results/reference/gpu_10seed_summary.csv
+
+Environment:
+requirements-cpu-tested.txt
+requirements-gpu-tested.txt

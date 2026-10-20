@@ -34,3 +34,4 @@ Thumbs.db
 
 # Local backup
 src/reproduce_backup.py
+.venv-gpu/

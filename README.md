@@ -766,3 +766,40 @@ The dataset and any external data used by the upstream project remain subject to
 This repository claims authorship only for the code and methodology developed here, including the proposed X-MoE implementation and reproducibility workflow, and does not claim ownership of the upstream BLTE dataset.
 
 
+
+## GPU Reproduction Results
+
+GPU reproduction was independently performed using the same clean protocol, seeds 100-109, and 300 training epochs.
+
+Tested GPU environment:
+
+```text
+GPU: NVIDIA GeForce GTX 1660 SUPER
+VRAM: 6 GB
+NVIDIA Driver: 595.95
+PyTorch: 2.14.1+cu126
+CUDA runtime: 12.6
+PyTorch Geometric: 2.8.0.post1
+Python: 3.11.9
+```
+
+### CPU vs GPU Macro-F1
+
+| Model | CPU Macro-F1 | GPU Macro-F1 |
+|---|---:|---:|
+| GCN | 0.363702 +/- 0.020403 | 0.363670 +/- 0.017636 |
+| GAT | 0.266464 +/- 0.020491 | 0.275000 +/- 0.029484 |
+| GraphSAGE | 0.493079 +/- 0.034075 | 0.495760 +/- 0.031397 |
+| **X-MoE** | **0.662575 +/- 0.072090** | **0.657782 +/- 0.065579** |
+
+The model ranking is preserved across both environments:
+
+```text
+X-MoE > GraphSAGE > GCN > GAT
+```
+
+On the tested GPU environment, X-MoE improves mean Macro-F1 over GraphSAGE from 0.495760 to 0.657782, corresponding to an absolute improvement of 0.162022 (+16.20 percentage points), or approximately +32.68% relative improvement.
+
+The CPU and GPU results are closely consistent but are not expected to be bitwise identical. Minor numerical variation can arise from differences between CPU and CUDA execution paths.
+
+The tested GPU environment is frozen in `requirements-gpu-tested.txt`, and the complete GPU summary is stored in `results/reference/gpu_10seed_summary.csv` and `REPRODUCTION_METADATA_GPU.txt`.
