@@ -78,12 +78,14 @@ Node features + graph edges
         v
 GATConv(32, heads=4)
         |
-       ReLU
+       ELU
         |
    Dropout(0.5)
         |
         v
 GATConv(32, heads=1)
+        |
+       ELU
         |
  Linear classifier
         |
@@ -370,11 +372,11 @@ xmoe-ethereum-fraud-detection/
 ## 1. Clone This Repository
 
 ```powershell
-git clone <THIS-REPOSITORY-URL>
+git clone https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git
 cd xmoe-ethereum-fraud-detection
 ```
 
-Replace `<THIS-REPOSITORY-URL>` with the final GitHub URL after the repository is published.
+Repository URL: https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection
 
 ## 2. Python Environment
 
@@ -744,5 +746,23 @@ The GPU section will document:
 A separate demonstration application will be developed after CPU and GPU reproducibility validation is complete.
 
 The demo will be intended for model demonstration and reference use and will be linked from this repository when available.
+
+
+
+
+
+## License and Dataset Attribution
+
+The source code in this repository is released under the MIT License.
+
+The BLTE dataset is **not redistributed** in this repository. The processed dataset artifacts used for reproduction must be obtained from the original upstream project:
+
+```text
+salam-ammari/Graph-Neural-Network-Based-Fraudulent-Address-Classification-in-Ethereum-Network
+```
+
+The dataset and any external data used by the upstream project remain subject to the licenses, attribution requirements, terms of use, and ethical restrictions specified by their original providers.
+
+This repository claims authorship only for the code and methodology developed here, including the proposed X-MoE implementation and reproducibility workflow, and does not claim ownership of the upstream BLTE dataset.
 
 
