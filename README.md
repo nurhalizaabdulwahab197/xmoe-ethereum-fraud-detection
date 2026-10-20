@@ -775,6 +775,28 @@ PyTorch Geometric: 2.8.0.post1
 Python: 3.11.9
 ```
 
+### Install the Verified GPU Environment
+
+The tested GPU dependency snapshot is provided in `requirements-gpu-tested.txt`. Because the verified PyTorch build is `2.14.1+cu126`, use the PyTorch CUDA 12.6 wheel index when installing the requirements:
+
+```powershell
+python -m pip install -r .\requirements-gpu-tested.txt --extra-index-url https://download.pytorch.org/whl/cu126
+```
+
+Verify the installed PyTorch and CUDA runtime:
+
+```powershell
+python -c "import torch; print('torch=', torch.__version__); print('cuda runtime=', torch.version.cuda); print('cuda available=', torch.cuda.is_available())"
+```
+
+Expected tested configuration:
+
+```text
+torch=2.14.1+cu126
+cuda runtime=12.6
+cuda available=True
+```
+
 ### CPU vs GPU Macro-F1
 
 | Model | CPU Macro-F1 | GPU Macro-F1 |
