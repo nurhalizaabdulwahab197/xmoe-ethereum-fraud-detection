@@ -481,7 +481,7 @@ GPU reproduction was completed using the same clean protocol, seeds 100-109, and
 
 Verified GPU environment:
 
-`	ext
+```text
 GPU:                  NVIDIA GeForce GTX 1660 SUPER
 VRAM:                 6 GB
 NVIDIA Driver:        595.95
@@ -490,7 +490,7 @@ PyTorch:              2.14.1+cu126
 CUDA runtime:         12.6
 PyTorch Geometric:    2.8.0.post1
 Python:               3.11.9
-`
+```
 
 The final 10-seed GPU results are:
 
@@ -503,9 +503,9 @@ The final 10-seed GPU results are:
 
 The model ranking is preserved across the tested CPU and GPU environments:
 
-`	ext
+```text
 X-MoE > GraphSAGE > GCN > GAT
-`
+```
 
 On GPU, X-MoE improves mean Macro-F1 over GraphSAGE by 0.162022, corresponding to +16.20 percentage points or approximately +32.68% relative improvement.
 
@@ -513,11 +513,11 @@ The CPU and GPU results are closely consistent but are not expected to be bitwis
 
 Detailed GPU environment and result files:
 
-`	ext
+```text
 requirements-gpu-tested.txt
 REPRODUCTION_METADATA_GPU.txt
 results/reference/gpu_10seed_summary.csv
-`
+```
 
 ---
 
