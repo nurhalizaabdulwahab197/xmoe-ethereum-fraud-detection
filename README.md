@@ -693,7 +693,7 @@ corresponding to:
 ```text
 absolute improvement = 0.169496
 percentage-point improvement = 16.95
-relative improvement ˜ 34.4%
+relative improvement approximately 34.4%
 ```
 
 ## 10. Reproducibility Scope
