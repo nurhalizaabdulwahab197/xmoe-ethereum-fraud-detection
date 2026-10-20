@@ -797,6 +797,75 @@ cuda runtime=12.6
 cuda available=True
 ```
 
+### Reproduce the Final GPU Experiments
+
+Run the following commands using the verified GPU environment. All four models use the clean protocol, seeds 100-109, 300 epochs, CUDA execution, and deterministic settings.
+
+#### GCN
+
+```powershell
+python .\src\reproduce.py `
+  --model gcn `
+  --protocol clean `
+  --seeds 100,101,102,103,104,105,106,107,108,109 `
+  --epochs 300 `
+  --device cuda `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --output-dir .\results\final_gpu_gcn `
+  --save-checkpoints `
+  --save-predictions
+```
+
+#### GAT
+
+```powershell
+python .\src\reproduce.py `
+  --model gat `
+  --protocol clean `
+  --seeds 100,101,102,103,104,105,106,107,108,109 `
+  --epochs 300 `
+  --device cuda `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --output-dir .\results\final_gpu_gat `
+  --save-checkpoints `
+  --save-predictions
+```
+
+#### GraphSAGE
+
+```powershell
+python .\src\reproduce.py `
+  --model graphsage `
+  --protocol clean `
+  --seeds 100,101,102,103,104,105,106,107,108,109 `
+  --epochs 300 `
+  --device cuda `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --output-dir .\results\final_gpu_graphsage `
+  --save-checkpoints `
+  --save-predictions
+```
+
+#### X-MoE
+
+```powershell
+python .\src\reproduce.py `
+  --model x_moe_gnn `
+  --protocol clean `
+  --seeds 100,101,102,103,104,105,106,107,108,109 `
+  --epochs 300 `
+  --device cuda `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --x-moe-normal-phishing-penalty 0.30 `
+  --output-dir .\results\final_gpu_xmoe `
+  --save-checkpoints `
+  --save-predictions
+```
+
 ### CPU vs GPU Macro-F1
 
 | Model | CPU Macro-F1 | GPU Macro-F1 |
