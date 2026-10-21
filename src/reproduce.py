@@ -1231,13 +1231,6 @@ def run_once(
     for _ in range(epochs):
         model.train()
         optimizer.zero_grad(set_to_none=True)
-        feature_logits = None
-        degree = None
-        class_gate = None
-        fraud_logit = None
-        type_logit = None
-        rescue_logit = None
-        multitask_logits = None
         x_moe_expert_logits = None
         if isinstance(model, ModularXMoE):
             logits, v8_logits, graphsage_logits = model.training_outputs(
@@ -1246,11 +1239,7 @@ def run_once(
             x_moe_expert_logits = (v8_logits, graphsage_logits)
         else:
             logits = model(x, edge_index)
-        if model_name in {"isolate_gnn_v6", "isolate_gnn_v7"}:
-            loss = F.nll_loss(
-                logits[train_mask], y[train_mask], weight=class_weights
-            )
-        elif base_loss == "weighted_focal":
+        if base_loss == "weighted_focal":
             loss = weighted_focal_loss(
                 logits[train_mask],
                 y[train_mask],
@@ -1261,88 +1250,6 @@ def run_once(
             loss = F.cross_entropy(
                 logits[train_mask], y[train_mask], weight=class_weights
             )
-        if (
-            model_name
-            in {
-                "isolate_bounded_logit",
-                "isolate_gnn_v2",
-                "isolate_gnn_v4",
-                "isolate_gnn_v5",
-            }
-            and normal_scam_penalty > 0
-        ):
-            train_logits = logits[train_mask]
-            train_labels = y[train_mask]
-            normal_probabilities = F.softmax(
-                train_logits[train_labels == 0], dim=1
-            )[:, 2]
-            loss = loss + normal_scam_penalty * normal_probabilities.mean()
-        if (
-            model_name == "isolate_gnn_v3"
-            and graph_scam_uplift_penalty > 0
-            and feature_logits is not None
-            and degree is not None
-        ):
-            connected_normal = train_mask & (y == 0) & (degree > 0)
-            full_scam_probability = F.softmax(logits[connected_normal], dim=1)[:, 2]
-            feature_scam_probability = F.softmax(
-                feature_logits[connected_normal], dim=1
-            )[:, 2]
-            graph_scam_uplift = F.relu(
-                full_scam_probability - feature_scam_probability
-            ).mean()
-            loss = loss + graph_scam_uplift_penalty * graph_scam_uplift
-        if (
-            model_name == "isolate_gnn_v5"
-            and normal_scamming_gate_penalty > 0
-            and class_gate is not None
-            and degree is not None
-        ):
-            connected_normal = train_mask & (y == 0) & (degree > 0)
-            loss = loss + normal_scamming_gate_penalty * class_gate[
-                connected_normal, 2
-            ].mean()
-        if (
-            model_name in {"isolate_gnn_v6", "isolate_gnn_v7"}
-            and fraud_logit is not None
-            and type_logit is not None
-        ):
-            train_labels = y[train_mask]
-            fraud_labels = (train_labels > 0).to(dtype=fraud_logit.dtype)
-            fraud_loss = balanced_binary_loss(
-                fraud_logit[train_mask], fraud_labels
-            )
-            fraud_train_mask = train_mask & (y > 0)
-            phishing_labels = (y[fraud_train_mask] == 1).to(
-                dtype=type_logit.dtype
-            )
-            type_loss = balanced_binary_loss(
-                type_logit[fraud_train_mask], phishing_labels
-            )
-            loss = (
-                loss
-                + fraud_stage_loss_weight * fraud_loss
-                + type_stage_loss_weight * type_loss
-            )
-            if normal_fraud_penalty > 0:
-                normal_train_mask = train_mask & (y == 0)
-                normal_fraud_probability = torch.sigmoid(
-                    fraud_logit[normal_train_mask]
-                ).mean()
-                loss = loss + normal_fraud_penalty * normal_fraud_probability
-        if (
-            model_name == "isolate_gnn_v7"
-            and rescue_logit is not None
-            and rescue_loss_weight > 0
-        ):
-            rescue_train_mask = train_mask & ((y == 0) | (y == 2))
-            rescue_labels = (y[rescue_train_mask] == 2).to(
-                dtype=rescue_logit.dtype
-            )
-            rescue_loss = balanced_binary_loss(
-                rescue_logit[rescue_train_mask], rescue_labels
-            )
-            loss = loss + rescue_loss_weight * rescue_loss
         if model_name == "x_moe_gnn" and x_moe_expert_logits is not None:
             v8_logits, graphsage_logits = x_moe_expert_logits
             training_labels = y[train_mask]
@@ -1387,22 +1294,6 @@ def run_once(
                 task_losses.append(
                     x_moe_normal_phishing_penalty
                     * normal_phishing_probability
-                )
-            pcgrad_backward(
-                task_losses, [parameter for parameter in model.parameters()]
-            )
-        elif model_name == "isolate_gnn_v8" and multitask_logits is not None:
-            task_losses = [loss]
-            for class_id in range(3):
-                binary_labels = (y[train_mask] == class_id).to(
-                    dtype=multitask_logits.dtype
-                )
-                task_losses.append(
-                    task_loss_weight
-                    * balanced_binary_loss(
-                        multitask_logits[train_mask, class_id : class_id + 1],
-                        binary_labels,
-                    )
                 )
             pcgrad_backward(
                 task_losses, [parameter for parameter in model.parameters()]
