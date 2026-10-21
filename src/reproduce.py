@@ -269,22 +269,12 @@ def run_once(
     explanation_path: Path | None = None,
     checkpoint_path: Path | None = None,
     prediction_path: Path | None = None,
-    normal_scam_penalty: float = 0.0,
-    graph_scam_uplift_penalty: float = 0.0,
     base_loss: str = "weighted_ce",
     focal_gamma: float = 2.0,
     calibrate_class_bias: bool = False,
-    normality_gate_alpha: float = 1.0,
-    normal_scamming_gate_penalty: float = 0.0,
-    fraud_stage_loss_weight: float = 0.5,
-    type_stage_loss_weight: float = 0.5,
-    normal_fraud_penalty: float = 0.0,
-    rescue_loss_weight: float = 0.5,
-    max_rescue: float = 0.5,
-    task_loss_weight: float = 0.5,
     expert_loss_weight: float = 0.25,
     scam_specialist_loss_weight: float = 0.5,
-    x_moe_v8_task_loss_weight: float = 1.0,
+    x_moe_expert_task_loss_weight: float = 1.0,
     x_moe_normal_phishing_penalty: float = 0.0,
 ) -> dict[str, object]:
     set_seed(seed, deterministic)
@@ -349,7 +339,7 @@ def run_once(
                     dtype=v8_logits.dtype
                 )
                 task_losses.append(
-                    x_moe_v8_task_loss_weight
+                    x_moe_expert_task_loss_weight
                     * balanced_binary_loss(
                         v8_logits[train_mask, class_id : class_id + 1],
                         binary_labels,
@@ -577,25 +567,15 @@ def run_once(
             "train_nodes": int(train_mask.sum()),
             "validation_nodes": int(val_mask.sum()),
             "test_nodes": int(test_mask.sum()),
-            "normal_scam_penalty": normal_scam_penalty,
-            "graph_scam_uplift_penalty": graph_scam_uplift_penalty,
             "base_loss": base_loss,
             "focal_gamma": focal_gamma,
             "calibrate_class_bias": calibrate_class_bias,
             "normal_class_bias": float(class_bias[0].cpu()),
             "phishing_class_bias": float(class_bias[1].cpu()),
             "scamming_class_bias": float(class_bias[2].cpu()),
-            "normality_gate_alpha": normality_gate_alpha,
-            "normal_scamming_gate_penalty": normal_scamming_gate_penalty,
-            "fraud_stage_loss_weight": fraud_stage_loss_weight,
-            "type_stage_loss_weight": type_stage_loss_weight,
-            "normal_fraud_penalty": normal_fraud_penalty,
-            "rescue_loss_weight": rescue_loss_weight,
-            "max_rescue": max_rescue,
-            "task_loss_weight": task_loss_weight,
             "expert_loss_weight": expert_loss_weight,
             "scam_specialist_loss_weight": scam_specialist_loss_weight,
-            "x_moe_v8_task_loss_weight": x_moe_v8_task_loss_weight,
+            "x_moe_expert_task_loss_weight": x_moe_expert_task_loss_weight,
             "x_moe_normal_phishing_penalty": x_moe_normal_phishing_penalty,
         }
     )
@@ -638,17 +618,9 @@ def run_once(
                 "output_dim": int(y.max().item()) + 1,
                 "feature_names": feature_names,
                 "class_names": ["Normal", "Phishing", "Scamming"],
-                "normality_gate_alpha": normality_gate_alpha,
-                "normal_scamming_gate_penalty": normal_scamming_gate_penalty,
-                "fraud_stage_loss_weight": fraud_stage_loss_weight,
-                "type_stage_loss_weight": type_stage_loss_weight,
-                "normal_fraud_penalty": normal_fraud_penalty,
-                "rescue_loss_weight": rescue_loss_weight,
-                "max_rescue": max_rescue,
-                "task_loss_weight": task_loss_weight,
                 "expert_loss_weight": expert_loss_weight,
                 "scam_specialist_loss_weight": scam_specialist_loss_weight,
-                "x_moe_v8_task_loss_weight": x_moe_v8_task_loss_weight,
+                "x_moe_expert_task_loss_weight": x_moe_expert_task_loss_weight,
                 "x_moe_normal_phishing_penalty": x_moe_normal_phishing_penalty,
                 "state_dict": {
                     key: value.detach().cpu()
@@ -686,71 +658,11 @@ def main() -> None:
     parser.add_argument("--upstream", type=Path, default=Path("upstream-paper"))
     parser.add_argument("--output-dir", type=Path, default=Path("results"))
     parser.add_argument(
-        "--normal-scam-penalty",
-        type=float,
-        default=0.0,
-        help="V2 penalty on Scamming probability for Normal training nodes.",
-    )
-    parser.add_argument(
-        "--graph-scam-uplift-penalty",
-        type=float,
-        default=0.0,
-        help="V3 penalty on graph-induced Scamming uplift for connected Normal nodes.",
-    )
-    parser.add_argument(
         "--base-loss",
         choices=["weighted_ce", "weighted_focal"],
         default="weighted_ce",
     )
     parser.add_argument("--focal-gamma", type=float, default=2.0)
-    parser.add_argument(
-        "--normality-gate-alpha",
-        type=float,
-        default=1.0,
-        help="V4 exponent controlling feature-normality graph suppression.",
-    )
-    parser.add_argument(
-        "--normal-scamming-gate-penalty",
-        type=float,
-        default=0.0,
-        help="V5 penalty on the Scamming gate for connected Normal nodes.",
-    )
-    parser.add_argument(
-        "--fraud-stage-loss-weight",
-        type=float,
-        default=0.5,
-        help="V6 auxiliary Normal/Fraud loss weight.",
-    )
-    parser.add_argument(
-        "--type-stage-loss-weight",
-        type=float,
-        default=0.5,
-        help="V6 auxiliary Phishing/Scamming loss weight.",
-    )
-    parser.add_argument(
-        "--normal-fraud-penalty",
-        type=float,
-        default=0.0,
-        help="V6 penalty on predicted Fraud probability for Normal nodes.",
-    )
-    parser.add_argument(
-        "--rescue-loss-weight",
-        type=float,
-        default=0.5,
-        help="V7 auxiliary Scamming-versus-Normal rescue loss weight.",
-    )
-    parser.add_argument(
-        "--max-rescue",
-        type=float,
-        default=0.5,
-        help="V7 maximum positive Scamming log-probability correction.",
-    )
-    parser.add_argument(
-        "--task-loss-weight",
-        type=float,
-        default=0.5,
-        help="V8 common one-versus-rest auxiliary loss weight.",
-    )
     parser.add_argument(
         "--expert-loss-weight",
         type=float,
@@ -764,10 +676,10 @@ def main() -> None:
         help="X-MoE GraphSAGE Scamming-versus-rest specialist loss weight.",
     )
     parser.add_argument(
-        "--x-moe-v8-task-loss-weight",
+        "--x-moe-expert-task-loss-weight",
         type=float,
         default=1.0,
-        help="X-MoE weight for each V8 one-versus-rest task.",
+        help="X-MoE weight for each conflict-aware expert one-versus-rest task.",
     )
     parser.add_argument(
         "--x-moe-normal-phishing-penalty",
@@ -809,17 +721,7 @@ def main() -> None:
     results = []
     for seed in seeds:
         explanation_path = None
-        if args.model in {
-            "isolate_gnn",
-            "isolate_gnn_v2",
-            "isolate_gnn_v3",
-            "isolate_gnn_v4",
-            "isolate_gnn_v5",
-            "isolate_gnn_v6",
-            "isolate_gnn_v7",
-            "isolate_gnn_v8",
-            "x_moe_gnn",
-        }:
+        if args.model == "x_moe_gnn":
             explanation_path = (
                 args.output_dir
                 / f"{args.protocol}_{args.model}_seed-{seed}_explanations.csv"
@@ -848,22 +750,12 @@ def main() -> None:
             explanation_path,
             checkpoint_path,
             prediction_path,
-            args.normal_scam_penalty,
-            args.graph_scam_uplift_penalty,
             args.base_loss,
             args.focal_gamma,
             args.calibrate_class_bias,
-            args.normality_gate_alpha,
-            args.normal_scamming_gate_penalty,
-            args.fraud_stage_loss_weight,
-            args.type_stage_loss_weight,
-            args.normal_fraud_penalty,
-            args.rescue_loss_weight,
-            args.max_rescue,
-            args.task_loss_weight,
             args.expert_loss_weight,
             args.scam_specialist_loss_weight,
-            args.x_moe_v8_task_loss_weight,
+            args.x_moe_expert_task_loss_weight,
             args.x_moe_normal_phishing_penalty,
         )
         results.append(result)
