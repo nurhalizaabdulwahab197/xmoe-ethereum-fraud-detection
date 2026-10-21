@@ -587,29 +587,12 @@ def run_once(
         torch.save(
             {
                 "format_version": 1,
-                "model_version": (
-                    "isolate-aware-gnn-v1"
-                    if model_name == "isolate_gnn"
-                    else "isolate-aware-bounded-logit-prototype"
-                    if model_name == "isolate_bounded_logit"
-                    else "isolate-aware-gnn-v2"
-                    if model_name == "isolate_gnn_v2"
-                    else "isolate-aware-gnn-v3"
-                    if model_name == "isolate_gnn_v3"
-                    else "isolate-aware-gnn-v4"
-                    if model_name == "isolate_gnn_v4"
-                    else "isolate-aware-gnn-v5"
-                    if model_name == "isolate_gnn_v5"
-                    else "hierarchical-isolate-aware-explainable-gnn-v6"
-                    if model_name == "isolate_gnn_v6"
-                    else "degree-aware-scamming-rescue-gnn-v7"
-                    if model_name == "isolate_gnn_v7"
-                    else "conflict-aware-multitask-explainable-gnn-v8"
-                    if model_name == "isolate_gnn_v8"
-                    else "explainable-mixture-of-experts-gnn"
-                    if model_name == "x_moe_gnn"
-                    else model_name
-                ),
+                "model_version": {
+                    "gcn": "gcn",
+                    "gat": "gat",
+                    "graphsage": "graphsage",
+                    "x_moe_gnn": "x-moe-gnn",
+                }[model_name],
                 "model_name": model_name,
                 "protocol": protocol,
                 "seed": seed,
