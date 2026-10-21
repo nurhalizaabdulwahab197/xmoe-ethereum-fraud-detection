@@ -573,10 +573,16 @@ def run_once(
             "normal_class_bias": float(class_bias[0].cpu()),
             "phishing_class_bias": float(class_bias[1].cpu()),
             "scamming_class_bias": float(class_bias[2].cpu()),
-            "expert_loss_weight": expert_loss_weight,
-            "scam_specialist_loss_weight": scam_specialist_loss_weight,
-            "x_moe_expert_task_loss_weight": x_moe_expert_task_loss_weight,
-            "x_moe_normal_phishing_penalty": x_moe_normal_phishing_penalty,
+            **(
+                {
+                    "expert_loss_weight": expert_loss_weight,
+                    "scam_specialist_loss_weight": scam_specialist_loss_weight,
+                    "x_moe_expert_task_loss_weight": x_moe_expert_task_loss_weight,
+                    "x_moe_normal_phishing_penalty": x_moe_normal_phishing_penalty,
+                }
+                if model_name == "x_moe_gnn"
+                else {}
+            ),
         }
     )
     if checkpoint_path is not None:
@@ -601,10 +607,16 @@ def run_once(
                 "output_dim": int(y.max().item()) + 1,
                 "feature_names": feature_names,
                 "class_names": ["Normal", "Phishing", "Scamming"],
-                "expert_loss_weight": expert_loss_weight,
-                "scam_specialist_loss_weight": scam_specialist_loss_weight,
-                "x_moe_expert_task_loss_weight": x_moe_expert_task_loss_weight,
-                "x_moe_normal_phishing_penalty": x_moe_normal_phishing_penalty,
+                **(
+                    {
+                        "expert_loss_weight": expert_loss_weight,
+                        "scam_specialist_loss_weight": scam_specialist_loss_weight,
+                        "x_moe_expert_task_loss_weight": x_moe_expert_task_loss_weight,
+                        "x_moe_normal_phishing_penalty": x_moe_normal_phishing_penalty,
+                    }
+                    if model_name == "x_moe_gnn"
+                    else {}
+                ),
                 "state_dict": {
                     key: value.detach().cpu()
                     for key, value in model.state_dict().items()
