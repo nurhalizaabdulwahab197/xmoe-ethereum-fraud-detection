@@ -1217,13 +1217,8 @@ def run_once(
     x, edge_index, y, train_mask, val_mask, test_mask = [
         tensor.to(device) for tensor in tensors
     ]
-    model_kwargs = {}
-    if model_name == "isolate_gnn_v4":
-        model_kwargs["normality_gate_alpha"] = normality_gate_alpha
-    if model_name == "isolate_gnn_v7":
-        model_kwargs["max_rescue"] = max_rescue
     model = MODELS[model_name](
-        x.shape[1], int(y.max().item()) + 1, **model_kwargs
+        x.shape[1], int(y.max().item()) + 1
     ).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=5e-4)
     counts = torch.bincount(y[train_mask], minlength=3)
@@ -1249,18 +1244,6 @@ def run_once(
                 x, edge_index
             )
             x_moe_expert_logits = (v8_logits, graphsage_logits)
-        elif isinstance(model, ConflictAwareMultiTaskExplainableGNNV8):
-            logits, multitask_logits = model.training_outputs(x, edge_index)
-        elif isinstance(model, DegreeAwareScammingRescueGNNV7):
-            logits, fraud_logit, type_logit, rescue_logit = model.training_outputs(
-                x, edge_index
-            )
-        elif isinstance(model, HierarchicalIsolateAwareExplainableGNNV6):
-            logits, fraud_logit, type_logit = model.training_outputs(x, edge_index)
-        elif isinstance(model, IsolateAwareExplainableGNNV5):
-            logits, class_gate, degree = model.training_outputs(x, edge_index)
-        elif isinstance(model, IsolateAwareExplainableGNNV3):
-            logits, feature_logits, degree = model.training_outputs(x, edge_index)
         else:
             logits = model(x, edge_index)
         if model_name in {"isolate_gnn_v6", "isolate_gnn_v7"}:
