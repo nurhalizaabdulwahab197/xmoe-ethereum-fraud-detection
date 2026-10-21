@@ -244,8 +244,7 @@ Other relevant runner defaults recorded during the verified experiments include:
 base_loss = weighted_ce
 expert_loss_weight = 0.25
 scam_specialist_loss_weight = 0.5
-x_moe_v8_task_loss_weight = 1.0
-task_loss_weight = 0.5
+x_moe_expert_task_loss_weight = 1.0
 focal_gamma = 2.0
 ```
 

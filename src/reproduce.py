@@ -514,32 +514,6 @@ def run_once(
                 explanation_frame["scamming_graph_gate"] = test_explanation[
                     "scamming_graph_gate"
                 ].numpy()
-            if "fraud_graph_gate" in test_explanation:
-                explanation_frame["fraud_graph_gate"] = test_explanation[
-                    "fraud_graph_gate"
-                ].numpy()
-                explanation_frame["type_graph_gate"] = test_explanation[
-                    "type_graph_gate"
-                ].numpy()
-                explanation_frame["fraud_probability"] = test_explanation[
-                    "fraud_probability"
-                ].numpy()
-                explanation_frame["phishing_given_fraud_probability"] = (
-                    test_explanation["phishing_given_fraud_probability"].numpy()
-                )
-            if "rescue_graph_gate" in test_explanation:
-                explanation_frame["rescue_graph_gate"] = test_explanation[
-                    "rescue_graph_gate"
-                ].numpy()
-                explanation_frame["rescue_probability"] = test_explanation[
-                    "rescue_probability"
-                ].numpy()
-                explanation_frame["degree_support"] = test_explanation[
-                    "degree_support"
-                ].numpy()
-                explanation_frame["rescue_correction"] = test_explanation[
-                    "rescue_correction"
-                ].numpy()
             if "normal_graphsage_expert_weight" in test_explanation:
                 for class_name in ("normal", "phishing", "scamming"):
                     explanation_frame[f"{class_name}_graphsage_expert_weight"] = (
