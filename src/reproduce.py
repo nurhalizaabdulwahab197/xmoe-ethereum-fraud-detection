@@ -33,31 +33,10 @@ from sklearn.metrics import (
 )
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from torch import nn
-from torch_geometric.nn import SAGEConv
 from models import GAT as ModularGAT, GCN as ModularGCN, GraphSAGE as ModularGraphSAGE, ExplainableMixtureOfExpertsGNN as ModularXMoE
 
 
 NON_FEATURE_COLUMNS = ["Address", "Scam", "attack", "attack_encoded"]
-
-
-class MLP(nn.Module):
-    """Feature-only comparator; not supplied by the authors' repository."""
-
-    def __init__(self, input_dim: int, output_dim: int) -> None:
-        super().__init__()
-        self.fc1 = nn.Linear(input_dim, 64)
-        self.fc2 = nn.Linear(64, 64)
-        self.out = nn.Linear(64, output_dim)
-
-    def forward(
-        self, x: torch.Tensor, edge_index: torch.Tensor | None = None
-    ) -> torch.Tensor:
-        x = F.relu(self.fc1(x))
-        x = F.dropout(x, p=0.5, training=self.training)
-        x = F.relu(self.fc2(x))
-        x = F.dropout(x, p=0.5, training=self.training)
-        return self.out(x)
 
 
 
