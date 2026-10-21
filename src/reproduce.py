@@ -976,7 +976,7 @@ class ExplainableMixtureOfExpertsGNN(IsolateAwareExplainableGNN):
         self.v8_expert = ConflictAwareMultiTaskExplainableGNNV8(
             input_dim, output_dim
         )
-        self.graphsage_expert = GraphSAGE(input_dim, output_dim)
+        self.graphsage_expert = ModularGraphSAGE(input_dim, output_dim)
         # V8 logits, GraphSAGE logits, absolute disagreement, and node degree.
         self.expert_gate_fc1 = nn.Linear(output_dim * 3 + 1, 32)
         self.expert_gate_fc2 = nn.Linear(32, output_dim)
@@ -2060,3 +2060,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
