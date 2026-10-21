@@ -218,9 +218,9 @@ class ConflictAwareMultitaskExpert(_IsolateAwareExpertBase):
 
 
 class ExplainableMixtureOfExpertsGNN(nn.Module):
-    """Class-conditional mixture of V8 and GraphSAGE experts.
+    """Class-conditional mixture of conflict-aware and GraphSAGE experts.
 
-    V8 supplies the safe default. A second GraphSAGE expert is routed in only
+    The conflict-aware expert supplies the safe default. A second GraphSAGE expert is routed in only
     for connected nodes. The three routing weights are directly inspectable,
     with one value per output class. This is an architecture for external
     validation, not evidence that it outperforms either expert on BLTE.
@@ -230,11 +230,11 @@ class ExplainableMixtureOfExpertsGNN(nn.Module):
         if output_dim != 3:
             raise ValueError("X-MoE requires exactly three output classes")
         nn.Module.__init__(self)
-        self.v8_expert = ConflictAwareMultitaskExpert(
+        self.conflict_aware_expert = ConflictAwareMultitaskExpert(
             input_dim, output_dim
         )
         self.graphsage_expert = GraphSAGE(input_dim, output_dim)
-        # V8 logits, GraphSAGE logits, absolute disagreement, and node degree.
+        # Conflict-aware logits, GraphSAGE logits, absolute disagreement, and node degree.
         self.expert_gate_fc1 = nn.Linear(output_dim * 3 + 1, 32)
         self.expert_gate_fc2 = nn.Linear(32, output_dim)
         self._last_expert_gate: torch.Tensor | None = None
@@ -243,15 +243,15 @@ class ExplainableMixtureOfExpertsGNN(nn.Module):
     def mix_experts(
         self, x: torch.Tensor, edge_index: torch.Tensor
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
-        v8_logits = self.v8_expert(x, edge_index)
+        conflict_aware_logits = self.conflict_aware_expert(x, edge_index)
         graphsage_logits = self.graphsage_expert(x, edge_index)
-        degree = self.v8_expert.node_degree(edge_index, x.shape[0])
+        degree = self.conflict_aware_expert.node_degree(edge_index, x.shape[0])
         connected = (degree > 0).to(dtype=x.dtype).unsqueeze(1)
         gate_input = torch.cat(
             [
-                v8_logits,
+                conflict_aware_logits,
                 graphsage_logits,
-                (v8_logits - graphsage_logits).abs(),
+                (conflict_aware_logits - graphsage_logits).abs(),
                 torch.log1p(degree).unsqueeze(1),
             ],
             dim=1,
@@ -259,8 +259,8 @@ class ExplainableMixtureOfExpertsGNN(nn.Module):
         graphsage_weight = torch.sigmoid(
             self.expert_gate_fc2(F.relu(self.expert_gate_fc1(gate_input)))
         ) * connected
-        logits = v8_logits + graphsage_weight * (graphsage_logits - v8_logits)
-        return logits, v8_logits, graphsage_logits, graphsage_weight, degree
+        logits = conflict_aware_logits + graphsage_weight * (graphsage_logits - conflict_aware_logits)
+        return logits, conflict_aware_logits, graphsage_logits, graphsage_weight, degree
 
     def forward(self, x: torch.Tensor, edge_index: torch.Tensor) -> torch.Tensor:
         logits, _, _, expert_gate, degree = self.mix_experts(x, edge_index)
@@ -271,22 +271,22 @@ class ExplainableMixtureOfExpertsGNN(nn.Module):
     def training_outputs(
         self, x: torch.Tensor, edge_index: torch.Tensor
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
-        logits, v8_logits, graphsage_logits, expert_gate, degree = self.mix_experts(
+        logits, conflict_aware_logits, graphsage_logits, expert_gate, degree = self.mix_experts(
             x, edge_index
         )
         self._last_expert_gate = expert_gate.detach()
         self._last_degree = degree.detach()
-        return logits, v8_logits, graphsage_logits
+        return logits, conflict_aware_logits, graphsage_logits
 
     def explain(
         self, x: torch.Tensor, edge_index: torch.Tensor
     ) -> dict[str, torch.Tensor]:
-        logits, v8_logits, graphsage_logits, expert_gate, degree = self.mix_experts(
+        logits, conflict_aware_logits, graphsage_logits, expert_gate, degree = self.mix_experts(
             x, edge_index
         )
-        v8_explanation = self.v8_expert.explain(x, edge_index)
+        conflict_aware_explanation = self.conflict_aware_expert.explain(x, edge_index)
         probabilities = F.softmax(logits, dim=1)
-        v8_probabilities = F.softmax(v8_logits, dim=1)
+        conflict_aware_probabilities = F.softmax(conflict_aware_logits, dim=1)
         graphsage_probabilities = F.softmax(graphsage_logits, dim=1)
         predicted = probabilities.argmax(dim=1)
         selected_expert_gate = expert_gate.gather(
@@ -295,10 +295,10 @@ class ExplainableMixtureOfExpertsGNN(nn.Module):
         predicted_probability = probabilities.gather(
             1, predicted.unsqueeze(1)
         ).squeeze(1)
-        v8_probability = v8_probabilities.gather(
+        conflict_aware_probability = conflict_aware_probabilities.gather(
             1, predicted.unsqueeze(1)
         ).squeeze(1)
-        feature_probabilities = v8_explanation["feature_probabilities"]
+        feature_probabilities = conflict_aware_explanation["feature_probabilities"]
         feature_probability = feature_probabilities.gather(
             1, predicted.unsqueeze(1)
         ).squeeze(1)
@@ -307,22 +307,22 @@ class ExplainableMixtureOfExpertsGNN(nn.Module):
         return {
             "probabilities": probabilities,
             "feature_probabilities": feature_probabilities,
-            "v8_probabilities": v8_probabilities,
+            "conflict_aware_probabilities": conflict_aware_probabilities,
             "graphsage_probabilities": graphsage_probabilities,
             "prediction": predicted,
             "feature_prediction": feature_probabilities.argmax(dim=1),
-            "v8_prediction": v8_probabilities.argmax(dim=1),
+            "conflict_aware_prediction": conflict_aware_probabilities.argmax(dim=1),
             "graphsage_prediction": graphsage_probabilities.argmax(dim=1),
             "graph_gate": selected_expert_gate,
             "normal_graphsage_expert_weight": expert_gate[:, 0],
             "phishing_graphsage_expert_weight": expert_gate[:, 1],
             "scamming_graphsage_expert_weight": expert_gate[:, 2],
-            "normal_v8_expert_weight": 1.0 - expert_gate[:, 0],
-            "phishing_v8_expert_weight": 1.0 - expert_gate[:, 1],
-            "scamming_v8_expert_weight": 1.0 - expert_gate[:, 2],
+            "normal_conflict_aware_expert_weight": 1.0 - expert_gate[:, 0],
+            "phishing_conflict_aware_expert_weight": 1.0 - expert_gate[:, 1],
+            "scamming_conflict_aware_expert_weight": 1.0 - expert_gate[:, 2],
             "degree": degree,
             "graph_probability_delta": predicted_probability - feature_probability,
-            "expert_probability_delta": predicted_probability - v8_probability,
+            "expert_probability_delta": predicted_probability - conflict_aware_probability,
         }
 
     def gate_diagnostics(self) -> dict[str, float]:

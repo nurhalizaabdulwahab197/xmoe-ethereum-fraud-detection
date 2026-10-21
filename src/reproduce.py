@@ -302,10 +302,10 @@ def run_once(
         optimizer.zero_grad(set_to_none=True)
         x_moe_expert_logits = None
         if isinstance(model, ModularXMoE):
-            logits, v8_logits, graphsage_logits = model.training_outputs(
+            logits, conflict_aware_logits, graphsage_logits = model.training_outputs(
                 x, edge_index
             )
-            x_moe_expert_logits = (v8_logits, graphsage_logits)
+            x_moe_expert_logits = (conflict_aware_logits, graphsage_logits)
         else:
             logits = model(x, edge_index)
         if base_loss == "weighted_focal":
@@ -320,7 +320,7 @@ def run_once(
                 logits[train_mask], y[train_mask], weight=class_weights
             )
         if model_name == "x_moe_gnn" and x_moe_expert_logits is not None:
-            v8_logits, graphsage_logits = x_moe_expert_logits
+            conflict_aware_logits, graphsage_logits = x_moe_expert_logits
             training_labels = y[train_mask]
             task_losses = [loss]
             task_losses.extend(
@@ -331,17 +331,17 @@ def run_once(
                         training_labels,
                         weight=class_weights,
                     )
-                    for expert_logits in (v8_logits, graphsage_logits)
+                    for expert_logits in (conflict_aware_logits, graphsage_logits)
                 ]
             )
             for class_id in range(3):
                 binary_labels = (training_labels == class_id).to(
-                    dtype=v8_logits.dtype
+                    dtype=conflict_aware_logits.dtype
                 )
                 task_losses.append(
                     x_moe_expert_task_loss_weight
                     * balanced_binary_loss(
-                        v8_logits[train_mask, class_id : class_id + 1],
+                        conflict_aware_logits[train_mask, class_id : class_id + 1],
                         binary_labels,
                     )
                 )
@@ -355,7 +355,7 @@ def run_once(
                 )
             )
             if x_moe_normal_phishing_penalty > 0:
-                degree = model.v8_expert.node_degree(edge_index, x.shape[0])
+                degree = model.conflict_aware_expert.node_degree(edge_index, x.shape[0])
                 connected_normal = train_mask & (y == 0) & (degree > 0)
                 normal_phishing_probability = F.softmax(
                     logits[connected_normal], dim=1
@@ -547,8 +547,8 @@ def run_once(
                             f"{class_name}_graphsage_expert_weight"
                         ].numpy()
                     )
-                    explanation_frame[f"{class_name}_v8_expert_weight"] = (
-                        test_explanation[f"{class_name}_v8_expert_weight"].numpy()
+                    explanation_frame[f"{class_name}_conflict_aware_expert_weight"] = (
+                        test_explanation[f"{class_name}_conflict_aware_expert_weight"].numpy()
                     )
                 explanation_frame["expert_probability_delta"] = test_explanation[
                     "expert_probability_delta"
@@ -586,7 +586,7 @@ def run_once(
         ).columns.tolist()
         torch.save(
             {
-                "format_version": 1,
+                "format_version": 2,
                 "model_version": {
                     "gcn": "gcn",
                     "gat": "gat",
