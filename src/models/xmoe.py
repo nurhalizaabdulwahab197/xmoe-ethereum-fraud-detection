@@ -108,12 +108,12 @@ class _IsolateAwareExpertBase(nn.Module):
 
 
 
-class ConflictAwareMultiTaskExplainableGNNV8(_IsolateAwareExpertBase):
+class ConflictAwareMultitaskExpert(_IsolateAwareExpertBase):
     """Three one-vs-rest heads with class-specific isolate-safe graph gates."""
 
     def __init__(self, input_dim: int, output_dim: int) -> None:
         if output_dim != 3:
-            raise ValueError("V8 requires exactly three output classes")
+            raise ValueError("Conflict-aware expert requires exactly three output classes")
         super().__init__(input_dim, output_dim)
         del self.classifier
         self.gate_fc2 = nn.Linear(32, output_dim)
@@ -230,7 +230,7 @@ class ExplainableMixtureOfExpertsGNN(nn.Module):
         if output_dim != 3:
             raise ValueError("X-MoE requires exactly three output classes")
         nn.Module.__init__(self)
-        self.v8_expert = ConflictAwareMultiTaskExplainableGNNV8(
+        self.v8_expert = ConflictAwareMultitaskExpert(
             input_dim, output_dim
         )
         self.graphsage_expert = GraphSAGE(input_dim, output_dim)
