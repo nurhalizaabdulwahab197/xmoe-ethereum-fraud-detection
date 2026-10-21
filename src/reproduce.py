@@ -35,7 +35,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from torch import nn
 from torch_geometric.nn import SAGEConv
-from models import GAT as ModularGAT, GCN as ModularGCN, GraphSAGE as ModularGraphSAGE
+from models import GAT as ModularGAT, GCN as ModularGCN, GraphSAGE as ModularGraphSAGE, ExplainableMixtureOfExpertsGNN as ModularXMoE
 
 
 NON_FEATURE_COLUMNS = ["Address", "Scam", "attack", "attack_encoded"]
@@ -1097,7 +1097,7 @@ MODELS = {
     "gcn": ModularGCN,
     "gat": ModularGAT,
     "graphsage": ModularGraphSAGE,
-    "x_moe_gnn": ExplainableMixtureOfExpertsGNN,
+    "x_moe_gnn": ModularXMoE,
 }
 
 
@@ -1376,7 +1376,7 @@ def run_once(
         rescue_logit = None
         multitask_logits = None
         x_moe_expert_logits = None
-        if isinstance(model, ExplainableMixtureOfExpertsGNN):
+        if isinstance(model, ModularXMoE):
             logits, v8_logits, graphsage_logits = model.training_outputs(
                 x, edge_index
             )
@@ -1589,7 +1589,7 @@ def run_once(
             class_bias = select_validation_class_bias(
                 validation_logits, y[val_mask]
             )
-        if isinstance(model, IsolateAwareExplainableGNN):
+        if isinstance(model, (IsolateAwareExplainableGNN, ModularXMoE)):
             explanation = model.explain(x, edge_index)
             full_probabilities = F.softmax(
                 torch.log(explanation["probabilities"].clamp_min(1e-12))
@@ -1627,7 +1627,7 @@ def run_once(
         y_true = y[test_mask].cpu().numpy()
 
     result = score(y_true, probabilities)
-    if isinstance(model, IsolateAwareExplainableGNN):
+    if isinstance(model, (IsolateAwareExplainableGNN, ModularXMoE)):
         test_explanation = {
             key: value[test_mask].detach().cpu()
             for key, value in explanation.items()
@@ -2060,4 +2060,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
