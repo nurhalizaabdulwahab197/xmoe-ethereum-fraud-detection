@@ -801,7 +801,7 @@ Normal | Phishing | Scamming""",
         multitask expert              expert
                   │                       │
                   ▼                       ▼
-           Expert 1 logits         Expert 2 logits
+           Multitask logits         GraphSAGE logits
                   │                       │
                   └───────────┬───────────┘
                               │
@@ -846,8 +846,8 @@ Normal | Phishing | Scamming""",
     component = st.selectbox(
         "X-MoE component",
         [
-            "Expert 1 · Conflict-Aware Multitask Expert",
-            "Expert 2 · GraphSAGE Expert",
+            "Conflict-Aware Multitask Expert",
+            "GraphSAGE Expert",
             "Expert Disagreement",
             "Connectivity-Aware Gating",
             "Class-Specific Mixture Weights",
@@ -855,12 +855,12 @@ Normal | Phishing | Scamming""",
         ],
     )
 
-    if component == "Expert 1 · Conflict-Aware Multitask Expert":
+    if component == "Conflict-Aware Multitask Expert":
 
-        st.markdown("### Expert 1 · Conflict-Aware Multitask Expert")
+        st.markdown("### Conflict-Aware Multitask Expert")
 
         st.write(
-            "The first expert captures feature-level and task-specific "
+            "The conflict-aware multitask expert captures feature-level and task-specific "
             "evidence while also maintaining an internal graph-aware pathway."
         )
 
@@ -895,12 +895,12 @@ Normal | Phishing | Scamming""",
             """
         )
 
-    elif component == "Expert 2 · GraphSAGE Expert":
+    elif component == "GraphSAGE Expert":
 
-        st.markdown("### Expert 2 · GraphSAGE Expert")
+        st.markdown("### GraphSAGE Expert")
 
         st.write(
-            "The second expert is a dedicated graph-structure expert based "
+            "The GraphSAGE expert is a dedicated graph-structure expert based "
             "on GraphSAGE."
         )
 
@@ -939,7 +939,7 @@ Normal | Phishing | Scamming""",
         )
 
         st.code(
-            "| Expert 1 logits - Expert 2 logits |",
+            "| Multitask logits - GraphSAGE logits |",
             language=None,
         )
 
@@ -960,8 +960,8 @@ Normal | Phishing | Scamming""",
 
         st.markdown(
             """
-            1. Expert 1 logits
-            2. Expert 2 logits
+            1. Multitask logits
+            2. GraphSAGE logits
             3. Absolute expert disagreement
             4. Node connectivity represented using log-degree
             """
