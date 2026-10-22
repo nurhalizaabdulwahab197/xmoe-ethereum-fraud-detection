@@ -1332,83 +1332,136 @@ elif page == "Results Explorer":
         & (results["model"].isin(models))
     ].copy()
 
-    chart_data["lower"] = (
-        chart_data["mean"]
-        - chart_data["std"]
-    ).clip(lower=0)
 
-    chart_data["upper"] = (
-        chart_data["mean"]
-        + chart_data["std"]
+    show_variation = st.checkbox(
+        "Show variation across seeds (mean +/- SD)",
+        value=True,
     )
+
+    chart_data["lower"] = chart_data["mean"] - chart_data["std"]
+    chart_data["upper"] = chart_data["mean"] + chart_data["std"]
+
+    axis_top = 1.0
+    axis_bottom = 0.0
+    if not chart_data.empty:
+        axis_top = max(1.0, float(chart_data["upper"].max()) + 0.03)
+        axis_bottom = min(0.0, float(chart_data["lower"].min()) - 0.03)
 
     colour = alt.Scale(
         domain=MODEL_ORDER,
-        range=[
-            MODEL_COLOURS[m]
-            for m in MODEL_ORDER
+        range=[MODEL_COLOURS[m] for m in MODEL_ORDER],
+    )
+
+    base = alt.Chart(chart_data).encode(
+        x=alt.X(
+            "model:N",
+            sort=MODEL_ORDER,
+            title=None,
+            axis=alt.Axis(
+                labelAngle=0,
+                labelFontSize=13,
+                labelPadding=12,
+                ticks=False,
+            ),
+        ),
+        y=alt.Y(
+            "mean:Q",
+            title=metric,
+            scale=alt.Scale(
+                domain=[axis_bottom, axis_top],
+                nice=False,
+            ),
+            axis=alt.Axis(
+                format=".1f",
+                gridColor="#E5EDF5",
+                titlePadding=14,
+            ),
+        ),
+    )
+
+    bars = base.mark_bar(
+        size=76,
+        cornerRadiusTopLeft=6,
+        cornerRadiusTopRight=6,
+    ).encode(
+        color=alt.Color("model:N", scale=colour, legend=None),
+        tooltip=[
+            alt.Tooltip("model:N", title="Model"),
+            alt.Tooltip("mean:Q", title="Mean", format=".4f"),
+            alt.Tooltip("std:Q", title="SD", format=".4f"),
+            alt.Tooltip("n_seeds:Q", title="Seeds", format=".0f"),
         ],
     )
 
-    bars = (
-        alt.Chart(chart_data)
-        .mark_bar(
-            cornerRadiusTopLeft=5,
-            cornerRadiusTopRight=5,
-        )
-        .encode(
-            x=alt.X(
-                "model:N",
-                sort=MODEL_ORDER,
-                title=None,
+    labels = base.mark_text(
+        dy=16,
+        baseline="top",
+        fontSize=13,
+        fontWeight="bold",
+    ).encode(
+        text=alt.Text("mean:Q", format=".3f"),
+        color=alt.condition(
+            alt.FieldOneOfPredicate(
+                field="model",
+                oneOf=["GraphSAGE", "X-MoE"],
             ),
-            y=alt.Y(
-                "mean:Q",
-                title=metric,
-            ),
-            color=alt.Color(
-                "model:N",
-                scale=colour,
-                legend=None,
-            ),
-            tooltip=[
-                alt.Tooltip(
-                    "model:N",
-                    title="Model",
-                ),
-                alt.Tooltip(
-                    "mean:Q",
-                    format=".6f",
-                    title="Mean",
-                ),
-                alt.Tooltip(
-                    "std:Q",
-                    format=".6f",
-                    title="Std",
-                ),
-            ],
-        )
+            alt.value("white"),
+            alt.value("#0B1F3A"),
+        ),
     )
 
-    errors = (
-        alt.Chart(chart_data)
-        .mark_rule(
-            color="#0B1F3A",
-            strokeWidth=2,
+    chart = bars
+
+    if show_variation:
+        # White outline keeps the interval visible on dark bars.
+        halo = base.mark_rule(
+            color="white", strokeWidth=5
+        ).encode(y="lower:Q", y2="upper:Q")
+
+        interval = base.mark_rule(
+            color="#173653", strokeWidth=2
+        ).encode(y="lower:Q", y2="upper:Q")
+
+        lower_halo = base.mark_tick(
+            orient="horizontal", color="white",
+            thickness=5, size=18,
+        ).encode(y="lower:Q")
+
+        upper_halo = base.mark_tick(
+            orient="horizontal", color="white",
+            thickness=5, size=18,
+        ).encode(y="upper:Q")
+
+        lower_cap = base.mark_tick(
+            orient="horizontal", color="#173653",
+            thickness=2, size=16,
+        ).encode(y="lower:Q")
+
+        upper_cap = base.mark_tick(
+            orient="horizontal", color="#173653",
+            thickness=2, size=16,
+        ).encode(y="upper:Q")
+
+        chart = (
+            chart + halo + lower_halo + upper_halo
+            + interval + lower_cap + upper_cap
         )
-        .encode(
-            x=alt.X(
-                "model:N",
-                sort=MODEL_ORDER,
-            ),
-            y="lower:Q",
-            y2="upper:Q",
-        )
-    )
+
+    chart = (chart + labels).properties(height=420)
 
     st.altair_chart(
-        bars + errors,
+        chart.configure_view(strokeWidth=0),
         use_container_width=True,
+    )
+
+    st.caption(
+        "Bars show mean scores across seeds. "
+        + (
+            "Error bars show +/- one standard deviation, "
+            "not confidence intervals."
+            if show_variation else
+            "Variation is hidden; SD remains available in the tooltip."
+        )
     )
 
     table = chart_data[
