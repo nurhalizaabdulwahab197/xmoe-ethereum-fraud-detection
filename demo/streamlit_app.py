@@ -7,7 +7,7 @@ import streamlit as st
 
 st.set_page_config(
     page_title="X-MoE | Ethereum Fraud Detection",
-    page_icon="â—†",
+    page_icon="data:image/png;base64,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",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -327,7 +327,7 @@ def get_metric(model, scope, metric):
 with st.sidebar:
 
     st.markdown("## X-MoE")
-    st.caption("Research Demo Â· V2")
+    st.caption("Research Demo")
 
     page = st.radio(
         "Explore",
@@ -350,9 +350,9 @@ with st.sidebar:
 
         **Classes**
 
-        â€¢ Normal
-        â€¢ Phishing
-        â€¢ Scamming
+        • Normal
+        • Phishing
+        • Scamming
         """
     )
 
@@ -363,7 +363,7 @@ with st.sidebar:
         **Evaluation**
 
         Clean protocol
-        Seeds 100â€“109
+        Seeds 100–109
         300 epochs
         Deterministic CPU
         """
@@ -372,7 +372,7 @@ with st.sidebar:
     st.divider()
 
     st.caption(
-        "Research prototype â€” not a production fraud-screening service."
+        "Research prototype — not a production fraud-screening service."
     )
 
 
@@ -384,7 +384,7 @@ if page == "Overview":
 
     st.markdown(
         """<div class="hero">
-<div class="version">RESEARCH DEMO Â· VERSION 2</div>
+<div class="version">RESEARCH DEMO</div>
 <h1>X-MoE</h1>
 <p>
 A connectivity-aware Mixture-of-Experts framework for
@@ -439,13 +439,13 @@ Nanyang Technological University (NTU), Singapore.
     c3.metric(
         "X-MoE Accuracy",
         f"{acc:.4f}",
-        f"Â± {acc_std:.4f}",
+        f"± {acc_std:.4f}",
     )
 
     c4.metric(
         "X-MoE Macro-F1",
         f"{f1:.4f}",
-        f"Â± {f1_std:.4f}",
+        f"± {f1_std:.4f}",
     )
 
     st.markdown("## Why this research matters")
@@ -513,7 +513,7 @@ elif page == "Architecture Explorer":
         All four models solve the same **three-class Ethereum address
         classification problem**:
 
-        **Normal Â· Phishing Â· Scamming**
+        **Normal · Phishing · Scamming**
 
         However, they differ substantially in how node features and
         graph information are processed. GCN, GAT and GraphSAGE provide
@@ -553,10 +553,10 @@ elif page == "Architecture Explorer":
 
     model_tabs = st.tabs(
         [
-            "A Â· GCN",
-            "B Â· GAT",
-            "C Â· GraphSAGE",
-            "D Â· X-MoE",
+            "A · GCN",
+            "B · GAT",
+            "C · GraphSAGE",
+            "D · X-MoE",
         ]
     )
 
@@ -584,24 +584,24 @@ elif page == "Architecture Explorer":
 
             st.code(
                 """Node features + graph edges
-        â”‚
-        â–¼
+        │
+        ▼
    GCNConv(64)
-        â”‚
+        │
        ReLU
-        â”‚
+        │
    Dropout(0.5)
-        â”‚
-        â–¼
+        │
+        ▼
    GCNConv(64)
-        â”‚
+        │
        ReLU
-        â”‚
+        │
    Dropout(0.5)
-        â”‚
+        │
  Linear classifier
-        â”‚
-        â–¼
+        │
+        ▼
 Normal | Phishing | Scamming""",
                 language=None,
             )
@@ -656,22 +656,22 @@ Normal | Phishing | Scamming""",
 
             st.code(
                 """Node features + graph edges
-        â”‚
-        â–¼
+        │
+        ▼
 GATConv(32, heads=4)
-        â”‚
+        │
        ELU
-        â”‚
+        │
    Dropout(0.5)
-        â”‚
-        â–¼
+        │
+        ▼
 GATConv(32, heads=1)
-        â”‚
+        │
        ELU
-        â”‚
+        │
  Linear classifier
-        â”‚
-        â–¼
+        │
+        ▼
 Normal | Phishing | Scamming""",
                 language=None,
             )
@@ -726,24 +726,24 @@ Normal | Phishing | Scamming""",
 
             st.code(
                 """Node features + graph edges
-        â”‚
-        â–¼
+        │
+        ▼
    SAGEConv(64)
-        â”‚
+        │
        ReLU
-        â”‚
+        │
    Dropout(0.5)
-        â”‚
-        â–¼
+        │
+        ▼
    SAGEConv(64)
-        â”‚
+        │
        ReLU
-        â”‚
+        │
    Dropout(0.5)
-        â”‚
+        │
  Linear classifier
-        â”‚
-        â–¼
+        │
+        ▼
 Normal | Phishing | Scamming""",
                 language=None,
             )
@@ -781,7 +781,7 @@ Normal | Phishing | Scamming""",
 
     with model_tabs[3]:
 
-        st.subheader("X-MoE Â· Proposed Architecture")
+        st.subheader("X-MoE · Proposed Architecture")
 
         st.write(
             "X-MoE differs fundamentally from the three baseline models. "
@@ -793,34 +793,34 @@ Normal | Phishing | Scamming""",
 
         st.code(
             """                         Node features
-                              â”‚
-                  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-                  â”‚                       â”‚
-                  â–¼                       â–¼
+                              │
+                  ┌───────────┴───────────┐
+                  │                       │
+                  ▼                       ▼
         Conflict-aware              GraphSAGE
         multitask expert              expert
-                  â”‚                       â”‚
-                  â–¼                       â–¼
+                  │                       │
+                  ▼                       ▼
            Expert 1 logits         Expert 2 logits
-                  â”‚                       â”‚
-                  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
-                              â”‚
+                  │                       │
+                  └───────────┬───────────┘
+                              │
                      Expert disagreement
-                              â”‚
+                              │
                   Node connectivity / degree
-                              â”‚
-                              â–¼
+                              │
+                              ▼
                        Gating network
-                              â”‚
-                              â–¼
+                              │
+                              ▼
                  Class-specific mixture
                          weights
              w_Normal | w_Phishing | w_Scamming
-                              â”‚
-                              â–¼
+                              │
+                              ▼
                   Adaptive weighted fusion
-                              â”‚
-                              â–¼
+                              │
+                              ▼
                Normal | Phishing | Scamming""",
             language=None,
         )
@@ -846,8 +846,8 @@ Normal | Phishing | Scamming""",
     component = st.selectbox(
         "X-MoE component",
         [
-            "Expert 1 Â· Conflict-Aware Multitask Expert",
-            "Expert 2 Â· GraphSAGE Expert",
+            "Expert 1 · Conflict-Aware Multitask Expert",
+            "Expert 2 · GraphSAGE Expert",
             "Expert Disagreement",
             "Connectivity-Aware Gating",
             "Class-Specific Mixture Weights",
@@ -855,9 +855,9 @@ Normal | Phishing | Scamming""",
         ],
     )
 
-    if component == "Expert 1 Â· Conflict-Aware Multitask Expert":
+    if component == "Expert 1 · Conflict-Aware Multitask Expert":
 
-        st.markdown("### Expert 1 Â· Conflict-Aware Multitask Expert")
+        st.markdown("### Expert 1 · Conflict-Aware Multitask Expert")
 
         st.write(
             "The first expert captures feature-level and task-specific "
@@ -895,9 +895,9 @@ Normal | Phishing | Scamming""",
             """
         )
 
-    elif component == "Expert 2 Â· GraphSAGE Expert":
+    elif component == "Expert 2 · GraphSAGE Expert":
 
-        st.markdown("### Expert 2 Â· GraphSAGE Expert")
+        st.markdown("### Expert 2 · GraphSAGE Expert")
 
         st.write(
             "The second expert is a dedicated graph-structure expert based "
@@ -1014,7 +1014,7 @@ Normal | Phishing | Scamming""",
         )
 
         st.code(
-            "Conflict-aware logits + w_class Ã— "
+            "Conflict-aware logits + w_class × "
             "(GraphSAGE logits - Conflict-aware logits)",
             language=None,
         )
@@ -1048,7 +1048,7 @@ Normal | Phishing | Scamming""",
         st.markdown(
             """
             <div class="card">
-            <h4>1 Â· Feature Evidence</h4>
+            <h4>1 · Feature Evidence</h4>
             Behavioural and node-level information that remains available
             even when graph connectivity is limited.
             </div>
@@ -1060,7 +1060,7 @@ Normal | Phishing | Scamming""",
         st.markdown(
             """
             <div class="card">
-            <h4>2 Â· Graph Evidence</h4>
+            <h4>2 · Graph Evidence</h4>
             Relational information from neighbouring Ethereum addresses.
             </div>
             """,
@@ -1071,7 +1071,7 @@ Normal | Phishing | Scamming""",
         st.markdown(
             """
             <div class="card">
-            <h4>3 Â· Expert Disagreement</h4>
+            <h4>3 · Expert Disagreement</h4>
             Indicates when feature/task-aware and graph-based evidence
             support different predictions.
             </div>
@@ -1083,7 +1083,7 @@ Normal | Phishing | Scamming""",
         st.markdown(
             """
             <div class="card">
-            <h4>4 Â· Connectivity</h4>
+            <h4>4 · Connectivity</h4>
             Indicates whether meaningful neighbourhood evidence is
             available for the current node.
             </div>
@@ -1715,3 +1715,4 @@ else:
         "Open X-MoE GitHub Repository",
         "https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection",
     )
+
