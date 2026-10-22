@@ -361,10 +361,10 @@ The final 10-seed CPU results are:
 
 | Model | Accuracy mean | Accuracy std | Macro-F1 mean | Macro-F1 std |
 |---|---:|---:|---:|---:|
-| GCN | 0.881178 | 0.032824 | 0.363702 | 0.020403 |
-| GAT | 0.587321 | 0.033070 | 0.266464 | 0.020491 |
-| GraphSAGE | 0.988206 | 0.002095 | 0.493079 | 0.034075 |
-| **X-MoE** | **0.996887** | **0.001234** | **0.662575** | **0.072090** |
+| GCN | 0.881123 | 0.032853 | 0.363689 | 0.020485 |
+| GAT | 0.591693 | 0.033604 | 0.266492 | 0.017115 |
+| GraphSAGE | 0.988188 | 0.002071 | 0.491619 | 0.033561 |
+| **X-MoE** | **0.996942** | **0.001153** | **0.657494** | **0.071187** |
 
 The complete reference table is stored in:
 
@@ -385,26 +385,26 @@ results/reference/CPU_REFERENCE_RESULTS.txt
 The main baseline comparison is:
 
 ```text
-GraphSAGE Macro-F1 = 0.493079
-X-MoE Macro-F1     = 0.662575
+GraphSAGE Macro-F1 = 0.491619
+X-MoE Macro-F1     = 0.657494
 ```
 
 Absolute improvement:
 
 ```text
-0.662575 - 0.493079 = 0.169496
+0.657494 - 0.491619 = 0.165875
 ```
 
 Equivalent percentage-point increase:
 
 ```text
-+16.95 percentage points
++16.59 percentage points
 ```
 
 Approximate relative improvement:
 
 ```text
-+34.4%
++33.74%
 ```
 
 The CPU reproduction therefore confirms that, under the documented protocol and environment, X-MoE achieves higher mean Macro-F1 than GCN, GAT, and GraphSAGE.
