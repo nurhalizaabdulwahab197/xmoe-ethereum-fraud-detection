@@ -789,15 +789,24 @@ Additional reproducibility details are documented in:
 REPRODUCIBILITY.md
 ```
 
-## Demo Application
+## Live Research Demo
 
-A separate demonstration application will be developed after CPU and GPU reproducibility validation is complete.
+A public X-MoE research demo is available on Streamlit Community Cloud:
 
-The demo will be intended for model demonstration and reference use and will be linked from this repository when available.
+**[Open the X-MoE Ethereum Fraud Detection Demo](https://xmoe-ethereum-fraud-detection.streamlit.app/)**
 
+The demo provides:
 
+- an overview of the multi-class Ethereum fraud detection problem;
+- architecture comparisons for GCN, GAT, GraphSAGE, and X-MoE;
+- a detailed exploration of the proposed X-MoE architecture;
+- verified CPU results across the four evaluated models;
+- class-wise performance for Normal, Phishing, and Scamming; and
+- researcher and collaboration information.
 
+The demo is intended for research communication, reproducibility, and model exploration. It is not a production service for determining whether an arbitrary Ethereum address is safe or fraudulent.
 
+The Streamlit application source is maintained separately on the `demo/streamlit` branch.
 
 ## License and Dataset Attribution
 
