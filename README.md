@@ -283,27 +283,27 @@ The verified CPU experiments support this architectural motivation:
 
 | Model | Accuracy (mean +/- std) | Macro-F1 (mean +/- std) |
 |---|---:|---:|
-| GCN | 0.881178 +/- 0.032824 | 0.363702 +/- 0.020403 |
-| GAT | 0.587321 +/- 0.033070 | 0.266464 +/- 0.020491 |
-| GraphSAGE | 0.988206 +/- 0.002095 | 0.493079 +/- 0.034075 |
-| **X-MoE** | **0.996887 +/- 0.001234** | **0.662575 +/- 0.072090** |
+| GCN | 0.881123 +/- 0.032853 | 0.363689 +/- 0.020485 |
+| GAT | 0.591693 +/- 0.033604 | 0.266492 +/- 0.017115 |
+| GraphSAGE | 0.988188 +/- 0.002071 | 0.491619 +/- 0.033561 |
+| **X-MoE** | **0.996942 +/- 0.001153** | **0.657494 +/- 0.071187** |
 
 Relative to GraphSAGE, X-MoE improves mean Macro-F1 by:
 
 ```text
-0.662575 - 0.493079 = 0.169496
+0.657494 - 0.491619 = 0.165875
 ```
 
 equivalent to:
 
 ```text
-+16.95 percentage points
++16.59 percentage points
 ```
 
 or approximately:
 
 ```text
-+34.4% relative improvement
++33.74% relative improvement
 ```
 
 Because the dataset is highly imbalanced, this improvement in Macro-F1 is more informative than accuracy alone for assessing balanced performance across Normal, Phishing, and Scamming.
@@ -327,25 +327,31 @@ The CPU experiments in this repository were reproduced using:
 
 ## Final CPU Results
 
-| Model | Accuracy (mean ± std) | Macro-F1 (mean ± std) |
+The fresh-PC deterministic CPU reproduction used the clean protocol, seeds 100-109, and 300 epochs per seed.
+
+| Model | Accuracy (mean +/- std) | Macro-F1 (mean +/- std) |
 |---|---:|---:|
-| GCN | 0.881178 ± 0.032824 | 0.363702 ± 0.020403 |
-| GAT | 0.587321 ± 0.033070 | 0.266464 ± 0.020491 |
-| GraphSAGE | 0.988206 ± 0.002095 | 0.493079 ± 0.034075 |
-| **X-MoE** | **0.996887 ± 0.001234** | **0.662575 ± 0.072090** |
+| GCN | 0.881123 +/- 0.032853 | 0.363689 +/- 0.020485 |
+| GAT | 0.591693 +/- 0.033604 | 0.266492 +/- 0.017115 |
+| GraphSAGE | 0.988188 +/- 0.002071 | 0.491619 +/- 0.033561 |
+| **X-MoE** | **0.996942 +/- 0.001153** | **0.657494 +/- 0.071187** |
 
-Under this reproduced CPU configuration, X-MoE improves Macro-F1 over GraphSAGE by:
+Under this reproduced CPU configuration, X-MoE achieved the highest mean Macro-F1 among the four evaluated models.
 
-- **+0.169496 absolute Macro-F1**
-- **+16.95 percentage points**
-- approximately **+34.4% relative improvement**
-
-Detailed CPU reference results are available in:
+Compared with GraphSAGE, the strongest baseline by mean Macro-F1:
 
 ```text
-results/reference/
+absolute improvement = 0.657494 - 0.491619
+                     = 0.165875
 
+percentage-point improvement = 16.59
+
+relative improvement = 0.165875 / 0.491619
+                     â‰ˆ 33.74%
 ```
+
+Accuracy is reported for completeness, while Macro-F1 is the primary comparison metric because the dataset is highly class-imbalanced.
+
 
 ## Repository Structure
 
@@ -553,15 +559,7 @@ python .\src\reproduce.py `
   --no-save-predictions
 ```
 
-Verified GraphSAGE smoke-test summary:
 
-```text
-accuracy         0.001461
-macro_precision  0.005986
-macro_recall     0.377778
-macro_f1         0.011117
-weighted_f1      0.000032
-```
 
 ### X-MoE
 
@@ -578,6 +576,25 @@ python .\src\reproduce.py `
   --no-save-checkpoints `
   --no-save-predictions
 ```
+
+
+### Smoke-Test Reference Results
+
+The following deterministic CPU results were obtained using seed 100, 10 epochs, and the clean protocol. These values are intended for implementation validation rather than final model evaluation.
+
+| Model | Accuracy | Macro-F1 |
+|---|---:|---:|
+| GCN | 0.064993 | 0.041525 |
+| GAT | 0.528982 | 0.242811 |
+| GraphSAGE | 0.001461 | 0.011117 |
+| **X-MoE** | **0.926883** | **0.390384** |
+
+The X-MoE smoke test additionally uses:
+
+```text
+x_moe_normal_phishing_penalty = 0.30
+```
+
 
 ## 7. Full 10-Seed CPU Reproduction
 
@@ -607,6 +624,13 @@ python .\src\reproduce.py `
   --save-predictions
 ```
 
+Reference summary:
+
+```text
+Accuracy = 0.881123 +/- 0.032853
+Macro-F1 = 0.363689 +/- 0.020485
+```
+
 ### GAT
 
 ```powershell
@@ -623,6 +647,13 @@ python .\src\reproduce.py `
   --save-predictions
 ```
 
+Reference summary:
+
+```text
+Accuracy = 0.591693 +/- 0.033604
+Macro-F1 = 0.266492 +/- 0.017115
+```
+
 ### GraphSAGE
 
 ```powershell
@@ -637,6 +668,13 @@ python .\src\reproduce.py `
   --output-dir .\results\final_graphsage `
   --save-checkpoints `
   --save-predictions
+```
+
+Reference summary:
+
+```text
+Accuracy = 0.988188 +/- 0.002071
+Macro-F1 = 0.491619 +/- 0.033561
 ```
 
 ### X-MoE
@@ -656,6 +694,28 @@ python .\src\reproduce.py `
   --save-predictions
 ```
 
+Reference summary:
+
+```text
+Accuracy = 0.996942 +/- 0.001153
+Macro-F1 = 0.657494 +/- 0.071187
+```
+
+### Full CPU Reference Comparison
+
+| Model | Accuracy (mean +/- std) | Macro-F1 (mean +/- std) |
+|---|---:|---:|
+| GCN | 0.881123 +/- 0.032853 | 0.363689 +/- 0.020485 |
+| GAT | 0.591693 +/- 0.033604 | 0.266492 +/- 0.017115 |
+| GraphSAGE | 0.988188 +/- 0.002071 | 0.491619 +/- 0.033561 |
+| **X-MoE** | **0.996942 +/- 0.001153** | **0.657494 +/- 0.071187** |
+
+X-MoE achieved the highest mean Macro-F1 among the four evaluated models.
+
+Relative to GraphSAGE, the strongest baseline in this experiment, X-MoE improved mean Macro-F1 by **0.165875**, equivalent to **16.59 percentage points** or approximately **33.74% relative improvement**.
+
+These values provide reference points for independent reproduction. Small differences in training time are expected across hardware.
+
 ## 8. Clean Protocol
 
 The `clean` protocol regenerates a stratified 70/15/15 train/validation/test split for every seed.
@@ -666,36 +726,32 @@ The released BLTE graph topology is retained.
 
 ## 9. Interpretation of the CPU Results
 
-The verified 10-seed CPU results are:
+The fresh-PC 10-seed deterministic CPU reproduction produced the following results:
 
-| Model | Accuracy | Macro-F1 |
+| Model | Accuracy (mean +/- std) | Macro-F1 (mean +/- std) |
 |---|---:|---:|
-| GCN | 0.881178 | 0.363702 |
-| GAT | 0.587321 | 0.266464 |
-| GraphSAGE | 0.988206 | 0.493079 |
-| **X-MoE** | **0.996887** | **0.662575** |
+| GCN | 0.881123 +/- 0.032853 | 0.363689 +/- 0.020485 |
+| GAT | 0.591693 +/- 0.033604 | 0.266492 +/- 0.017115 |
+| GraphSAGE | 0.988188 +/- 0.002071 | 0.491619 +/- 0.033561 |
+| **X-MoE** | **0.996942 +/- 0.001153** | **0.657494 +/- 0.071187** |
 
-The main comparison is X-MoE versus GraphSAGE.
-
-X-MoE increases mean Macro-F1 from:
+The primary comparison is between X-MoE and GraphSAGE, which was the strongest baseline by mean Macro-F1.
 
 ```text
-0.493079
+GraphSAGE Macro-F1 = 0.491619
+X-MoE Macro-F1     = 0.657494
+
+Absolute improvement = 0.657494 - 0.491619
+                     = 0.165875
+                     = 16.59 percentage points
+
+Relative improvement = 0.165875 / 0.491619
+                     Ã¢â€°Ë† 33.74%
 ```
 
-to:
+These results show that X-MoE achieved the highest mean Macro-F1 among the four evaluated models under the documented clean protocol and deterministic CPU environment.
 
-```text
-0.662575
-```
-
-corresponding to:
-
-```text
-absolute improvement = 0.169496
-percentage-point improvement = 16.95
-relative improvement approximately 34.4%
-```
+Accuracy should not be interpreted alone because the BLTE dataset is highly class-imbalanced. Macro-F1 is therefore used as the primary comparison metric because it gives equal importance to the Normal, Phishing, and Scamming classes.
 
 ## 10. Reproducibility Scope
 
@@ -870,10 +926,10 @@ python .\src\reproduce.py `
 
 | Model | CPU Macro-F1 | GPU Macro-F1 |
 |---|---:|---:|
-| GCN | 0.363702 +/- 0.020403 | 0.363670 +/- 0.017636 |
-| GAT | 0.266464 +/- 0.020491 | 0.275000 +/- 0.029484 |
-| GraphSAGE | 0.493079 +/- 0.034075 | 0.495760 +/- 0.031397 |
-| **X-MoE** | **0.662575 +/- 0.072090** | **0.657782 +/- 0.065579** |
+| GCN | 0.363689 +/- 0.020485 | 0.363670 +/- 0.017636 |
+| GAT | 0.266492 +/- 0.017115 | 0.275000 +/- 0.029484 |
+| GraphSAGE | 0.491619 +/- 0.033561 | 0.495760 +/- 0.031397 |
+| **X-MoE** | **0.657494 +/- 0.071187** | **0.657782 +/- 0.065579** |
 
 The model ranking is preserved across both environments:
 
