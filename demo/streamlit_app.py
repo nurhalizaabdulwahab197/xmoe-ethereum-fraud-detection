@@ -1546,50 +1546,78 @@ elif page == "Class-wise Performance":
         ],
     )
 
+
+    chart_base = alt.Chart(class_data).encode(
+        x=alt.X(
+            "metric:N",
+            sort=selected_metrics,
+            title=None,
+            scale=alt.Scale(paddingInner=0.30, paddingOuter=0.15),
+            axis=alt.Axis(
+                labelAngle=0,
+                labelFontSize=14,
+                labelPadding=12,
+                ticks=False,
+            ),
+        ),
+        xOffset=alt.XOffset(
+            "model:N",
+            sort=MODEL_ORDER,
+        ),
+        y=alt.Y(
+            "mean:Q",
+            title="Mean score",
+            scale=alt.Scale(domain=[0, 1.10], nice=False),
+            axis=alt.Axis(
+                values=[0, 0.2, 0.4, 0.6, 0.8, 1.0],
+                format=".1f",
+                gridColor="#E5EDF5",
+                titlePadding=14,
+                labelFontSize=12,
+            ),
+        ),
+    )
+
+    bars = chart_base.mark_bar(
+        cornerRadiusTopLeft=5,
+        cornerRadiusTopRight=5,
+    ).encode(
+        color=alt.Color(
+            "model:N",
+            scale=colour,
+            sort=MODEL_ORDER,
+            legend=alt.Legend(
+                title=None,
+                orient="bottom",
+                direction="horizontal",
+                columns=4,
+                labelFontSize=12,
+                symbolType="square",
+                symbolSize=130,
+                padding=14,
+            ),
+        ),
+        tooltip=[
+            alt.Tooltip("model:N", title="Model"),
+            alt.Tooltip("metric:N", title="Metric"),
+            alt.Tooltip("mean:Q", title="Mean", format=".4f"),
+            alt.Tooltip("std:Q", title="SD", format=".4f"),
+        ],
+    )
+
+    labels = chart_base.mark_text(
+        dy=-9,
+        fontSize=11,
+        fontWeight="bold",
+        color="#173653",
+    ).encode(
+        text=alt.Text("mean:Q", format=".3f"),
+    )
+
     chart = (
-        alt.Chart(class_data)
-        .mark_bar(
-            cornerRadiusTopLeft=4,
-            cornerRadiusTopRight=4,
-        )
-        .encode(
-            x=alt.X(
-                "model:N",
-                sort=MODEL_ORDER,
-                title=None,
-            ),
-            y=alt.Y(
-                "mean:Q",
-                title="Mean score",
-                scale=alt.Scale(
-                    domain=[0, 1]
-                ),
-            ),
-            color=alt.Color(
-                "model:N",
-                scale=colour,
-                title="Model",
-            ),
-            column=alt.Column(
-                "metric:N",
-                title=None,
-            ),
-            tooltip=[
-                "model:N",
-                "metric:N",
-                alt.Tooltip(
-                    "mean:Q",
-                    format=".6f",
-                ),
-                alt.Tooltip(
-                    "std:Q",
-                    format=".6f",
-                ),
-            ],
-        )
-        .properties(
-            height=350,
-        )
+        (bars + labels)
+        .properties(height=410)
+        .configure_view(strokeWidth=0)
     )
 
     st.altair_chart(
