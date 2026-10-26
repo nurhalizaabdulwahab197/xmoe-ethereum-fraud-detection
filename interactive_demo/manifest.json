@@ -32,6 +32,6 @@
     "predictor_models/xmoe.py": "8b7a56482f97e5c32944def4f030f2792367fcffbe377b1b9ce767381fdd4c6d",
     "predictor_models/graphsage.py": "297eff70d26d5f697b2d6132dba8ada060907d63e2eb8f9249803c3f9d43d97f",
     "engine.py": "4bf6217a1525ef73dc06039270a39c057a566473987d742bc19f8baed63c323d",
-    "prediction_page.py": "ff0cf6de5a035ed333d417d7f0bec5c301f5f9b8b1d74110fafb60879d3b2676"
+    "prediction_page.py": "8f4b12c86359709d6a260a1f68fa2367da254091cd0a329a1e029c5970505ba2"
   }
 }
