@@ -332,6 +332,7 @@ with st.sidebar:
     page = st.radio(
         "Explore",
         [
+            "Try a Prediction",
             "Overview",
             "Architecture Explorer",
             "Results Explorer",
@@ -380,7 +381,15 @@ with st.sidebar:
 # OVERVIEW
 # ============================================================
 
-if page == "Overview":
+# XMOE_INTERACTIVE_PREDICTION_PAGE
+if page == "Try a Prediction":
+    import sys as _prediction_sys
+    _prediction_dir = Path(__file__).resolve().parents[1] / "interactive_demo"
+    if str(_prediction_dir) not in _prediction_sys.path:
+        _prediction_sys.path.insert(0, str(_prediction_dir))
+    from prediction_page import render_prediction_page
+    render_prediction_page()
+elif page == "Overview":
 
     st.markdown(
         """<div class="hero">

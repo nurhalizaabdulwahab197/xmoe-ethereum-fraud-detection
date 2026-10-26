@@ -1,0 +1,37 @@
+{
+  "benchmark": "BLTE released graph; clean protocol; transductive inference",
+  "seed": 100,
+  "train_nodes": 51123,
+  "validation_nodes": 10955,
+  "test_nodes": 10955,
+  "nodes": 73033,
+  "edges": 6588,
+  "features": 23,
+  "class_names": [
+    "Normal",
+    "Phishing",
+    "Scamming"
+  ],
+  "original_dataset_sha256": {
+    "BLTE_multiclass_graph.pt": "2859a8a3a815edd02b5cd85d46c00d730b2b66c4e8d047145db2e843c9e38456",
+    "BLTE_multiclass_v2.csv": "02e376ddd98ba595372f19731fe5e51bbc90bf897b2a52b3c8bb98e786423b11"
+  },
+  "sha256": {
+    "dataset/benchmark_inputs.npz": "e40f26bd43fae245e3fd6cb22d1c079eb358a24fd01c1df334be930860b93803",
+    "checkpoints_reference/final_graphsage/clean_graphsage_seed-100_checkpoint.pt": "4bf94bceeef342947050a9e6ba9cdd64ca9fc9ed1a2a5feabc43e8084eaaf862",
+    "checkpoints_reference/final_xmoe/clean_x_moe_gnn_seed-100_checkpoint.pt": "7e8084580133dd43b3a52fc939be2f7adf6b3f8a02b985ffa3e6888099a90029",
+    "checkpoints_reference/final_gat/clean_gat_seed-100_checkpoint.pt": "b8680a79440f5db175cc299d4529ba91fc35f377a1a5277cfa6244e0fd1a1845",
+    "checkpoints_reference/final_gcn/clean_gcn_seed-100_checkpoint.pt": "84f961b72907e567b450ae12f83371fd97ab8524311fdd88c5ff048821fbc94f",
+    "checkpoints_reference/final_graphsage/clean_graphsage_seed-100_predictions.csv": "2a18ead9434ff6c3a45d2971b41b1946862b608320c981d0942c7ae1e4894e64",
+    "checkpoints_reference/final_xmoe/clean_x_moe_gnn_seed-100_predictions.csv": "1f4c6a62a2cb2f779353f3e53a73a4a8d4264211fb2f38526911cd40fca5fbad",
+    "checkpoints_reference/final_gat/clean_gat_seed-100_predictions.csv": "2eea80011a423c4ce6060ec4e4db236dfb2ca14e6645e28c99d465d9b8f3dac2",
+    "checkpoints_reference/final_gcn/clean_gcn_seed-100_predictions.csv": "5a7dd40594642252fb3d095fa115078ae30c65b41509752fe11c64b1290b2126",
+    "predictor_models/gat.py": "12d1d682083b7b4708e934ccbf77e90ff0ee59d81a906a1deb18aceedfff21dd",
+    "predictor_models/__init__.py": "71a9b7bf8dce38179d6fd895b7ac3fc800b360177d7f8ea47005828894bfddbe",
+    "predictor_models/gcn.py": "fc69f8f0345b521a963bdea9694a3b0d1b4a8c34e2dcf47c6e6d6a3b7b0bc965",
+    "predictor_models/xmoe.py": "8b7a56482f97e5c32944def4f030f2792367fcffbe377b1b9ce767381fdd4c6d",
+    "predictor_models/graphsage.py": "297eff70d26d5f697b2d6132dba8ada060907d63e2eb8f9249803c3f9d43d97f",
+    "engine.py": "4bf6217a1525ef73dc06039270a39c057a566473987d742bc19f8baed63c323d",
+    "prediction_page.py": "ff0cf6de5a035ed333d417d7f0bec5c301f5f9b8b1d74110fafb60879d3b2676"
+  }
+}
