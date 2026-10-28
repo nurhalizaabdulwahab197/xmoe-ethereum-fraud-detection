@@ -1,0 +1,5 @@
+model,clean_macro_f1,strict_macro_f1,relative_change_percent,holm_adjusted_p
+GCN,0.363689,0.358331,-1.47,
+GAT,0.266492,0.277051,3.96,0.042969
+GraphSAGE,0.491619,0.440139,-10.47,0.007812
+X-MoE,0.657494,0.547783,-16.69,0.011719
