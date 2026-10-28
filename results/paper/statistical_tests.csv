@@ -7,7 +7,7 @@ strict,X-MoE vs GraphSAGE,phishing_f1,,0.005859,,,X-MoE significantly higher
 strict,X-MoE vs GraphSAGE,phishing_ap,,0.005859,,,X-MoE significantly higher
 strict,X-MoE vs GraphSAGE,scamming_f1,,0.283203,,,Difference not significant after correction
 strict,X-MoE vs GraphSAGE,scamming_ap,,0.027344,,,X-MoE significantly higher
-clean_to_strict,GCN,macro_f1,,, , ,No significant change reported
+clean_to_strict,GCN,macro_f1,,,,,No significant change reported
 clean_to_strict,GAT,macro_f1,,0.042969,,,Significant protocol change
 clean_to_strict,GraphSAGE,macro_f1,,0.007812,,,Significant decrease under strict protocol
 clean_to_strict,X-MoE,macro_f1,,0.011719,,,Significant decrease under strict protocol
