@@ -1,9 +1,9 @@
 variant,configuration,macro_f1,delta_vs_A0
 A0,Full X-MoE,0.657494,0.000000
-A1,Conflict-Aware Multitask Expert only,0.652484,-0.005010
-A2,GraphSAGE-expert configuration within X-MoE training framework,0.655844,-0.001650
+A1,Conflict-Aware Multitask Expert only,0.652484,-0.005009
+A2,GraphSAGE-expert configuration within X-MoE training framework,0.655844,-0.001649
 A3,Shared inner and outer routing,0.691672,0.034178
-A4,No isolate masking,0.707135,0.049641
+A4,No isolate masking,0.707135,0.049642
 A5,No Scamming-specialist objective,0.655741,-0.001753
 A6,No Normal-Phishing penalty,0.552593,-0.104901
 A7,Fixed 50:50 outer mixture,0.691226,0.033732
