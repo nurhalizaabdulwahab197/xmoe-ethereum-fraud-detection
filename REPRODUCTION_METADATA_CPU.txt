@@ -4,11 +4,9 @@ CPU REPRODUCTION METADATA
 Public repository:
 Repository: xmoe-ethereum-fraud-detection
 Branch: main
-Reproduction date: 2026-10-20
 
-Source provenance:
-Golden reference repository branch: x-moe-gnn-study
-Golden reference commit: 50fcc1e79a59c4256b71253c8d7980237d6bab6b
+Reference status:
+This file records the current manuscript-aligned clean CPU reference results after the fresh-PC deterministic reproduction and subsequent public-code refactor validation. Historical earlier values remain available through Git history.
 
 Environment:
 Operating system: Windows
@@ -42,39 +40,33 @@ x_moe_normal_phishing_penalty=0.30
 Final 10-seed CPU results:
 
 GCN
-accuracy_mean=0.881178
-accuracy_std=0.032824
-macro_f1_mean=0.363702
-macro_f1_std=0.020403
+accuracy_mean=0.881123
+accuracy_std=0.032853
+macro_f1_mean=0.363689
+macro_f1_std=0.020485
 
 GAT
-accuracy_mean=0.587321
-accuracy_std=0.033070
-macro_f1_mean=0.266464
-macro_f1_std=0.020491
+accuracy_mean=0.591693
+accuracy_std=0.033604
+macro_f1_mean=0.266492
+macro_f1_std=0.017115
 
 GraphSAGE
-accuracy_mean=0.988206
-accuracy_std=0.002095
-macro_f1_mean=0.493079
-macro_f1_std=0.034075
+accuracy_mean=0.988188
+accuracy_std=0.002071
+macro_f1_mean=0.491619
+macro_f1_std=0.033561
 
 X-MoE
-accuracy_mean=0.996887
-accuracy_std=0.001234
-macro_precision_mean=0.643719
-macro_precision_std=0.068390
-macro_recall_mean=0.760434
-macro_recall_std=0.071247
-macro_f1_mean=0.662575
-macro_f1_std=0.072090
-weighted_f1_mean=0.997552
-weighted_f1_std=0.000810
+accuracy_mean=0.996942
+accuracy_std=0.001153
+macro_f1_mean=0.657494
+macro_f1_std=0.071187
 
 X-MoE versus GraphSAGE:
-absolute_macro_f1_improvement=0.169496
-percentage_point_improvement=16.95
-relative_macro_f1_improvement_percent=34.4
+absolute_macro_f1_improvement=0.165875
+percentage_point_improvement=16.59
+relative_macro_f1_improvement_percent=33.74
 
 Dataset SHA256:
 BLTE_multiclass_graph.pt=2859A8A3A815EDD02B5CD85D46C00D730B2B66C4E8D047145DB2E843C9E38456
@@ -82,10 +74,9 @@ BLTE_multiclass_v2.csv=02E376DDD98BA595372F19731FE5E51BBC90BF897B2A52B3C8BB98E78
 
 Reproducibility scope:
 The experiments use the upstream released processed BLTE artifacts.
-The clean protocol regenerates the stratified train/validation/test split for each seed
-and fits feature scaling using training nodes only.
+The clean protocol regenerates the stratified train/validation/test split for each seed and fits feature scaling using training nodes only.
 The released BLTE graph topology is retained.
+The current manuscript-aligned result summaries are stored under results/reference/ and results/paper/.
 
 Expected reproduction behavior:
-Independent environments should closely reproduce the documented values and model
-ranking, but bit-for-bit equality across all hardware and platforms is not guaranteed.
+Independent environments should closely reproduce the documented values and model ranking, but bit-for-bit equality across all hardware and platforms is not guaranteed.
