@@ -1,0 +1,5 @@
+protocol,model,normal_f1,phishing_f1,phishing_ap,scamming_f1,scamming_ap
+clean,GraphSAGE,0.994410,0.102251,0.187142,0.378196,0.366745
+clean,X-MoE,0.998786,0.537393,0.509808,0.436301,0.507011
+strict,GraphSAGE,,0.082481,0.176476,0.247152,0.245229
+strict,X-MoE,,0.361110,0.361739,0.285487,0.337077
