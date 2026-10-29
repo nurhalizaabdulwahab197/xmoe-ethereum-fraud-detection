@@ -33,7 +33,7 @@ from sklearn.metrics import (
 )
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from models import GAT as ModularGAT, GCN as ModularGCN, GraphSAGE as ModularGraphSAGE, ExplainableMixtureOfExpertsGNN as ModularXMoE
+from models import GAT as ModularGAT, GCN as ModularGCN, GraphSAGE as ModularGraphSAGE, MLP as ModularMLP, ExplainableMixtureOfExpertsGNN as ModularXMoE
 
 
 NON_FEATURE_COLUMNS = ["Address", "Scam", "attack", "attack_encoded"]
@@ -44,6 +44,7 @@ MODELS = {
     "gcn": ModularGCN,
     "gat": ModularGAT,
     "graphsage": ModularGraphSAGE,
+    "mlp": ModularMLP,
     "x_moe_gnn": ModularXMoE,
 }
 
@@ -742,3 +743,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+
