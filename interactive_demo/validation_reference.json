@@ -1,0 +1,51 @@
+{
+  "models": [
+    {
+      "model": "GCN",
+      "nodes": 10955,
+      "matching_predictions": 10955,
+      "max_probability_error": 4.7357513427437326e-07,
+      "passed": true,
+      "full_graph_inference_seconds": 0.06500538799991773
+    },
+    {
+      "model": "GAT",
+      "nodes": 10955,
+      "matching_predictions": 10955,
+      "max_probability_error": 1.4554367067098894e-07,
+      "passed": true,
+      "full_graph_inference_seconds": 0.11902600399980656
+    },
+    {
+      "model": "GraphSAGE",
+      "nodes": 10955,
+      "matching_predictions": 10955,
+      "max_probability_error": 1.8742218022005375e-07,
+      "passed": true,
+      "full_graph_inference_seconds": 0.03918913000006796
+    },
+    {
+      "model": "X-MoE",
+      "nodes": 10955,
+      "matching_predictions": 10955,
+      "max_probability_error": 4.7572547912100305e-07,
+      "passed": true,
+      "full_graph_inference_seconds": 0.18270775699988917
+    }
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.1+cpu",
+    "torch-geometric": "2.8.1",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.8.0",
+    "streamlit": "1.66.1",
+    "altair": "6.3.0"
+  },
+  "tolerance": {
+    "atol": 1e-05,
+    "rtol": 0.0001
+  },
+  "scope": "All 10955 held-out seed-100 nodes; full released graph; no training."
+}

@@ -1,0 +1,6 @@
+streamlit==1.65.0
+pandas==3.0.6
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.14.1+cpu
+torch-geometric==2.8.1
+numpy>=2,<3
