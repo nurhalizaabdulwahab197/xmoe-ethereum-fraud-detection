@@ -39,7 +39,6 @@ from models import GAT as ModularGAT, GCN as ModularGCN, GraphSAGE as ModularGra
 NON_FEATURE_COLUMNS = ["Address", "Scam", "attack", "attack_encoded"]
 
 
-
 MODELS = {
     "gcn": ModularGCN,
     "gat": ModularGAT,
@@ -138,9 +137,7 @@ def score(y_true: np.ndarray, probabilities: np.ndarray) -> dict[str, object]:
         )
     for actual in range(3):
         for predicted_class in range(3):
-            result[f"cm_{actual}_{predicted_class}"] = int(
-                matrix[actual, predicted_class]
-            )
+            result[f"cm_{actual}_{predicted_class}"] = int(matrix[actual, predicted_class])
     return result
 
 
@@ -151,19 +148,13 @@ def weighted_focal_loss(
     gamma: float,
 ) -> torch.Tensor:
     """Weighted focal loss with CE-equivalent normalization at gamma zero."""
-    per_item_ce = F.cross_entropy(
-        logits, labels, weight=class_weights, reduction="none"
-    )
-    true_probability = F.softmax(logits, dim=1).gather(
-        1, labels.unsqueeze(1)
-    ).squeeze(1)
+    per_item_ce = F.cross_entropy(logits, labels, weight=class_weights, reduction="none")
+    true_probability = F.softmax(logits, dim=1).gather(1, labels.unsqueeze(1)).squeeze(1)
     denominator = class_weights[labels].sum().clamp_min(torch.finfo(logits.dtype).eps)
     return (((1.0 - true_probability) ** gamma) * per_item_ce).sum() / denominator
 
 
-def balanced_binary_loss(
-    logits: torch.Tensor, labels: torch.Tensor
-) -> torch.Tensor:
+def balanced_binary_loss(logits: torch.Tensor, labels: torch.Tensor) -> torch.Tensor:
     """Inverse-frequency weighted BCE normalized by the observed weights."""
     labels = labels.to(dtype=logits.dtype)
     counts = torch.bincount(labels.long(), minlength=2).to(dtype=logits.dtype)
@@ -172,9 +163,7 @@ def balanced_binary_loss(
     class_weights = counts.sum() / counts
     class_weights = class_weights / class_weights.sum()
     sample_weights = class_weights[labels.long()]
-    per_item = F.binary_cross_entropy_with_logits(
-        logits.squeeze(1), labels, reduction="none"
-    )
+    per_item = F.binary_cross_entropy_with_logits(logits.squeeze(1), labels, reduction="none")
     return (per_item * sample_weights).sum() / sample_weights.sum()
 
 
@@ -191,16 +180,12 @@ def project_conflicting_gradients(
             norm = sum((gradient * gradient).sum() for gradient in other)
             if float(dot.detach()) < 0 and float(norm.detach()) > 0:
                 scale = dot / norm
-                task = [
-                    left - scale * right for left, right in zip(task, other)
-                ]
+                task = [left - scale * right for left, right in zip(task, other)]
                 projected[task_index] = task
     return projected
 
 
-def pcgrad_backward(
-    losses: list[torch.Tensor], parameters: list[torch.nn.Parameter]
-) -> None:
+def pcgrad_backward(losses: list[torch.Tensor], parameters: list[torch.nn.Parameter]) -> None:
     """Populate parameter gradients with mean deterministic PCGrad gradients."""
     task_gradients: list[list[torch.Tensor]] = []
     for index, loss in enumerate(losses):
@@ -211,10 +196,8 @@ def pcgrad_backward(
             allow_unused=True,
         )
         task_gradients.append(
-            [
-                gradient if gradient is not None else torch.zeros_like(parameter)
-                for gradient, parameter in zip(raw, parameters)
-            ]
+            [gradient if gradient is not None else torch.zeros_like(parameter)
+             for gradient, parameter in zip(raw, parameters)]
         )
     projected = project_conflicting_gradients(task_gradients)
     for parameter_index, parameter in enumerate(parameters):
@@ -223,9 +206,7 @@ def pcgrad_backward(
         ).mean(dim=0)
 
 
-def select_validation_class_bias(
-    logits: torch.Tensor, labels: torch.Tensor
-) -> torch.Tensor:
+def select_validation_class_bias(logits: torch.Tensor, labels: torch.Tensor) -> torch.Tensor:
     """Grid-select Phishing/Scamming logit biases using validation macro-F1."""
     best_score = -1.0
     best_norm = float("inf")
@@ -249,8 +230,7 @@ def select_validation_class_bias(
             )
             candidate_norm = abs(phishing_bias) + abs(scamming_bias)
             if candidate_score > best_score + 1e-15 or (
-                abs(candidate_score - best_score) <= 1e-15
-                and candidate_norm < best_norm
+                abs(candidate_score - best_score) <= 1e-15 and candidate_norm < best_norm
             ):
                 best_score = candidate_score
                 best_norm = candidate_norm
@@ -284,12 +264,8 @@ def run_once(
         if protocol == "artifact"
         else clean_data(released_data, csv_path, seed)
     )
-    x, edge_index, y, train_mask, val_mask, test_mask = [
-        tensor.to(device) for tensor in tensors
-    ]
-    model = MODELS[model_name](
-        x.shape[1], int(y.max().item()) + 1
-    ).to(device)
+    x, edge_index, y, train_mask, val_mask, test_mask = [tensor.to(device) for tensor in tensors]
+    model = MODELS[model_name](x.shape[1], int(y.max().item()) + 1).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=5e-4)
     counts = torch.bincount(y[train_mask], minlength=3)
     class_weights = counts.sum() / counts
@@ -303,42 +279,27 @@ def run_once(
         optimizer.zero_grad(set_to_none=True)
         x_moe_expert_logits = None
         if isinstance(model, ModularXMoE):
-            logits, conflict_aware_logits, graphsage_logits = model.training_outputs(
-                x, edge_index
-            )
+            logits, conflict_aware_logits, graphsage_logits = model.training_outputs(x, edge_index)
             x_moe_expert_logits = (conflict_aware_logits, graphsage_logits)
         else:
             logits = model(x, edge_index)
         if base_loss == "weighted_focal":
             loss = weighted_focal_loss(
-                logits[train_mask],
-                y[train_mask],
-                class_weights,
-                focal_gamma,
+                logits[train_mask], y[train_mask], class_weights, focal_gamma
             )
         else:
-            loss = F.cross_entropy(
-                logits[train_mask], y[train_mask], weight=class_weights
-            )
+            loss = F.cross_entropy(logits[train_mask], y[train_mask], weight=class_weights)
         if model_name == "x_moe_gnn" and x_moe_expert_logits is not None:
             conflict_aware_logits, graphsage_logits = x_moe_expert_logits
             training_labels = y[train_mask]
             task_losses = [loss]
             task_losses.extend(
-                [
-                    expert_loss_weight
-                    * F.cross_entropy(
-                        expert_logits[train_mask],
-                        training_labels,
-                        weight=class_weights,
-                    )
-                    for expert_logits in (conflict_aware_logits, graphsage_logits)
-                ]
+                [expert_loss_weight * F.cross_entropy(
+                    expert_logits[train_mask], training_labels, weight=class_weights
+                ) for expert_logits in (conflict_aware_logits, graphsage_logits)]
             )
             for class_id in range(3):
-                binary_labels = (training_labels == class_id).to(
-                    dtype=conflict_aware_logits.dtype
-                )
+                binary_labels = (training_labels == class_id).to(dtype=conflict_aware_logits.dtype)
                 task_losses.append(
                     x_moe_expert_task_loss_weight
                     * balanced_binary_loss(
@@ -346,14 +307,10 @@ def run_once(
                         binary_labels,
                     )
                 )
-            scamming_labels = (training_labels == 2).to(
-                dtype=graphsage_logits.dtype
-            )
+            scamming_labels = (training_labels == 2).to(dtype=graphsage_logits.dtype)
             task_losses.append(
                 scam_specialist_loss_weight
-                * balanced_binary_loss(
-                    graphsage_logits[train_mask, 2:3], scamming_labels
-                )
+                * balanced_binary_loss(graphsage_logits[train_mask, 2:3], scamming_labels)
             )
             if x_moe_normal_phishing_penalty > 0:
                 degree = model.conflict_aware_expert.node_degree(edge_index, x.shape[0])
@@ -362,12 +319,9 @@ def run_once(
                     logits[connected_normal], dim=1
                 )[:, 1].mean()
                 task_losses.append(
-                    x_moe_normal_phishing_penalty
-                    * normal_phishing_probability
+                    x_moe_normal_phishing_penalty * normal_phishing_probability
                 )
-            pcgrad_backward(
-                task_losses, [parameter for parameter in model.parameters()]
-            )
+            pcgrad_backward(task_losses, [parameter for parameter in model.parameters()])
         else:
             loss.backward()
         optimizer.step()
@@ -398,19 +352,15 @@ def run_once(
         class_bias = torch.zeros(3, device=device)
         if calibrate_class_bias:
             validation_logits = model(x, edge_index)[val_mask]
-            class_bias = select_validation_class_bias(
-                validation_logits, y[val_mask]
-            )
+            class_bias = select_validation_class_bias(validation_logits, y[val_mask])
         if isinstance(model, ModularXMoE):
             explanation = model.explain(x, edge_index)
             full_probabilities = F.softmax(
-                torch.log(explanation["probabilities"].clamp_min(1e-12))
-                + class_bias,
+                torch.log(explanation["probabilities"].clamp_min(1e-12)) + class_bias,
                 dim=1,
             )
             feature_probabilities = F.softmax(
-                torch.log(explanation["feature_probabilities"].clamp_min(1e-12))
-                + class_bias,
+                torch.log(explanation["feature_probabilities"].clamp_min(1e-12)) + class_bias,
                 dim=1,
             )
             calibrated_prediction = full_probabilities.argmax(dim=1)
@@ -426,9 +376,7 @@ def run_once(
                     "feature_probabilities": feature_probabilities,
                     "prediction": calibrated_prediction,
                     "feature_prediction": feature_probabilities.argmax(dim=1),
-                    "graph_probability_delta": (
-                        calibrated_probability - calibrated_feature_probability
-                    ),
+                    "graph_probability_delta": calibrated_probability - calibrated_feature_probability,
                 }
             )
             probabilities = full_probabilities[test_mask].cpu().numpy()
@@ -446,8 +394,7 @@ def run_once(
         }
         test_connected = test_explanation["degree"] > 0
         test_flips = (
-            test_explanation["prediction"]
-            != test_explanation["feature_prediction"]
+            test_explanation["prediction"] != test_explanation["feature_prediction"]
         )
         result.update(model.gate_diagnostics())
         result.update(
@@ -455,9 +402,7 @@ def run_once(
                 "test_connected_nodes": int(test_connected.sum()),
                 "test_isolated_nodes": int((~test_connected).sum()),
                 "mean_abs_graph_probability_delta_connected": float(
-                    test_explanation["graph_probability_delta"][test_connected]
-                    .abs()
-                    .mean()
+                    test_explanation["graph_probability_delta"][test_connected].abs().mean()
                 ),
                 "graph_counterfactual_flip_rate_connected": float(
                     test_flips[test_connected].float().mean()
@@ -474,60 +419,36 @@ def run_once(
                     "node_index": test_indices,
                     "true_label": y_true,
                     "predicted_label": test_explanation["prediction"].numpy(),
-                    "feature_only_predicted_label": test_explanation[
-                        "feature_prediction"
-                    ].numpy(),
+                    "feature_only_predicted_label": test_explanation["feature_prediction"].numpy(),
                     "normal_probability": probabilities[:, 0],
                     "phishing_probability": probabilities[:, 1],
                     "scamming_probability": probabilities[:, 2],
-                    "feature_only_normal_probability": test_explanation[
-                        "feature_probabilities"
-                    ][:, 0].numpy(),
-                    "feature_only_phishing_probability": test_explanation[
-                        "feature_probabilities"
-                    ][:, 1].numpy(),
-                    "feature_only_scamming_probability": test_explanation[
-                        "feature_probabilities"
-                    ][:, 2].numpy(),
+                    "feature_only_normal_probability": test_explanation["feature_probabilities"][:, 0].numpy(),
+                    "feature_only_phishing_probability": test_explanation["feature_probabilities"][:, 1].numpy(),
+                    "feature_only_scamming_probability": test_explanation["feature_probabilities"][:, 2].numpy(),
                     "degree": test_explanation["degree"].numpy(),
                     "is_isolated": (~test_connected).numpy(),
                     "graph_gate": test_explanation["graph_gate"].numpy(),
-                    "graph_probability_delta": test_explanation[
-                        "graph_probability_delta"
-                    ].numpy(),
+                    "graph_probability_delta": test_explanation["graph_probability_delta"].numpy(),
                     "decision_changed_without_graph": test_flips.numpy(),
                 }
             )
             if "learned_graph_gate" in test_explanation:
-                explanation_frame["learned_graph_gate"] = test_explanation[
-                    "learned_graph_gate"
-                ].numpy()
-                explanation_frame["feature_normal_probability"] = test_explanation[
-                    "feature_normal_probability"
-                ].numpy()
+                explanation_frame["learned_graph_gate"] = test_explanation["learned_graph_gate"].numpy()
+                explanation_frame["feature_normal_probability"] = test_explanation["feature_normal_probability"].numpy()
             if "normal_graph_gate" in test_explanation:
-                explanation_frame["normal_graph_gate"] = test_explanation[
-                    "normal_graph_gate"
-                ].numpy()
-                explanation_frame["phishing_graph_gate"] = test_explanation[
-                    "phishing_graph_gate"
-                ].numpy()
-                explanation_frame["scamming_graph_gate"] = test_explanation[
-                    "scamming_graph_gate"
-                ].numpy()
+                explanation_frame["normal_graph_gate"] = test_explanation["normal_graph_gate"].numpy()
+                explanation_frame["phishing_graph_gate"] = test_explanation["phishing_graph_gate"].numpy()
+                explanation_frame["scamming_graph_gate"] = test_explanation["scamming_graph_gate"].numpy()
             if "normal_graphsage_expert_weight" in test_explanation:
                 for class_name in ("normal", "phishing", "scamming"):
                     explanation_frame[f"{class_name}_graphsage_expert_weight"] = (
-                        test_explanation[
-                            f"{class_name}_graphsage_expert_weight"
-                        ].numpy()
+                        test_explanation[f"{class_name}_graphsage_expert_weight"].numpy()
                     )
                     explanation_frame[f"{class_name}_conflict_aware_expert_weight"] = (
                         test_explanation[f"{class_name}_conflict_aware_expert_weight"].numpy()
                     )
-                explanation_frame["expert_probability_delta"] = test_explanation[
-                    "expert_probability_delta"
-                ].numpy()
+                explanation_frame["expert_probability_delta"] = test_explanation["expert_probability_delta"].numpy()
             explanation_path.parent.mkdir(parents=True, exist_ok=True)
             explanation_frame.to_csv(explanation_path, index=False)
     result.update(
@@ -572,6 +493,7 @@ def run_once(
                     "gcn": "gcn",
                     "gat": "gat",
                     "graphsage": "graphsage",
+                    "mlp": "mlp",
                     "x_moe_gnn": "x-moe-gnn",
                 }[model_name],
                 "model_name": model_name,
@@ -743,6 +665,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-
-
