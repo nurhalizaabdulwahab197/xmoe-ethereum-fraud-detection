@@ -59,7 +59,7 @@ sys.path.insert(
     str(SRC_ROOT),
 )
 
-import reproduce as base  # noqa: E402
+import runner as base  # noqa: E402
 
 
 PROTOCOL = "strict_inductive"

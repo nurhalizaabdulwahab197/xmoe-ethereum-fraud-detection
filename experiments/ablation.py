@@ -1,6 +1,6 @@
 """Journal-validation ablation runner for X-MoE.
 
-This file is intentionally separate from src/reproduce.py so that the
+This file is intentionally separate from src/runner.py so that the
 public reproduction runner and the four-model registry remain unchanged.
 
 Ablations
@@ -58,7 +58,7 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-import reproduce as public_runner
+import runner as public_runner
 from models.graphsage import GraphSAGE
 from models.xmoe import (
     ConflictAwareMultitaskExpert,

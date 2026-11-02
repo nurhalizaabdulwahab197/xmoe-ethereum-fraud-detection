@@ -1,500 +1,129 @@
-# X-MoE for Ethereum Fraud Detection
+# X-MoE BLTE experiments
 
-This repository provides a reproducible implementation for multi-class Ethereum address fraud detection under severe class imbalance and sparse graph connectivity. It includes conventional graph baselines, a feature-only MLP baseline, the proposed X-MoE framework, manuscript-aligned ablation and sensitivity experiments, strict node-inductive evaluation, reference result summaries, and the interactive Streamlit research demo.
+Run experimental commands from this folder (`main` branch). `src/runner.py` replaces `src/reproduce.py`; model code and training settings are unchanged. Keep the special Python filename `__init__.py`.
 
-## Models
+## Files and results
 
-The main public reproduction runner exposes five models:
+| Path | Purpose |
+|---|---|
+| src/runner.py | Main training/evaluation entry point |
+| src/models/ | Five model implementations |
+| experiments/strict_inductive.py | Restricted-topology evaluation |
+| experiments/ablation.py | A0-A7 component analyses |
+| experiments/summarize_results.py | Recompute curated tables without training |
+| ENVIRONMENT_CPU.txt, ENVIRONMENT_GPU.txt | Historical tested environments; four-model records |
+| requirements-cpu.txt, requirements-gpu.txt | Tested dependencies |
+| results/clean/reference/ | Five-model clean seed records |
+| results/strict/reference/ | Audited 50-run strict series and statistics |
+| results/strict/runs/ | Detailed metrics, summaries and predictions for five models across seeds 100?109 |
+| results/ablation/reference/ | Ablation evidence |
+| results/cpu_gpu/ | CPU/GPU comparison summaries; GPU records cover four models |
+| results/sensitivity/ | Parameter-sensitivity outputs |
+| results/tables/ | Curated tables and generated protocol metrics |
+| figures/ | Available research figures |
+| RESULT_SOURCE_HASHES.json | Current locations and byte hashes of evidence files |
+| FILE_RELOCATION_MAP.json | Old-to-new path mapping |
 
-- MLP — feature-only baseline
+## Dataset
+
+Obtain processed BLTE artifacts from https://github.com/salam-ammari/Graph-Neural-Network-Based-Fraudulent-Address-Classification-in-Ethereum-Network . Required files: BLTE_multiclass_graph.pt and BLTE_multiclass_v2.csv. This workspace does not contain an audited reconstruction of the raw Ethereum collection/labels. Supply their actual directory with --upstream.
+
+## Commands that do not train
+
+```powershell
+python src/runner.py --help
+python experiments/strict_inductive.py --help
+python experiments/ablation.py --help
+python experiments/summarize_results.py
+```
+
+The summarizer prints/checks tables by default. Its --apply flag writes only this worktree's results/tables; publication to sibling branches is separate. Existing individual run filenames remain unchanged to preserve traceability.
+
+## Workflow
+
+The three local folders are separate Git worktrees. Do not merge entire role branches. Update reviewed outputs selectively. Original result CSV contents and historical absolute provenance fields are preserved; use FILE_RELOCATION_MAP.json for current locations.
+
+Scientific status: clean CPU covers five models; strict CPU covers five models and 50 audited runs. Archived GPU clean summaries cover four models, not MLP.
+
+
+## Detailed experimental protocol
+
+# Reproducibility Guide
+
+This guide records the verified environment, dataset artifacts, experiment runners, and manuscript-aligned evaluation protocols for the X-MoE Ethereum fraud-detection study.
+
+## 1. Public experimental scope
+
+The manuscript compares five models:
+
+- MLP
 - GCN
 - GAT
 - GraphSAGE
-- X-MoE — proposed task-aware mixture-of-experts framework
+- X-MoE
 
-The models perform three-class classification:
-
-- Normal
-- Phishing
-- Scamming
-
-The MLP uses node features only and ignores graph edges. GCN, GAT, and GraphSAGE are graph-learning baselines. X-MoE combines feature/task-aware and graph-structural evidence through adaptive routing.
-
-
-## Five-model BLTE comparison
-
-![Clean-protocol Macro-F1 across ten seeds](docs/figures/clean_macro_f1_five_models.svg)
-
-Bars show mean Macro-F1 and error bars show sample standard deviation across
-seeds 100–109, with 300 epochs per run. The address prediction demo separately
-uses the five seed-100 checkpoints. These single-seed predictions are not
-substitutes for the ten-seed experimental estimates.
-
-The original MLP ten-seed records and their original summary are preserved in
-`results/reference/mlp_original_10seed.csv` and
-`results/reference/mlp_original_10seed_summary.csv`.
-The MLP seed-100 checkpoint was regenerated and checked against its original
-reported metrics, then reloaded and checked against all 10,955 saved test
-predictions using the packaged demo inputs. Other datasets are outside this release.
-
-## Dataset Summary
-
-The study uses processed BLTE artifacts released by the upstream project. The repository does not independently reconstruct the raw Ethereum collection or labelling pipeline.
-
-Dataset size:
-
-- 73,033 Ethereum addresses
-- 72,865 Normal
-- 69 Phishing
-- 99 Scamming
-- 23 node features
-- 6,588 released directed edges
-- approximately 92.32% isolated nodes
-
-The severe imbalance and sparse connectivity motivate the use of Macro-F1 as the primary comparison metric and motivate X-MoE's isolate-safe routing design.
-
-## Architecture Comparison
-
-The figure below compares all five models. MLP uses node attributes only; the remaining models also use graph structure.
-
-![Architecture comparison for Ethereum fraud detection](docs/figures/architecture_comparison_five_models.svg)
-
-All five models solve the same three-class classification problem, but they differ in how node features and graph information are processed.
-
-### A) MLP
-
-The MLP is a feature-only baseline. It receives the same 23 node features but does not perform message passing and does not use graph edges for prediction.
-
-The implemented pipeline is:
+The main reproduction entry point is:
 
 ```text
-Node features (23)
-        |
-        v
-   Linear(64)
-        |
-    LayerNorm
-        |
-       ReLU
-        |
-   Dropout(0.5)
-        |
-        v
-   Linear(64)
-        |
-    LayerNorm
-        |
-       ReLU
-        |
-   Dropout(0.5)
-        |
-        v
- Linear classifier
-        |
-        v
-Normal | Phishing | Scamming
+src/runner.py
 ```
 
-This baseline is important because approximately 92.32% of the addresses are isolated in the released topology. It provides a direct comparison between feature-only learning and graph-based learning.
-
-### B) GCN
-
-The Graph Convolutional Network (GCN) propagates and aggregates information from neighbouring addresses using shared graph convolution.
+Model definitions are stored in:
 
 ```text
-Node features + graph edges
-        |
-        v
-   GCNConv(64)
-        |
-       ReLU
-        |
-   Dropout(0.5)
-        |
-        v
-   GCNConv(64)
-        |
-       ReLU
-        |
-   Dropout(0.5)
-        |
- Linear classifier
-        |
-        v
-Normal | Phishing | Scamming
+src/models/
 ```
 
-GCN provides a simple mechanism for incorporating graph structure. However, neighbourhood information is aggregated using the same convolutional mechanism for all nodes. In highly imbalanced fraud detection, minority-class signals can therefore be difficult to preserve when fraudulent addresses are sparse relative to the Normal class.
-
-### C) GAT
-
-The Graph Attention Network (GAT) extends neighbourhood aggregation by learning attention weights over neighbouring nodes.
+with:
 
 ```text
-Node features + graph edges
-        |
-        v
-GATConv(32, heads=4)
-        |
-       ELU
-        |
-   Dropout(0.5)
-        |
-        v
-GATConv(32, heads=1)
-        |
-       ELU
-        |
- Linear classifier
-        |
-        v
-Normal | Phishing | Scamming
+gcn.py
+gat.py
+graphsage.py
+mlp.py
+xmoe.py
+__init__.py
 ```
 
-Unlike GCN, GAT does not treat all neighbours equally. It learns which neighbouring addresses should receive greater attention. This provides additional flexibility, but attention alone does not explicitly address severe class imbalance, expert disagreement, or the fact that some Ethereum addresses may have little or no useful neighbourhood structure.
+`__init__.py` only exports model classes and is not an experiment runner.
 
-### D) GraphSAGE
-
-GraphSAGE learns node representations by aggregating information from local neighbourhoods.
+Additional manuscript experiments use:
 
 ```text
-Node features + graph edges
-        |
-        v
-   SAGEConv(64)
-        |
-       ReLU
-        |
-   Dropout(0.5)
-        |
-        v
-   SAGEConv(64)
-        |
-       ReLU
-        |
-   Dropout(0.5)
-        |
- Linear classifier
-        |
-        v
-Normal | Phishing | Scamming
+experiments/ablation.py
+experiments/strict_inductive.py
 ```
 
-GraphSAGE is the strongest conventional GNN baseline in the verified CPU experiments. Its neighbourhood aggregation is effective for learning relational fraud patterns when meaningful graph connectivity exists. However, it still relies on a single graph-learning mechanism and can be less useful when an address is isolated or when discriminative evidence is primarily contained in node-level features.
+The ablation runner also reports connectivity-stratified metrics, so no separate connectivity runner is required.
 
-### E) X-MoE: Proposed Architecture
-
-X-MoE differs from the conventional baselines by combining complementary evidence pathways through adaptive mixture-of-experts routing.
+## 2. Verified CPU environment
 
 ```text
-                         Node features
-                              |
-                  +-----------+-----------+
-                  |                       |
-                  v                       v
-        Conflict-Aware              GraphSAGE
-        Multitask Expert               Expert
-                  |                       |
-                  v                       v
-           Expert 1 logits         Expert 2 logits
-                  |                       |
-                  +-----------+-----------+
-                              |
-                    Expert disagreement
-                              |
-                 Node connectivity / degree
-                              |
-                              v
-                       Gating network
-                              |
-                              v
-                 Class-specific mixture
-                         weights
-             w_Normal | w_Phishing | w_Scamming
-                              |
-                              v
-                  Adaptive weighted fusion
-                              |
-                              v
-               Normal | Phishing | Scamming
+Python:              3.11.9
+pip:                 24.0
+PyTorch:             2.14.1+cpu
+PyTorch Geometric:   2.8.0.post1
+NumPy:               2.4.6
+Pandas:              3.0.6
+scikit-learn:        1.9.1
+SciPy:               1.17.1
+CUDA available:      False
 ```
 
-#### Expert 1: Conflict-Aware Multitask Expert
+The tested dependency snapshot is stored in `requirements-cpu.txt`.
 
-The first expert contains a feature branch and an internal GraphSAGE branch. A class-specific inner gate combines these representations using feature evidence, graph evidence, and log degree. This expert is trained with the primary weighted multiclass objective and class-focused auxiliary objectives.
+## 3. Dataset artifacts
 
-#### Expert 2: GraphSAGE Expert
+The study uses processed BLTE artifacts released by the upstream project.
 
-The second expert is an independently parameterised GraphSAGE model. It captures relational information from neighbouring Ethereum addresses and produces its own three-class prediction.
-
-#### Expert disagreement
-
-X-MoE explicitly incorporates the absolute disagreement between the two expert logits:
-
-```text
-| Expert 1 logits - Expert 2 logits |
-```
-
-Disagreement is supplied to the outer gate together with the two expert outputs and degree information.
-
-#### Connectivity-aware and isolate-safe routing
-
-A key design feature is that graph-based contribution is explicitly suppressed for isolated nodes. If a node has zero degree, the graph contribution is set to zero so the isolated-node prediction reduces to the feature pathway rather than relying on an uninformative neighbourhood representation.
-
-#### Class-specific mixture weights
-
-X-MoE does not use one global mixture weight. It learns separate routing weights for Normal, Phishing, and Scamming so the relative importance of the experts can vary by class.
-
-Routing weights are interpreted as model diagnostics, not as causal explanations.
-
-### Why the X-MoE Architecture Helps Fraud Detection
-
-The central motivation is that no single source of evidence is equally reliable for every Ethereum address.
-
-For a strongly connected address, graph relationships may contain useful fraud evidence. For an isolated or weakly connected address, node-level features may be more informative than message passing. For difficult minority-class cases, expert disagreement can help the gate decide which evidence source should receive greater weight.
-
-X-MoE therefore combines:
-
-1. feature/task-aware evidence;
-2. graph-structural evidence;
-3. disagreement between experts; and
-4. node connectivity.
-
-This produces an adaptive decision mechanism rather than applying the same graph-learning rule to every address.
-
-## Main Clean-Protocol Results
-
-The verified deterministic CPU experiment uses seeds 100–109 and 300 epochs per seed.
-
-| Model | Accuracy (mean ± std) | Macro-F1 (mean ± std) |
-|---|---:|---:|
-| GCN | 0.881123 ± 0.032853 | 0.363689 ± 0.020485 |
-| GAT | 0.591693 ± 0.033604 | 0.266492 ± 0.017115 |
-| MLP | 0.967175 ± 0.008147 | 0.371498 ± 0.008483 |
-| GraphSAGE | 0.988188 ± 0.002071 | 0.491619 ± 0.033561 |
-| **X-MoE** | **0.996942 ± 0.001153** | **0.657494 ± 0.071187** |
-
-Relative to GraphSAGE, X-MoE improves mean Macro-F1 by:
-
-```text
-0.657494 - 0.491619 = 0.165875
-```
-
-which is approximately:
-
-```text
-+16.59 percentage points
-+33.74% relative improvement
-```
-
-Accuracy is reported for completeness. Because the dataset is extremely imbalanced, Macro-F1 is the primary comparison metric.
-
-### Class-Specific F1
-
-| Model | Normal F1 | Phishing F1 | Scamming F1 |
-|---|---:|---:|---:|
-| GCN | 0.9367 | 0.0132 | 0.1412 |
-| GAT | 0.7430 | 0.0036 | 0.0528 |
-| MLP | 0.9837 | 0.0434 | 0.0874 |
-| GraphSAGE | 0.9944 | 0.1023 | 0.3782 |
-| **X-MoE** | **0.9988** | **0.5374** | **0.4363** |
-
-The largest class-specific improvement is observed for Phishing.
-
-## Paired Statistical Comparison
-
-The clean baseline analysis uses paired seed-level Macro-F1, two-sided exact Wilcoxon signed-rank tests, Holm correction across the four baseline comparisons, paired effect size d_z, and paired mean-difference confidence intervals. The ablation analysis instead uses an exact paired sign-flip test with Holm correction across seven comparisons; these are separate test families.
-
-| Comparison | Δ Macro-F1 | 95% CI | Holm-adjusted p | d_z | X-MoE wins |
-|---|---:|---:|---:|---:|---:|
-| X-MoE vs GCN | 0.2938 | [0.2450, 0.3426] | 0.007812 | 4.309 | 10/10 |
-| X-MoE vs GAT | 0.3910 | [0.3382, 0.4438] | 0.007812 | 5.299 | 10/10 |
-| X-MoE vs MLP | 0.2860 | [0.2387, 0.3333] | 0.007812 | 4.323 | 10/10 |
-| X-MoE vs GraphSAGE | 0.1659 | [0.1216, 0.2101] | 0.007812 | 2.681 | 10/10 |
-
-## CPU Reproduction Status
-
-The CPU experiments were reproduced using:
-
-- Python 3.11.9
-- pip 24.0
-- PyTorch 2.14.1+cpu
-- PyTorch Geometric 2.8.0.post1
-- NumPy 2.4.6
-- Pandas 3.0.6
-- scikit-learn 1.9.1
-- SciPy 1.17.1
-- CPU execution
-- clean protocol
-- 300 epochs
-- seeds 100–109
-
-## Repository Structure
-
-```text
-xmoe-ethereum-fraud-detection/
-|
-|-- README.md
-|-- REPRODUCIBILITY.md
-|-- REPRODUCTION_METADATA_CPU.txt
-|-- REPRODUCTION_METADATA_GPU.txt
-|-- requirements-cpu-tested.txt
-|-- requirements-gpu-tested.txt
-|-- .gitignore
-|-- .streamlit/
-|
-|-- src/
-|   |-- reproduce.py
-|   `-- models/
-|       |-- __init__.py
-|       |-- gcn.py
-|       |-- gat.py
-|       |-- graphsage.py
-|       |-- mlp.py
-|       `-- xmoe.py
-|
-|-- experiments/
-|   |-- README.md
-|   |-- ablation.py
-|   `-- strict_inductive.py
-|
-|-- docs/
-|   `-- figures/
-|       `-- architecture_comparison.png
-|
-|-- results/
-|   |-- paper/
-|   |-- reference/
-|   `-- lambda_sensitivity/
-|
-|-- demo/
-|   |-- streamlit_app.py
-|   |-- requirements.txt
-|   `-- data/
-|
-|-- interactive_demo/
-|   |-- README.md
-|   |-- engine.py
-|   |-- prediction_page.py
-|   |-- manifest.json
-|   |-- validation_reference.json
-|   |-- predictor_models/
-|   |-- checkpoints_reference/
-|   `-- dataset/
-|
-`-- upstream-paper/        # created locally; not committed
-```
-
-`src/models/__init__.py` only exposes model classes to Python. It is not an experiment runner.
-
-The main reproduction entry point is `src/reproduce.py`. Manuscript-specific ablation and strict-inductive experiments are under `experiments/`.
-
-# Step-by-Step CPU Reproduction
-
-## 1. Clone This Repository
-
-```powershell
-git clone https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git
-cd xmoe-ethereum-fraud-detection
-```
-
-## 2. Python Environment
-
-The verified CPU environment uses Python 3.11.9.
-
-Check installed Python versions:
-
-```powershell
-py -0p
-```
-
-Create the virtual environment:
-
-```powershell
-py -3.11 -m venv .venv-cpu
-```
-
-If PowerShell blocks activation:
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-```
-
-Activate:
-
-```powershell
-.\.venv-cpu\Scripts\Activate.ps1
-```
-
-Verify:
-
-```powershell
-python --version
-python -m pip --version
-```
-
-Expected:
-
-```text
-Python 3.11.9
-pip 24.0
-```
-
-For strict reproduction of the tested CPU environment, do not upgrade pip before installing the tested requirements.
-
-## 3. Install CPU Dependencies
-
-```powershell
-python -m pip install -r .\requirements-cpu-tested.txt
-```
-
-Verify the main packages:
-
-```powershell
-python -c "import torch, torch_geometric, numpy, pandas, sklearn, scipy; print('torch=' + torch.__version__); print('torch-geometric=' + torch_geometric.__version__); print('numpy=' + numpy.__version__); print('pandas=' + pandas.__version__); print('sklearn=' + sklearn.__version__); print('scipy=' + scipy.__version__); print('cuda=' + str(torch.cuda.is_available()))"
-```
-
-Expected tested CPU configuration:
-
-```text
-torch=2.14.1+cpu
-torch-geometric=2.8.0.post1
-numpy=2.4.6
-pandas=3.0.6
-sklearn=1.9.1
-scipy=1.17.1
-cuda=False
-```
-
-`pip freeze` records the installed package metadata as `torch==2.14.1`, while the PyTorch runtime reports `torch.__version__ == 2.14.1+cpu`. These refer to the same verified CPU environment.
-
-A PyTorch Geometric `torch.jit.script` FutureWarning may appear. It does not prevent the experiments from running.
-
-## 4. Obtain the BLTE Dataset Artifacts
-
-Clone the upstream repository:
-
-```powershell
-git clone https://github.com/salam-ammari/Graph-Neural-Network-Based-Fraudulent-Address-Classification-in-Ethereum-Network.git upstream-paper
-```
-
-Required artifacts:
+Required local files:
 
 ```text
 upstream-paper/BLTE_multiclass_graph.pt
 upstream-paper/BLTE_multiclass_v2.csv
 ```
 
-Verify SHA-256:
-
-```powershell
-Get-FileHash `
-  .\upstream-paper\BLTE_multiclass_graph.pt, `
-  .\upstream-paper\BLTE_multiclass_v2.csv `
-  -Algorithm SHA256
-```
-
-Expected hashes:
+Verified SHA-256 hashes:
 
 ```text
 BLTE_multiclass_graph.pt
@@ -504,12 +133,46 @@ BLTE_multiclass_v2.csv
 02E376DDD98BA595372F19731FE5E51BBC90BF897B2A52B3C8BB98E786423B11
 ```
 
-The upstream dataset directory is intentionally excluded from this repository.
+The repository does not reconstruct the raw Ethereum data-collection or labelling pipeline.
 
-## 5. Verify Available Models
+## 4. Main clean protocol
+
+For each seed, the clean protocol:
+
+1. generates a fresh stratified 70/15/15 train/validation/test split;
+2. fits `StandardScaler` on training nodes only;
+3. applies the scaler to validation and test nodes;
+4. retains the released BLTE topology across partitions;
+5. trains for 300 epochs;
+6. selects the checkpoint with the highest validation Macro-F1;
+7. evaluates once on the held-out test partition.
+
+Final seeds:
+
+```text
+100,101,102,103,104,105,106,107,108,109
+```
+
+This clean protocol is topology-visible. It should not be described as strict node-inductive.
+
+## 5. Reference X-MoE configuration
+
+```text
+base_loss = weighted_ce
+expert_loss_weight = 0.25
+scam_specialist_loss_weight = 0.5
+x_moe_expert_task_loss_weight = 1.0
+x_moe_normal_phishing_penalty = 0.30
+```
+
+The value `0.30` is the manuscript reference setting, not a uniquely optimal coefficient.
+
+## 6. Main reproduction commands
+
+Check all model choices:
 
 ```powershell
-python .\src\reproduce.py --help
+python .\src\runner.py --help
 ```
 
 Expected model choices:
@@ -518,115 +181,10 @@ Expected model choices:
 {gcn,gat,graphsage,mlp,x_moe_gnn}
 ```
 
-## 6. Smoke Tests
-
-Smoke tests use seed 100 and 10 epochs. They verify that each training pipeline runs successfully. They are not final performance measurements.
-
 ### MLP
 
 ```powershell
-python .\src\reproduce.py `
-  --model mlp `
-  --protocol clean `
-  --seeds 100 `
-  --epochs 10 `
-  --device cpu `
-  --upstream .\upstream-paper `
-  --output-dir .\results\smoke_mlp `
-  --no-save-checkpoints `
-  --no-save-predictions
-```
-
-### GCN
-
-```powershell
-python .\src\reproduce.py `
-  --model gcn `
-  --protocol clean `
-  --seeds 100 `
-  --epochs 10 `
-  --device cpu `
-  --upstream .\upstream-paper `
-  --output-dir .\results\smoke_gcn `
-  --no-save-checkpoints `
-  --no-save-predictions
-```
-
-### GAT
-
-```powershell
-python .\src\reproduce.py `
-  --model gat `
-  --protocol clean `
-  --seeds 100 `
-  --epochs 10 `
-  --device cpu `
-  --upstream .\upstream-paper `
-  --output-dir .\results\smoke_gat `
-  --no-save-checkpoints `
-  --no-save-predictions
-```
-
-### GraphSAGE
-
-```powershell
-python .\src\reproduce.py `
-  --model graphsage `
-  --protocol clean `
-  --seeds 100 `
-  --epochs 10 `
-  --device cpu `
-  --upstream .\upstream-paper `
-  --output-dir .\results\smoke_graphsage `
-  --no-save-checkpoints `
-  --no-save-predictions
-```
-
-### X-MoE
-
-```powershell
-python .\src\reproduce.py `
-  --model x_moe_gnn `
-  --protocol clean `
-  --seeds 100 `
-  --epochs 10 `
-  --device cpu `
-  --upstream .\upstream-paper `
-  --x-moe-normal-phishing-penalty 0.30 `
-  --output-dir .\results\smoke_xmoe `
-  --no-save-checkpoints `
-  --no-save-predictions
-```
-
-### Smoke-Test Reference Results
-
-The following deterministic CPU values are implementation checks, not final scientific performance evidence.
-
-| Model | Accuracy | Macro-F1 |
-|---|---:|---:|
-| GCN | 0.064993 | 0.041525 |
-| GAT | 0.528982 | 0.242811 |
-| GraphSAGE | 0.001461 | 0.011117 |
-| **X-MoE** | **0.926883** | **0.390384** |
-
-The documented historical smoke reference does not include MLP. For MLP, successful execution and output generation are the implementation checks; final MLP performance is reported from the 10-seed experiment below.
-
-## 7. Full 10-Seed CPU Reproduction
-
-All final CPU experiments use:
-
-```text
-protocol = clean
-seeds = 100,101,102,103,104,105,106,107,108,109
-epochs = 300
-device = cpu
-deterministic = enabled
-```
-
-### MLP
-
-```powershell
-python .\src\reproduce.py `
+python .\src\runner.py `
   --model mlp `
   --protocol clean `
   --seeds 100,101,102,103,104,105,106,107,108,109 `
@@ -634,22 +192,13 @@ python .\src\reproduce.py `
   --device cpu `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\final_mlp `
-  --save-checkpoints `
-  --save-predictions
-```
-
-Reference summary:
-
-```text
-Accuracy = 0.967175 ± 0.008147
-Macro-F1 = 0.371498 ± 0.008483
+  --output-dir .\results\mlp
 ```
 
 ### GCN
 
 ```powershell
-python .\src\reproduce.py `
+python .\src\runner.py `
   --model gcn `
   --protocol clean `
   --seeds 100,101,102,103,104,105,106,107,108,109 `
@@ -657,22 +206,13 @@ python .\src\reproduce.py `
   --device cpu `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\final_gcn `
-  --save-checkpoints `
-  --save-predictions
-```
-
-Reference summary:
-
-```text
-Accuracy = 0.881123 ± 0.032853
-Macro-F1 = 0.363689 ± 0.020485
+  --output-dir .\results\gcn
 ```
 
 ### GAT
 
 ```powershell
-python .\src\reproduce.py `
+python .\src\runner.py `
   --model gat `
   --protocol clean `
   --seeds 100,101,102,103,104,105,106,107,108,109 `
@@ -680,22 +220,13 @@ python .\src\reproduce.py `
   --device cpu `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\final_gat `
-  --save-checkpoints `
-  --save-predictions
-```
-
-Reference summary:
-
-```text
-Accuracy = 0.591693 ± 0.033604
-Macro-F1 = 0.266492 ± 0.017115
+  --output-dir .\results\gat
 ```
 
 ### GraphSAGE
 
 ```powershell
-python .\src\reproduce.py `
+python .\src\runner.py `
   --model graphsage `
   --protocol clean `
   --seeds 100,101,102,103,104,105,106,107,108,109 `
@@ -703,22 +234,13 @@ python .\src\reproduce.py `
   --device cpu `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\final_graphsage `
-  --save-checkpoints `
-  --save-predictions
-```
-
-Reference summary:
-
-```text
-Accuracy = 0.988188 ± 0.002071
-Macro-F1 = 0.491619 ± 0.033561
+  --output-dir .\results\graphsage
 ```
 
 ### X-MoE
 
 ```powershell
-python .\src\reproduce.py `
+python .\src\runner.py `
   --model x_moe_gnn `
   --protocol clean `
   --seeds 100,101,102,103,104,105,106,107,108,109 `
@@ -727,66 +249,64 @@ python .\src\reproduce.py `
   --deterministic `
   --upstream .\upstream-paper `
   --x-moe-normal-phishing-penalty 0.30 `
-  --output-dir .\results\final_xmoe `
-  --save-checkpoints `
-  --save-predictions
+  --output-dir .\results\xmoe
 ```
 
-Reference summary:
+## 7. Verified clean-protocol results
+
+| Model | Accuracy mean | Accuracy std | Macro-F1 mean | Macro-F1 std |
+|---|---:|---:|---:|---:|
+| GCN | 0.881123 | 0.032853 | 0.363689 | 0.020485 |
+| GAT | 0.591693 | 0.033604 | 0.266492 | 0.017115 |
+| MLP | 0.967175 | 0.008147 | 0.371498 | 0.008483 |
+| GraphSAGE | 0.988188 | 0.002071 | 0.491619 | 0.033561 |
+| **X-MoE** | **0.996942** | **0.001153** | **0.657494** | **0.071187** |
+
+Machine-readable clean result summaries are stored under:
 
 ```text
-Accuracy = 0.996942 ± 0.001153
-Macro-F1 = 0.657494 ± 0.071187
+results/tables/
 ```
 
-## 8. Clean Protocol
+## 8. Paired statistical comparison
 
-For every seed, the `clean` protocol:
+The manuscript uses paired seed-level Macro-F1, two-sided exact Wilcoxon signed-rank tests, Holm correction across the four baseline comparisons, paired effect size `d_z`, and paired mean-difference confidence intervals.
 
-1. regenerates a stratified 70/15/15 train/validation/test split;
-2. fits `StandardScaler` on training nodes only;
-3. applies the fitted scaler to validation and test nodes;
-4. retains the released BLTE topology across node partitions;
-5. trains for 300 epochs;
-6. selects the checkpoint with the highest validation Macro-F1; and
-7. evaluates once on the held-out test partition.
+| Comparison | Mean difference | Holm-adjusted p | d_z | X-MoE wins |
+|---|---:|---:|---:|---:|
+| X-MoE vs GCN | 0.293805 | 0.007812 | 4.309086 | 10/10 |
+| X-MoE vs GAT | 0.391002 | 0.007812 | 5.298819 | 10/10 |
+| X-MoE vs MLP | 0.285995 | 0.007812 | 4.323348 | 10/10 |
+| X-MoE vs GraphSAGE | 0.165875 | 0.007812 | 2.680799 | 10/10 |
 
-This main protocol is topology-visible because the released topology is retained. It should not be described as strict node-inductive.
 
-## 9. Interpretation of the CPU Results
+## 9. Normal–Phishing coefficient sensitivity
 
-The primary comparison is between X-MoE and GraphSAGE, the strongest conventional GNN baseline by mean Macro-F1.
+Evaluated values:
 
 ```text
-GraphSAGE Macro-F1 = 0.491619
-X-MoE Macro-F1     = 0.657494
-
-Absolute improvement = 0.165875
-Percentage-point improvement = 16.59
-Relative improvement ≈ 33.74%
+0.00, 0.10, 0.30, 0.50, 1.00
 ```
 
-The MLP result provides an additional feature-only control. Its mean Macro-F1 of 0.371498 exceeds GCN in this sparse graph setting but remains substantially below GraphSAGE and X-MoE.
+| λ_NP | Macro-F1 | Phishing F1 | Scamming F1 |
+|---:|---:|---:|---:|
+| 0.00 | 0.5526 ± 0.0451 | 0.2379 ± 0.0766 | 0.4226 ± 0.1082 |
+| 0.10 | 0.6489 ± 0.0662 | 0.5438 ± 0.1363 | 0.4044 ± 0.1007 |
+| 0.30 | 0.6575 ± 0.0712 | 0.5374 ± 0.1433 | 0.4363 ± 0.1010 |
+| 0.50 | 0.6580 ± 0.0746 | 0.5551 ± 0.1647 | 0.4203 ± 0.1174 |
+| 1.00 | 0.6523 ± 0.0776 | 0.5402 ± 0.1569 | 0.4180 ± 0.1255 |
 
-## 10. X-MoE Reference Training Configuration
+The main sensitivity occurs when the objective is removed. Positive values from 0.10 to 1.00 form a broad high-performing region.
+
+Machine-readable summary:
 
 ```text
-base_loss = weighted_ce
-expert_loss_weight = 0.25
-scam_specialist_loss_weight = 0.50
-x_moe_expert_task_loss_weight = 1.00
-x_moe_normal_phishing_penalty = 0.30
-optimizer = Adam
-learning_rate = 0.001
-weight_decay = 0.0005
-hidden_channels = 64
-dropout = 0.5
-outer_gate_hidden = 32
+results/sensitivity/lambda/summary.csv
 ```
 
-The reference Normal–Phishing coefficient λ_NP = 0.30 is a manuscript reference setting, not a uniquely optimal coefficient.
+The sensitivity experiments can be reproduced using `src/runner.py` by changing `--x-moe-normal-phishing-penalty` while keeping the remaining clean-protocol settings fixed.
 
-## 11. Ablation Study: A0–A7
+## 10. Ablation study
 
 Runner:
 
@@ -794,11 +314,7 @@ Runner:
 experiments/ablation.py
 ```
 
-Check available options:
-
-```powershell
-python .\experiments\ablation.py --help
-```
+This runner implements A0–A7 and also reports connected/isolated subgroup metrics.
 
 Reference results:
 
@@ -813,48 +329,35 @@ Reference results:
 | A6 No Normal–Phishing objective | 0.5526 | -0.1049 |
 | A7 Fixed 50:50 outer mixture | 0.6912 | +0.0337 |
 
-A0 is the reference architecture, not the numerically best ablation. A3, A4, and A7 obtain higher mean Macro-F1 than A0. Only A6 shows a family-wise significant overall degradation after Holm correction, indicating that removing the Normal–Phishing objective has the clearest adverse effect in this experiment.
+Only A6 shows a family-wise significant overall degradation after Holm correction. The reference A0 configuration should not be described as numerically optimal.
 
-## 12. Connectivity-Stratified Analysis
+Check runner options with:
 
-The ablation runner also reports connected/isolated subgroup behaviour. No separate connectivity runner is required.
-
-| Metric | Full X-MoE | No isolate masking |
-|---|---:|---:|
-| Connected-node Macro-F1 | 0.6524 | 0.7273 |
-| Connected Phishing F1 | 0.5374 | 0.5576 |
-| Connected Scamming F1 | 0.4363 | 0.6301 |
-| Isolated Normal FPR | 0.000000 | 0.000307 |
-
-Removing isolate masking improves connected-node discrimination but introduces a small false-positive cost among isolated Normal addresses. All fraud test nodes in this analysis are connected, so the isolated subgroup contains only Normal nodes. The result is therefore interpreted as a performance–safety trade-off rather than simple superiority of either configuration.
-
-## 13. Normal–Phishing Coefficient Sensitivity
-
-The sensitivity experiments can be reproduced with `src/reproduce.py` by changing:
-
-```text
---x-moe-normal-phishing-penalty
+```powershell
+python .\experiments\ablation.py --help
 ```
 
-while keeping the remaining clean-protocol settings fixed.
+## 11. Connectivity-stratified analysis
 
-| λ_NP | Macro-F1 | Phishing F1 | Scamming F1 |
-|---:|---:|---:|---:|
-| 0.00 | 0.5526 ± 0.0451 | 0.2379 ± 0.0766 | 0.4226 ± 0.1082 |
-| 0.10 | 0.6489 ± 0.0662 | 0.5438 ± 0.1363 | 0.4044 ± 0.1007 |
-| **0.30** | 0.6575 ± 0.0712 | 0.5374 ± 0.1433 | **0.4363 ± 0.1010** |
-| 0.50 | **0.6580 ± 0.0746** | **0.5551 ± 0.1647** | 0.4203 ± 0.1174 |
-| 1.00 | 0.6523 ± 0.0776 | 0.5402 ± 0.1569 | 0.4180 ± 0.1255 |
+The ablation runner contains the connectivity-stratified evaluation used for the A0 vs A4 analysis.
 
-The main sensitivity occurs when the objective is removed. Positive values from 0.10 to 1.00 form a broad high-performing region. λ_NP = 0.30 is retained as the reference setting and is not claimed as the unique optimum.
-
-Machine-readable summary:
+Connected-node results:
 
 ```text
-results/lambda_sensitivity/summary.csv
+A0 Macro-F1 = 0.6524
+A4 Macro-F1 = 0.7273
 ```
 
-## 14. STRICT-INDUCTIVE Evaluation
+For isolated Normal nodes:
+
+```text
+A0 false-positive rate = 0.000000
+A4 false-positive rate = 0.000307
+```
+
+All fraud test nodes in this analysis are connected. Therefore the isolated subgroup contains only Normal test nodes, and the A0/A4 result is interpreted as a performance–safety trade-off.
+
+## 12. STRICT-INDUCTIVE protocol
 
 Runner:
 
@@ -874,283 +377,216 @@ Code protocol key:
 strict_inductive
 ```
 
-Check runner options:
-
-```powershell
-python .\experiments\strict_inductive.py --help
-```
-
-Protocol visibility:
+The protocol preserves the released edge direction and does not synthesise reverse edges.
 
 - Training: training features and train–train topology only.
-- Validation: train + validation features; train–train, train–validation and validation–train edges; excludes validation–validation edges and all test nodes/edges.
-- Test: train + test features; train–train, train–test and test–train edges; excludes test–test edges and all validation nodes/edges.
-- The released edge direction is preserved.
-- No synthetic reverse edges are added.
-- Hard leakage assertions are included in the runner.
+- Validation: train + validation features; train–train, train–validation and validation–train edges; no validation–validation edges and no test nodes/edges.
+- Test: train + test features; train–train, train–test and test–train edges; no test–test edges and no validation nodes/edges.
+
+Hard leakage assertions are included in the runner.
 
 Verified Macro-F1:
 
-| Model | STRICT-INDUCTIVE Macro-F1 |
+| Model | Mean ± std |
 |---|---:|
 | MLP | 0.371498 ± 0.008483 |
 | GCN | 0.358331 ± 0.020646 |
 | GAT | 0.277051 ± 0.023603 |
 | GraphSAGE | 0.440139 ± 0.020355 |
-| **X-MoE** | **0.547783 ± 0.058151** |
+| X-MoE | 0.547783 ± 0.058151 |
 
-X-MoE exceeds MLP, GCN, GAT and GraphSAGE in all ten matched seeds under this protocol. Each exact paired Wilcoxon comparison has raw p = 0.001953125 and Holm-adjusted p = 0.0078125 across four baselines.
+X-MoE exceeds MLP, GCN, GAT and GraphSAGE in all ten matched strict seeds. Holm correction across four baselines gives p=0.0078125 for each comparison. MLP Macro-F1 is identical between clean and strict for every seed.
 
-MLP was run separately for all ten strict seeds. Its seed-level Macro-F1 equals its clean result for every seed; MLP does not use graph edges. The five-model strict evidence is in `results/reference/blte_strict_five_models/strict_50_runs.csv`.
+This experiment is a topology-visibility sensitivity check. It must not be presented as evidence of temporal, cross-chain, or cross-dataset generalisation, and the clean-to-strict change should not be described as proof of leakage.
 
-![Five-model clean and strict comparison](docs/figures/clean_vs_strict_five_models.svg)
-
-The clean-to-strict family contains five models. Adjusted p-values are MLP 1.000000, GCN 0.644531, GAT 0.058594, GraphSAGE 0.009766 and X-MoE 0.015625. GAT's increase is not significant at 0.05. GraphSAGE and X-MoE decrease significantly.
-
-Run all five strict models from the verified Python environment (this performs training):
+Check runner options with:
 
 ```powershell
-foreach ($model in @("mlp", "gcn", "gat", "graphsage", "x_moe_gnn")) {
-    python .\experiments\strict_inductive.py --model $model --seeds 100,101,102,103,104,105,106,107,108,109 --epochs 300 --device cpu --deterministic --base-loss weighted_ce --no-calibrate-class-bias --x-moe-normal-phishing-penalty 0.30 --save-predictions --upstream .\upstream-paper --output-dir ".\results\strict_fresh\$model"
-    if ($LASTEXITCODE -ne 0) { throw "Failed: $model" }
-}
+python .\experiments\strict_inductive.py --help
 ```
 
-Use a new output directory for a fresh experiment. Existing verified runs do not need repeating. Check or rebuild the curated tables from the frozen reference CSVs without training:
+## 13. Result locations
 
-```powershell
-python .\experiments\summarize_five_model_results.py
-python .\experiments\summarize_five_model_results.py --apply
-```
-
-These commands rebuild tables from archived evidence; they do not automatically promote a new experiment. For the strict minority comparison against GraphSAGE, Holm correction is applied separately across Phishing F1/AP and Scamming F1/AP: adjusted p = 0.0078125, 0.0078125, 0.275390625 and 0.02734375, respectively.
-
-STRICT-INDUCTIVE is a topology-visibility sensitivity analysis. It is not evidence of temporal, cross-chain, or cross-dataset generalisation, and the clean-to-strict change should not be presented as proof of leakage.
-
-## 15. Reproducibility Scope
-
-This repository reproduces experiments using processed BLTE artifacts released by the upstream project. It does not independently reconstruct the complete BLTE dataset from raw blockchain data.
-
-The clean protocol prevents feature-scaling leakage by fitting the scaler on training nodes only, while retaining the released topology. STRICT-INDUCTIVE separately evaluates a stricter node-inductive visibility condition.
-
-Exact bit-for-bit equality across every machine is not guaranteed. Small differences can arise from operating system, CPU/GPU implementation, numerical libraries, thread scheduling, and floating-point behaviour.
-
-## 16. Generated Outputs
-
-When checkpoints and predictions are enabled, the main runner generates per-seed model checkpoints and prediction files. These generated files are intentionally excluded from version control unless they are curated reference artifacts.
-
-Manuscript-facing summaries are stored under:
+Manuscript-facing summaries:
 
 ```text
-results/paper/
+results/tables/
 ```
 
-Reference summaries are stored under:
+Reference tables:
 
 ```text
-results/reference/
 ```
 
 Normal–Phishing sensitivity summary:
 
 ```text
-results/lambda_sensitivity/summary.csv
+results/sensitivity/lambda/summary.csv
 ```
 
 Important manuscript-facing files include:
 
 ```text
-results/paper/clean_baseline_10seed.csv
-results/paper/minority_class_summary.csv
-results/paper/ablation_summary.csv
-results/paper/connectivity_analysis.csv
-results/paper/efficiency_summary.csv
-results/paper/strict_inductive_10seed.csv
-results/paper/clean_to_strict_summary.csv
-results/paper/statistical_tests.csv
+results/tables/clean_baseline_10seed.csv
+results/tables/minority_class_summary.csv
+results/tables/ablation_summary.csv
+results/tables/connectivity_analysis.csv
+results/tables/efficiency_summary.csv
+results/tables/strict_inductive_10seed.csv
+results/tables/clean_to_strict_summary.csv
+results/tables/statistical_tests.csv
 ```
 
-## 17. Reproduction Metadata
+## 14. Reproducibility expectations
 
-Exact verified environment details are recorded in:
+Exact bit-for-bit equality across all hardware and operating systems is not guaranteed. Small numerical differences may arise from CPU architecture, operating system, numerical libraries, thread scheduling, and floating-point implementation details.
+
+The principal reproduced clean-protocol ordering is:
 
 ```text
-REPRODUCTION_METADATA_CPU.txt
-REPRODUCTION_METADATA_GPU.txt
-REPRODUCIBILITY.md
-requirements-cpu-tested.txt
-requirements-gpu-tested.txt
+X-MoE > GraphSAGE > MLP ≈ GCN > GAT
 ```
 
-## 18. Live Research Demo
+with X-MoE obtaining the highest mean Macro-F1 and winning all ten paired clean-protocol seeds against each evaluated baseline.
 
-A public X-MoE research demo is available on Streamlit Community Cloud:
+## 15. GPU reference results
 
-**[Open the X-MoE Ethereum Fraud Detection Demo](https://xmoe-ethereum-fraud-detection.streamlit.app/)**
-
-The repository now contains the latest demo source together with the manuscript-aligned research code. The remote repository keeps two long-lived branches:
+The repository also contains a previously verified GPU environment and reference results:
 
 ```text
-main   # complete current research source of truth
-demo/streamlit   # deployment/demo branch
+requirements-gpu.txt
+ENVIRONMENT_GPU.txt
+results/cpu_gpu/gpu_10seed_summary.csv
 ```
 
-The demo provides:
+These GPU results predate the manuscript-aligned MLP comparison and therefore cover GCN, GAT, GraphSAGE, and X-MoE only.
 
-- an overview of the multi-class Ethereum fraud detection problem;
-- architecture comparisons;
-- X-MoE architecture exploration;
-- verified model metrics;
-- class-wise performance;
-- graph exploration;
-- model explanation diagnostics;
-- reference prediction/checkpoint assets; and
-- research communication material.
+## 16. Demo
 
-Relevant source locations include:
+https://xmoe-ethereum-fraud-detection.streamlit.app/
+
+The demo is intended for research communication and model exploration. Quantitative claims in the manuscript are based on controlled multi-seed experiments rather than individual demo predictions.
+
+## Five-model result alignment
+
+See results/tables/AUDIT_STATUS.md for evidence limitations. Historical alignment documents are retained in the local backup. Run `python experiments/summarize_results.py` to check the archived five-model tables without training. Clean-to-strict Holm correction covers five models: GAT p=0.05859375 is not significant; GraphSAGE p=0.009765625 and X-MoE p=0.015625 indicate decreases. The strict minority family contains four F1/AP metrics; recomputed Scamming F1 p=0.275390625 remains non-significant. The four-model CPU/GPU metadata files are historical environment comparisons and are not extended to imply MLP GPU runs.
+
+
+## Ablation and evaluation details
+
+# Experiment Runners
+
+This directory contains the manuscript-specific validation runners that complement the main reproduction entry point in `src/runner.py`.
+
+## Entry points
+
+- `ablation.py` — A0–A7 X-MoE ablation study, including connectivity-stratified evaluation.
+- `strict_inductive.py` — five-model STRICT-INDUCTIVE evaluation with restricted topology visibility.
+- `summarize_five_model_results.py` — checks/rebuilds paper and demo tables from frozen reference CSVs without training.
+
+The main five-model clean-protocol comparison is run through `src/runner.py` using:
 
 ```text
-demo/
-interactive_demo/
-.streamlit/
+{gcn,gat,graphsage,mlp,x_moe_gnn}
 ```
 
-The demo is intended for research communication, reproducibility, and model exploration. Quantitative manuscript claims are based on controlled multi-seed experiments, not on individual demo predictions. The demo is not a production service for certifying whether an arbitrary Ethereum address is safe or fraudulent.
+## Ablation variants
 
-# GPU Reproduction Results
+| ID | Display label | Change from A0 |
+|---|---|---|
+| A0 | Full X-MoE | Reference configuration |
+| A1 | Conflict-Aware only | Removes the external GraphSAGE Expert |
+| A2 | GraphSAGE-expert configuration | Removes the Conflict-Aware Multitask Expert |
+| A3 | Shared routing | Replaces class-specific routing with shared routing |
+| A4 | No isolate masking | Removes isolate-safe suppression of graph contribution |
+| A5 | No Scamming specialist | Removes the Scamming-vs-rest specialist objective |
+| A6 | No Normal-Phishing objective | Removes the connected-Normal Phishing objective |
+| A7 | Fixed 50:50 outer mixture | Uses fixed outer expert weights on connected nodes |
 
-GPU reproduction was independently performed using the same clean protocol, seeds 100–109, and 300 epochs.
+The manuscript does not claim that every component is individually necessary. A6 is the strongest harmful ablation and the only overall degradation that remains family-wise significant after Holm correction. A3, A4, and A7 can obtain higher mean Macro-F1 than A0, so they must be interpreted as architecture trade-offs rather than evidence that A0 is numerically optimal.
 
-Verified historical GPU environment:
+## Main experimental settings
+
+Unless otherwise stated, manuscript experiments use:
+
+- stratified 70/15/15 train/validation/test splits regenerated per seed;
+- seeds 100–109;
+- 300 epochs;
+- training-only feature standardisation;
+- deterministic execution;
+- validation checkpoint selection by highest Macro-F1;
+- released BLTE graph topology for the clean protocol.
+
+Reference X-MoE objective weights:
 
 ```text
-GPU: NVIDIA GeForce GTX 1660 SUPER
-VRAM: 6 GB
-NVIDIA Driver: 595.95
-PyTorch: 2.14.1+cu126
-CUDA runtime: 12.6
-PyTorch Geometric: 2.8.0.post1
-Python: 3.11.9
+expert_loss_weight = 0.25
+scam_specialist_loss_weight = 0.50
+x_moe_expert_task_loss_weight = 1.00
+x_moe_normal_phishing_penalty = 0.30
 ```
 
-## Install the Verified GPU Environment
+## Connectivity analysis
 
-```powershell
-python -m pip install -r .\requirements-gpu-tested.txt --extra-index-url https://download.pytorch.org/whl/cu126
-```
+Connectivity-stratified evaluation is implemented in `ablation.py`; a separate connectivity runner is not required.
 
-Verify:
+The A0 vs A4 analysis is interpreted as a trade-off. Removing isolate masking improves connected-node discrimination in the reported experiment, but introduces a small false-positive cost among isolated Normal addresses.
 
-```powershell
-python -c "import torch; print('torch=', torch.__version__); print('cuda runtime=', torch.version.cuda); print('cuda available=', torch.cuda.is_available())"
-```
+## STRICT-INDUCTIVE
 
-Expected tested configuration:
+`strict_inductive.py` implements the manuscript's strict node-inductive sensitivity protocol.
+
+For each evaluation stage, only admissible nodes and edges are exposed:
+
+- training: training-node features and train–train topology;
+- validation: training + validation features, with train–train and train↔validation topology, excluding validation–validation and all test information;
+- test: training + test features, with train–train and train↔test topology, excluding test–test and all validation information.
+
+The released edge direction is preserved and reverse edges are not synthesised.
+
+STRICT-INDUCTIVE is a sensitivity analysis of topology visibility. It should not be described as evidence of temporal, cross-chain, or cross-dataset generalisation.
+
+## Normal–Phishing coefficient sensitivity
+
+The reference coefficient is `lambda_NP = 0.30`. The evaluated values are:
 
 ```text
-torch=2.14.1+cu126
-cuda runtime=12.6
-cuda available=True
+0.00, 0.10, 0.30, 0.50, 1.00
 ```
 
-## Reproduce the Historical GPU Experiments
+The primary finding is that removing the objective (`lambda_NP = 0`) causes a substantial reduction, whereas positive values from 0.10 to 1.00 form a broad high-performing region. The value 0.30 is therefore retained as the reference setting, not claimed as a unique optimum.
 
-The historical GPU reference predates the manuscript-aligned MLP comparison and therefore contains GCN, GAT, GraphSAGE, and X-MoE only.
+Machine-readable sensitivity results are available in `results/sensitivity/lambda/summary.csv`.
 
-### GCN
+## Dataset scope
 
-```powershell
-python .\src\reproduce.py `
-  --model gcn `
-  --protocol clean `
-  --seeds 100,101,102,103,104,105,106,107,108,109 `
-  --epochs 300 `
-  --device cuda `
-  --deterministic `
-  --upstream .\upstream-paper `
-  --output-dir .\results\final_gpu_gcn `
-  --save-checkpoints `
-  --save-predictions
-```
+The BLTE dataset is not redistributed by this repository. The study uses the released processed BLTE artifacts and does not independently reconstruct the raw Ethereum collection or label-generation pipeline.
 
-### GAT
+See the root `README.md` and `README.md` for dataset hashes, environment details, reproduction commands, and manuscript result tables.
 
-```powershell
-python .\src\reproduce.py `
-  --model gat `
-  --protocol clean `
-  --seeds 100,101,102,103,104,105,106,107,108,109 `
-  --epochs 300 `
-  --device cuda `
-  --deterministic `
-  --upstream .\upstream-paper `
-  --output-dir .\results\final_gpu_gat `
-  --save-checkpoints `
-  --save-predictions
-```
+MLP is included in both protocols and ignores edges. All ten matched strict MLP seeds were run and match clean Macro-F1 exactly. See the root README for commands and the explicit Holm test families.
 
-### GraphSAGE
 
-```powershell
-python .\src\reproduce.py `
-  --model graphsage `
-  --protocol clean `
-  --seeds 100,101,102,103,104,105,106,107,108,109 `
-  --epochs 300 `
-  --device cuda `
-  --deterministic `
-  --upstream .\upstream-paper `
-  --output-dir .\results\final_gpu_graphsage `
-  --save-checkpoints `
-  --save-predictions
-```
+## Local archive policy
 
-### X-MoE
 
-```powershell
-python .\src\reproduce.py `
-  --model x_moe_gnn `
-  --protocol clean `
-  --seeds 100,101,102,103,104,105,106,107,108,109 `
-  --epochs 300 `
-  --device cuda `
-  --deterministic `
-  --upstream .\upstream-paper `
-  --x-moe-normal-phishing-penalty 0.30 `
-  --output-dir .\results\final_gpu_xmoe `
-  --save-checkpoints `
-  --save-predictions
-```
 
-## CPU vs GPU Macro-F1
 
-| Model | CPU Macro-F1 | GPU Macro-F1 |
-|---|---:|---:|
-| GCN | 0.363689 ± 0.020485 | 0.363670 ± 0.017636 |
-| GAT | 0.266492 ± 0.017115 | 0.275000 ± 0.029484 |
-| GraphSAGE | 0.491619 ± 0.033561 | 0.495760 ± 0.031397 |
-| **X-MoE** | **0.657494 ± 0.071187** | **0.657782 ± 0.065579** |
+## Active evidence and local archives
 
-The historical model ranking is preserved across CPU and GPU environments:
+The canonical strict series is results/strict/reference/strict_50_runs.csv.
+GCN seed 108 is one of the ten primary GCN runs, located under
+results/strict/runs/gcn/seed_108/. It is not an additional control run.
 
-```text
-X-MoE > GraphSAGE > GCN > GAT
-```
+Historical intermediate aggregates, redundant documentation and the
+additional MLP demo-validation outputs are archived outside this repository.
+They are not required for the main five-model comparison.
+The demo branch retains inference assets for all five models.
 
-On the tested GPU environment, X-MoE improves mean Macro-F1 over GraphSAGE from 0.495760 to 0.657782, corresponding to an absolute improvement of 0.162022 (+16.20 percentage points), or approximately +32.68% relative improvement.
+<!-- BEGIN COMBINED FIVE-MODEL ARCHITECTURE -->
+## Model architecture
 
-The CPU and GPU results are closely consistent but are not expected to be bitwise identical. Minor numerical variation can arise from differences between CPU and CUDA execution paths.
+![MLP, GCN, GAT, GraphSAGE and X-MoE architecture comparison](figures/architecture_comparison.png)
 
-## License and Dataset Attribution
-
-The source code in this repository is released under the MIT License.
-
-The BLTE dataset is **not redistributed** in this repository. The processed dataset artifacts used for reproduction must be obtained from the original upstream project:
-
-```text
-salam-ammari/Graph-Neural-Network-Based-Fraudulent-Address-Classification-in-Ethereum-Network
-```
-
-The dataset and any external data used by the upstream project remain subject to the licenses, attribution requirements, terms of use, and ethical restrictions specified by their original providers.
-
-This repository claims authorship only for the code and methodology developed here, including the proposed X-MoE implementation, experimental validation, reproducibility workflow, and research demo, and does not claim ownership of the upstream BLTE dataset.
+The figure adds the feature-only MLP baseline alongside the original GCN, GAT, GraphSAGE and X-MoE layout. MLP uses two 64-unit linear layers with LayerNorm, ReLU and dropout 0.5, followed by a three-class classifier. Graph edges are unused by MLP. The figure documents the implementation; it does not alter any model or result.
+<!-- END COMBINED FIVE-MODEL ARCHITECTURE -->

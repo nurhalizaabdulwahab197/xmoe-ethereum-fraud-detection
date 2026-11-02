@@ -1,0 +1,82 @@
+CPU EXPERIMENT ENVIRONMENT
+=========================
+
+Public repository:
+Repository: xmoe-ethereum-fraud-detection
+Branch: main
+
+Reference status:
+This file records the current manuscript-aligned clean CPU reference results after the fresh-PC deterministic reproduction and subsequent public-code refactor validation. Historical earlier values remain available through Git history.
+
+Environment:
+Operating system: Windows
+Execution device: CPU
+Python: 3.11.9
+pip: 24.0
+PyTorch: 2.14.1+cpu
+PyTorch Geometric: 2.8.0.post1
+NumPy: 2.4.6
+Pandas: 3.0.6
+scikit-learn: 1.9.1
+SciPy: 1.17.1
+CUDA available: False
+
+Experimental protocol:
+protocol=clean
+seeds=100,101,102,103,104,105,106,107,108,109
+epochs=300
+device=cpu
+deterministic=true
+
+Public models:
+gcn
+gat
+graphsage
+x_moe_gnn
+
+X-MoE verified setting:
+x_moe_normal_phishing_penalty=0.30
+
+Final 10-seed CPU results:
+
+GCN
+accuracy_mean=0.881123
+accuracy_std=0.032853
+macro_f1_mean=0.363689
+macro_f1_std=0.020485
+
+GAT
+accuracy_mean=0.591693
+accuracy_std=0.033604
+macro_f1_mean=0.266492
+macro_f1_std=0.017115
+
+GraphSAGE
+accuracy_mean=0.988188
+accuracy_std=0.002071
+macro_f1_mean=0.491619
+macro_f1_std=0.033561
+
+X-MoE
+accuracy_mean=0.996942
+accuracy_std=0.001153
+macro_f1_mean=0.657494
+macro_f1_std=0.071187
+
+X-MoE versus GraphSAGE:
+absolute_macro_f1_improvement=0.165875
+percentage_point_improvement=16.59
+relative_macro_f1_improvement_percent=33.74
+
+Dataset SHA256:
+BLTE_multiclass_graph.pt=2859A8A3A815EDD02B5CD85D46C00D730B2B66C4E8D047145DB2E843C9E38456
+BLTE_multiclass_v2.csv=02E376DDD98BA595372F19731FE5E51BBC90BF897B2A52B3C8BB98E786423B11
+
+Reproducibility scope:
+The experiments use the upstream released processed BLTE artifacts.
+The clean protocol regenerates the stratified train/validation/test split for each seed and fits feature scaling using training nodes only.
+The released BLTE graph topology is retained.
+The current manuscript-aligned result summaries are stored under results/history/ and results/tables/.
+
+Expected reproduction behavior:
+Independent environments should closely reproduce the documented values and model ranking, but bit-for-bit equality across all hardware and platforms is not guaranteed.

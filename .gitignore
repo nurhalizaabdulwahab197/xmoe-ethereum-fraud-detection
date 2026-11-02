@@ -18,9 +18,6 @@ upstream-paper/
 results/smoke_*/
 results/final_*/
 
-# Keep curated reference results
-!results/reference/
-!results/reference/*
 
 # Temporary / cache
 .pytest_cache/
@@ -36,10 +33,12 @@ Thumbs.db
 src/reproduce_backup.py
 .venv-gpu/
 
-# Local strict reproduction outputs (curated evidence is under results/reference)
-results/strict_reproduction_10seed/
-results/strict_reproduction_control_gcn108/
+results/checks/gcn_seed108/
 results/strict_fresh/
 
 # Curated inference checkpoints, including the validated MLP
 !interactive_demo/checkpoints_reference/**/*.pt
+
+# Local archives are not published
+results/history/
+results/inference_validation/
