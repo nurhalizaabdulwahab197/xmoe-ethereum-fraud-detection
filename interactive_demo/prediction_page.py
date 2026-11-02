@@ -237,7 +237,7 @@ def render_demo_scope(predictor):
                  'while inference uses the full released graph and its node features. '
                  'Training and validation nodes can therefore appear as graph neighbours. '
                  'Test labels are not inputs to the model forward pass.')
-    st.caption('Frozen seed 100 | clean protocol | 4 trained models | 3 output classes. '
+    st.caption('Frozen seed 100 | clean protocol | 5 trained models | 3 output classes. '
                'Scores are model probabilities, not accuracy or calibrated certainty. '
                'No live blockchain activity is retrieved.')
 
@@ -396,7 +396,7 @@ def render_prediction_page():
     .prediction-hero h1 {color:white!important;margin:0;font-size:2.2rem;}
     .prediction-hero p {color:#DBEAFE;margin:.5rem 0 0;}
     </style><div class="prediction-hero"><h1>Try a Prediction</h1>
-    <p>Ethereum fraud detection · Compare GCN, GAT, GraphSAGE and X-MoE</p></div>''')
+    <p>Ethereum fraud detection · Compare MLP, GCN, GAT, GraphSAGE and X-MoE</p></div>''')
     st.info('This demo analyses held-out addresses from the BLTE benchmark. '
             'It does not retrieve current blockchain activity or assess arbitrary new addresses.')
     with st.spinner('Loading trained models and benchmark inputs...'):

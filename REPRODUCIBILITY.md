@@ -341,12 +341,13 @@ Verified Macro-F1:
 
 | Model | Mean ± std |
 |---|---:|
+| MLP | 0.371498 ± 0.008483 |
 | GCN | 0.358331 ± 0.020646 |
 | GAT | 0.277051 ± 0.023603 |
 | GraphSAGE | 0.440139 ± 0.020355 |
 | X-MoE | 0.547783 ± 0.058151 |
 
-X-MoE exceeds GraphSAGE in all ten matched seeds. The Holm-adjusted p-value for the X-MoE vs GraphSAGE comparison is 0.005859.
+X-MoE exceeds MLP, GCN, GAT and GraphSAGE in all ten matched strict seeds. Holm correction across four baselines gives p=0.0078125 for each comparison. MLP Macro-F1 is identical between clean and strict for every seed.
 
 This experiment is a topology-visibility sensitivity check. It must not be presented as evidence of temporal, cross-chain, or cross-dataset generalisation, and the clean-to-strict change should not be described as proof of leakage.
 
@@ -418,3 +419,7 @@ These GPU results predate the manuscript-aligned MLP comparison and therefore co
 https://xmoe-ethereum-fraud-detection.streamlit.app/
 
 The demo is intended for research communication and model exploration. Quantitative claims in the manuscript are based on controlled multi-seed experiments rather than individual demo predictions.
+
+## Five-model result alignment
+
+See `docs/RELEASE_ALIGNMENT.md` for the explicit correction families and remaining freeze checks. Run `python experiments/summarize_five_model_results.py` to check the archived five-model tables without training. Clean-to-strict Holm correction covers five models: GAT p=0.05859375 is not significant; GraphSAGE p=0.009765625 and X-MoE p=0.015625 indicate decreases. The strict minority family contains four F1/AP metrics; recomputed Scamming F1 p=0.275390625 remains non-significant. The four-model CPU/GPU metadata files are historical environment comparisons and are not extended to imply MLP GPU runs.

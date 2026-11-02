@@ -35,3 +35,11 @@ Thumbs.db
 # Local backup
 src/reproduce_backup.py
 .venv-gpu/
+
+# Local strict reproduction outputs (curated evidence is under results/reference)
+results/strict_reproduction_10seed/
+results/strict_reproduction_control_gcn108/
+results/strict_fresh/
+
+# Curated inference checkpoints, including the validated MLP
+!interactive_demo/checkpoints_reference/**/*.pt

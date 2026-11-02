@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "demo" / "data" / "verified_model_metrics.csv"
 
 MODEL_ORDER = [
+    "MLP",
     "GCN",
     "GAT",
     "GraphSAGE",
@@ -23,6 +24,7 @@ MODEL_ORDER = [
 ]
 
 MODEL_COLOURS = {
+    "MLP": "#64748B",
     "GCN": "#93C5FD",
     "GAT": "#60A5FA",
     "GraphSAGE": "#2563EB",
@@ -337,6 +339,7 @@ with st.sidebar:
             "Architecture Explorer",
             "Results Explorer",
             "Class-wise Performance",
+            "Protocol Comparison",
             "About Nur Haliza",
         ],
     )
@@ -363,7 +366,8 @@ with st.sidebar:
         """
         **Evaluation**
 
-        Clean protocol
+        Results: clean and strict
+        Prediction: clean seed 100
         Seeds 100–109
         300 epochs
         Deterministic CPU
@@ -519,13 +523,13 @@ elif page == "Architecture Explorer":
 
     st.markdown(
         """
-        All four models solve the same **three-class Ethereum address
+        All five models solve the same **three-class Ethereum address
         classification problem**:
 
         **Normal · Phishing · Scamming**
 
         However, they differ substantially in how node features and
-        graph information are processed. GCN, GAT and GraphSAGE provide
+        graph information are processed. MLP uses node features only; GCN, GAT and GraphSAGE provide
         conventional graph-learning baselines, while X-MoE introduces
         complementary experts and adaptive class-specific routing.
         """
@@ -539,14 +543,14 @@ elif page == "Architecture Explorer":
         ROOT
         / "docs"
         / "figures"
-        / "architecture_comparison.png"
+        / "architecture_comparison_five_models.svg"
     )
 
     if architecture_figure.exists():
         st.image(
             str(architecture_figure),
             caption=(
-                "Architecture comparison of GCN, GAT, GraphSAGE "
+                "Architecture comparison of MLP, GCN, GAT, GraphSAGE "
                 "and the proposed X-MoE model."
             ),
             use_container_width=True,
@@ -558,7 +562,7 @@ elif page == "Architecture Explorer":
     # Four-model architecture comparison
     # --------------------------------------------------------
 
-    st.header("Explore the Four Model Architectures")
+    st.header("Explore the Five Model Architectures")
 
     model_tabs = st.tabs(
         [
@@ -566,6 +570,7 @@ elif page == "Architecture Explorer":
             "B · GAT",
             "C · GraphSAGE",
             "D · X-MoE",
+            "E · MLP (feature-only)",
         ]
     )
 
@@ -793,7 +798,7 @@ Normal | Phishing | Scamming""",
         st.subheader("X-MoE · Proposed Architecture")
 
         st.write(
-            "X-MoE differs fundamentally from the three baseline models. "
+            "X-MoE combines expert pathways, unlike the feature-only MLP and the three conventional GNN baselines. "
             "Instead of relying on one graph-learning backbone, it combines "
             "two complementary experts through an adaptive routing mechanism."
         )
@@ -840,6 +845,16 @@ Normal | Phishing | Scamming""",
         )
 
     st.divider()
+
+    with model_tabs[4]:
+        st.subheader("MLP · Feature-only Baseline")
+        st.write("MLP receives the same 23 node attributes as the graph models, "
+                 "but does not use graph edges or aggregate neighbour information.")
+        st.markdown("**Architecture:** Linear(23, 64) → LayerNorm → ReLU → "
+                    "Dropout(0.5) → Linear(64, 64) → LayerNorm → ReLU → "
+                    "Dropout(0.5) → Linear(64, 3).")
+        st.info("MLP controls for predictive information in node attributes. "
+                "The result charts use ten-seed means; address inference uses seed 100.")
 
     # --------------------------------------------------------
     # X-MoE deep dive
@@ -1284,8 +1299,8 @@ elif page == "Results Explorer":
     st.title("Interactive Results Explorer")
 
     st.write(
-        "Compare all four models using the verified 10-seed fresh-PC "
-        "CPU experiments."
+        "Compare all five models using the verified 10-seed fresh-PC "
+        "CPU experiments under the clean topology-visible protocol."
     )
 
     c1, c2 = st.columns(2)
@@ -1514,6 +1529,7 @@ elif page == "Results Explorer":
 elif page == "Class-wise Performance":
 
     st.title("Class-wise Performance")
+    st.caption("Clean topology-visible protocol · ten seeds. Strict class metrics are available in Protocol Comparison.")
 
     fraud_class = st.radio(
         "Select classification class",
@@ -1677,6 +1693,57 @@ elif page == "Class-wise Performance":
 
 
 # ============================================================
+# PROTOCOL COMPARISON
+# ============================================================
+
+elif page == "Protocol Comparison":
+    st.title("Clean and Strict: Five-Model Comparison")
+    st.caption("BLTE · seeds 100–109 · 300 epochs · mean and sample standard deviation")
+    protocol_results = pd.read_csv(ROOT / "demo/data/verified_protocol_metrics.csv")
+    selected_protocol = st.selectbox("Evaluation protocol", ["clean", "strict"])
+    selected_metric = st.selectbox("Result metric", [
+        "macro_f1", "accuracy", "normal_f1", "phishing_f1", "phishing_ap",
+        "scamming_f1", "scamming_ap",
+    ])
+    view = protocol_results.loc[
+        (protocol_results["protocol"] == selected_protocol) &
+        (protocol_results["metric"] == selected_metric)
+    ].copy()
+    view["low"] = view["mean"] - view["std"]
+    view["high"] = view["mean"] + view["std"]
+    base_chart = alt.Chart(view).encode(
+        x=alt.X("model:N", sort=MODEL_ORDER, title="Model"),
+        tooltip=["model:N", alt.Tooltip("mean:Q", format=".6f"), alt.Tooltip("std:Q", format=".6f")],
+    )
+    bars = base_chart.mark_bar().encode(
+        y=alt.Y("mean:Q", title=selected_metric, scale=alt.Scale(domain=[0, 1])),
+        color=alt.Color("model:N", scale=alt.Scale(
+            domain=MODEL_ORDER, range=[MODEL_COLOURS[m] for m in MODEL_ORDER]), legend=None),
+    )
+    error = base_chart.mark_rule(color="#111827").encode(y="low:Q", y2="high:Q")
+    st.altair_chart(bars + error, use_container_width=True)
+    st.dataframe(view[["model", "mean", "std"]].set_index("model").reindex(MODEL_ORDER), use_container_width=True)
+    st.caption("Error bars show sample SD across ten seeds, not confidence intervals.")
+    st.info("Clean retains the released graph. Strict excludes validation–test connections and direct target–target edges. These are two protocols on BLTE, not two independent datasets.")
+    st.write("MLP does not use edges. Its Macro-F1 matches clean for every strict seed. The prediction page continues to use clean seed-100 checkpoints; strict results here are ten-seed aggregates.")
+    stats = pd.read_csv(ROOT / "results/paper/statistical_tests.csv")
+    st.subheader("Paired Macro-F1 Comparisons")
+    comparison_stats = stats.loc[(stats["analysis"] == selected_protocol) & (stats["metric"] == "macro_f1")]
+    st.dataframe(comparison_stats[["comparison", "mean_difference", "raw_p", "holm_adjusted_p", "wins_out_of_10"]], hide_index=True, use_container_width=True)
+    st.caption("Two-sided paired Wilcoxon tests; Holm correction across four baselines within the selected protocol.")
+    st.subheader("Clean-to-Strict Change")
+    changes = pd.read_csv(ROOT / "results/paper/clean_to_strict_summary.csv")
+    st.dataframe(changes.set_index("model").reindex(MODEL_ORDER), use_container_width=True)
+    st.caption("Holm family: five within-model comparisons. GAT p=0.058594 is not significant at 0.05; GraphSAGE and X-MoE decrease significantly. All-zero MLP differences are recorded as p=1.")
+    if selected_protocol == "strict":
+        st.subheader("Minority Metrics: X-MoE vs GraphSAGE")
+        minority_stats = stats.loc[stats["analysis"] == "strict_minority"]
+        st.dataframe(minority_stats[["metric", "mean_difference", "raw_p", "holm_adjusted_p"]], hide_index=True, use_container_width=True)
+        st.caption("Separate Holm family of four metrics: Phishing F1/AP and Scamming F1/AP. Scamming F1 is not significant after correction.")
+    st.download_button("Download five-model protocol results", protocol_results.to_csv(index=False),
+        file_name="blte_five_model_protocol_results.csv", mime="text/csv")
+
+# ============================================================
 # ABOUT
 # ============================================================
 
@@ -1792,7 +1859,7 @@ else:
     st.write(
         "X-MoE is a research prototype for multi-class Ethereum "
         "address classification into Normal, Phishing and Scamming. "
-        "The public repository provides X-MoE together with GCN, "
+        "The public repository provides X-MoE together with MLP, GCN, "
         "GAT and GraphSAGE baselines and reproducibility material."
     )
 

@@ -1,13 +1,19 @@
-analysis,comparison,metric,raw_p,holm_adjusted_p,effect_size_dz,wins_out_of_10,interpretation
-ablation,A6 vs A0,macro_f1,0.001953,0.013672,-2.284,0,A6 significantly worse after family-wise correction
-strict,X-MoE vs GCN,macro_f1,,0.005859,,10,X-MoE significantly higher across all matched seeds
-strict,X-MoE vs GAT,macro_f1,,0.005859,,10,X-MoE significantly higher across all matched seeds
-strict,X-MoE vs GraphSAGE,macro_f1,,0.005859,,10,X-MoE significantly higher across all matched seeds
-strict,X-MoE vs GraphSAGE,phishing_f1,,0.005859,,,X-MoE significantly higher
-strict,X-MoE vs GraphSAGE,phishing_ap,,0.005859,,,X-MoE significantly higher
-strict,X-MoE vs GraphSAGE,scamming_f1,,0.283203,,,Difference not significant after correction
-strict,X-MoE vs GraphSAGE,scamming_ap,,0.027344,,,X-MoE significantly higher
-clean_to_strict,GCN,macro_f1,,,,,No significant change reported
-clean_to_strict,GAT,macro_f1,,0.042969,,,Significant protocol change
-clean_to_strict,GraphSAGE,macro_f1,,0.007812,,,Significant decrease under strict protocol
-clean_to_strict,X-MoE,macro_f1,,0.011719,,,Significant decrease under strict protocol
+analysis,comparison,metric,raw_p,holm_adjusted_p,effect_size_dz,wins_out_of_10,interpretation,mean_difference,correction_family,family_size,model,clean_macro_f1,strict_macro_f1,relative_change_percent,max_absolute_seed_difference
+ablation,A6 vs A0,macro_f1,0.001953,0.013672,-2.284,0,A6 significantly worse after family-wise correction,,,,,,,,
+clean,X-MoE vs MLP,macro_f1,0.001953125,0.0078125,4.323347613263,10,,0.285995490416952,clean_macro_f1_four_baselines,4,,,,,
+clean,X-MoE vs GCN,macro_f1,0.001953125,0.0078125,4.30908605320975,10,,0.293804646235042,clean_macro_f1_four_baselines,4,,,,,
+clean,X-MoE vs GAT,macro_f1,0.001953125,0.0078125,5.29881937632666,10,,0.391001881083043,clean_macro_f1_four_baselines,4,,,,,
+clean,X-MoE vs GraphSAGE,macro_f1,0.001953125,0.0078125,2.68079861165723,10,,0.165874559966707,clean_macro_f1_four_baselines,4,,,,,
+strict,X-MoE vs MLP,macro_f1,0.001953125,0.0078125,2.99240690356824,10,,0.176284691692776,strict_macro_f1_four_baselines,4,,,,,
+strict,X-MoE vs GCN,macro_f1,0.001953125,0.0078125,3.45166586662786,10,,0.189452225797794,strict_macro_f1_four_baselines,4,,,,,
+strict,X-MoE vs GAT,macro_f1,0.001953125,0.0078125,4.62083271069972,10,,0.270732180135679,strict_macro_f1_four_baselines,4,,,,,
+strict,X-MoE vs GraphSAGE,macro_f1,0.001953125,0.0078125,1.88506199345321,10,,0.107644296548892,strict_macro_f1_four_baselines,4,,,,,
+clean_to_strict,MLP,macro_f1,1,1,,,,0,clean_to_strict_five_models,5,MLP,0.371498193825494,0.371498193825494,0,0
+clean_to_strict,GCN,macro_f1,0.322265625,0.64453125,,,,-0.00535837828692822,clean_to_strict_five_models,5,GCN,0.363689038007404,0.358330659720476,-1.47334060885803,0.0352152350286157
+clean_to_strict,GAT,macro_f1,0.01953125,0.05859375,,,,0.0105589022231874,clean_to_strict_five_models,5,GAT,0.266491803159403,0.277050705382591,3.96218649054339,0.0326673284497962
+clean_to_strict,GraphSAGE,macro_f1,0.001953125,0.009765625,,,,-0.051480535306361,clean_to_strict_five_models,5,GraphSAGE,0.491619124275739,0.440138588969378,-10.4716299192394,0.0985223132889844
+clean_to_strict,X-MoE,macro_f1,0.00390625,0.015625,,,,-0.109710798724176,clean_to_strict_five_models,5,X-MoE,0.657493684242446,0.54778288551827,-16.6862133209056,0.251067073170732
+strict_minority,X-MoE vs GraphSAGE,phishing_f1,0.001953125,0.0078125,,,,0.278628806519439,strict_minority_four_metrics,4,,,,,
+strict_minority,X-MoE vs GraphSAGE,phishing_ap,0.001953125,0.0078125,,,,0.185262694712787,strict_minority_four_metrics,4,,,,,
+strict_minority,X-MoE vs GraphSAGE,scamming_f1,0.275390625,0.275390625,,,,0.0383351873038534,strict_minority_four_metrics,4,,,,,
+strict_minority,X-MoE vs GraphSAGE,scamming_ap,0.013671875,0.02734375,,,,0.0918477165753463,strict_minority_four_metrics,4,,,,,

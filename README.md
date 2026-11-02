@@ -20,6 +20,23 @@ The models perform three-class classification:
 
 The MLP uses node features only and ignores graph edges. GCN, GAT, and GraphSAGE are graph-learning baselines. X-MoE combines feature/task-aware and graph-structural evidence through adaptive routing.
 
+
+## Five-model BLTE comparison
+
+![Clean-protocol Macro-F1 across ten seeds](docs/figures/clean_macro_f1_five_models.svg)
+
+Bars show mean Macro-F1 and error bars show sample standard deviation across
+seeds 100–109, with 300 epochs per run. The address prediction demo separately
+uses the five seed-100 checkpoints. These single-seed predictions are not
+substitutes for the ten-seed experimental estimates.
+
+The original MLP ten-seed records and their original summary are preserved in
+`results/reference/mlp_original_10seed.csv` and
+`results/reference/mlp_original_10seed_summary.csv`.
+The MLP seed-100 checkpoint was regenerated and checked against its original
+reported metrics, then reloaded and checked against all 10,955 saved test
+predictions using the packaged demo inputs. Other datasets are outside this release.
+
 ## Dataset Summary
 
 The study uses processed BLTE artifacts released by the upstream project. The repository does not independently reconstruct the raw Ethereum collection or labelling pipeline.
@@ -38,9 +55,9 @@ The severe imbalance and sparse connectivity motivate the use of Macro-F1 as the
 
 ## Architecture Comparison
 
-The figure below compares the main graph architectures and the proposed X-MoE model used in this repository.
+The figure below compares all five models. MLP uses node attributes only; the remaining models also use graph structure.
 
-![Architecture comparison for Ethereum fraud detection](docs/figures/architecture_comparison.png)
+![Architecture comparison for Ethereum fraud detection](docs/figures/architecture_comparison_five_models.svg)
 
 All five models solve the same three-class classification problem, but they differ in how node features and graph information are processed.
 
@@ -286,7 +303,7 @@ The largest class-specific improvement is observed for Phishing.
 
 ## Paired Statistical Comparison
 
-The manuscript uses paired seed-level Macro-F1, two-sided exact Wilcoxon signed-rank tests, Holm correction across the four baseline comparisons, paired effect size d_z, and paired mean-difference confidence intervals.
+The clean baseline analysis uses paired seed-level Macro-F1, two-sided exact Wilcoxon signed-rank tests, Holm correction across the four baseline comparisons, paired effect size d_z, and paired mean-difference confidence intervals. The ablation analysis instead uses an exact paired sign-flip test with Holm correction across seven comparisons; these are separate test families.
 
 | Comparison | Δ Macro-F1 | 95% CI | Holm-adjusted p | d_z | X-MoE wins |
 |---|---:|---:|---:|---:|---:|
@@ -876,12 +893,37 @@ Verified Macro-F1:
 
 | Model | STRICT-INDUCTIVE Macro-F1 |
 |---|---:|
+| MLP | 0.371498 ± 0.008483 |
 | GCN | 0.358331 ± 0.020646 |
 | GAT | 0.277051 ± 0.023603 |
 | GraphSAGE | 0.440139 ± 0.020355 |
 | **X-MoE** | **0.547783 ± 0.058151** |
 
-X-MoE exceeds GraphSAGE in all ten matched seeds under this protocol. The Holm-adjusted p-value for X-MoE vs GraphSAGE is 0.005859.
+X-MoE exceeds MLP, GCN, GAT and GraphSAGE in all ten matched seeds under this protocol. Each exact paired Wilcoxon comparison has raw p = 0.001953125 and Holm-adjusted p = 0.0078125 across four baselines.
+
+MLP was run separately for all ten strict seeds. Its seed-level Macro-F1 equals its clean result for every seed; MLP does not use graph edges. The five-model strict evidence is in `results/reference/blte_strict_five_models/strict_50_runs.csv`.
+
+![Five-model clean and strict comparison](docs/figures/clean_vs_strict_five_models.svg)
+
+The clean-to-strict family contains five models. Adjusted p-values are MLP 1.000000, GCN 0.644531, GAT 0.058594, GraphSAGE 0.009766 and X-MoE 0.015625. GAT's increase is not significant at 0.05. GraphSAGE and X-MoE decrease significantly.
+
+Run all five strict models from the verified Python environment (this performs training):
+
+```powershell
+foreach ($model in @("mlp", "gcn", "gat", "graphsage", "x_moe_gnn")) {
+    python .\experiments\strict_inductive.py --model $model --seeds 100,101,102,103,104,105,106,107,108,109 --epochs 300 --device cpu --deterministic --base-loss weighted_ce --no-calibrate-class-bias --x-moe-normal-phishing-penalty 0.30 --save-predictions --upstream .\upstream-paper --output-dir ".\results\strict_fresh\$model"
+    if ($LASTEXITCODE -ne 0) { throw "Failed: $model" }
+}
+```
+
+Use a new output directory for a fresh experiment. Existing verified runs do not need repeating. Check or rebuild the curated tables from the frozen reference CSVs without training:
+
+```powershell
+python .\experiments\summarize_five_model_results.py
+python .\experiments\summarize_five_model_results.py --apply
+```
+
+These commands rebuild tables from archived evidence; they do not automatically promote a new experiment. For the strict minority comparison against GraphSAGE, Holm correction is applied separately across Phishing F1/AP and Scamming F1/AP: adjusted p = 0.0078125, 0.0078125, 0.275390625 and 0.02734375, respectively.
 
 STRICT-INDUCTIVE is a topology-visibility sensitivity analysis. It is not evidence of temporal, cross-chain, or cross-dataset generalisation, and the clean-to-strict change should not be presented as proof of leakage.
 
@@ -950,7 +992,7 @@ The repository now contains the latest demo source together with the manuscript-
 
 ```text
 main   # complete current research source of truth
-demo   # deployment/demo branch
+demo/streamlit   # deployment/demo branch
 ```
 
 The demo provides:

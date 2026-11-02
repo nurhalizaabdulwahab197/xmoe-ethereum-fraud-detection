@@ -7,11 +7,12 @@ import time
 import numpy as np
 import pandas as pd
 import torch
-from predictor_models import GCN, GAT, GraphSAGE, ExplainableMixtureOfExpertsGNN
+from predictor_models import MLP, GCN, GAT, GraphSAGE, ExplainableMixtureOfExpertsGNN
 
 ROOT = Path(__file__).resolve().parent
 CLASSES = ['Normal', 'Phishing', 'Scamming']
 MODELS = {
+    'MLP': ('final_mlp', 'mlp', MLP),
     'GCN': ('final_gcn', 'gcn', GCN),
     'GAT': ('final_gat', 'gat', GAT),
     'GraphSAGE': ('final_graphsage', 'graphsage', GraphSAGE),

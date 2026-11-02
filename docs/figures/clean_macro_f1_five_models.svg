@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="450" viewBox="0 0 980 450" role="img" aria-labelledby="t d">
+<title id="t">Clean BLTE Macro-F1 for five models</title>
+<desc id="d">Mean and sample standard deviation across ten seeds, 300 epochs. MLP 0.371498, GCN 0.363689, GAT 0.266492, GraphSAGE 0.491619, X-MoE 0.657494.</desc>
+<rect width="980" height="450" fill="white"/><g font-family="Arial, sans-serif" fill="#173653">
+<text x="32" y="37" font-size="25" font-weight="bold">BLTE · Clean-protocol Macro-F1</text>
+<text x="32" y="63" font-size="16">Ten seeds (100–109) · 300 epochs · Error bars: sample SD</text>
+<line x1="160" y1="87" x2="160" y2="389" stroke="#e1e8f0"/>
+<text x="160" y="417" font-size="14" text-anchor="middle">0.0</text>
+<line x1="306" y1="87" x2="306" y2="389" stroke="#e1e8f0"/>
+<text x="306" y="417" font-size="14" text-anchor="middle">0.2</text>
+<line x1="452" y1="87" x2="452" y2="389" stroke="#e1e8f0"/>
+<text x="452" y="417" font-size="14" text-anchor="middle">0.4</text>
+<line x1="598" y1="87" x2="598" y2="389" stroke="#e1e8f0"/>
+<text x="598" y="417" font-size="14" text-anchor="middle">0.6</text>
+<line x1="744" y1="87" x2="744" y2="389" stroke="#e1e8f0"/>
+<text x="744" y="417" font-size="14" text-anchor="middle">0.8</text>
+<line x1="890" y1="87" x2="890" y2="389" stroke="#e1e8f0"/>
+<text x="890" y="417" font-size="14" text-anchor="middle">1.0</text>
+<text x="145" y="122" font-size="17" text-anchor="end">MLP</text>
+<rect x="160" y="99" width="271.194" height="33" fill="#64748b" rx="3"/>
+<path d="M 425.001 115 H 437.386 M 425.001 108 V 122 M 437.386 108 V 122" stroke="#152d4e" stroke-width="2"/>
+<text x="449.386" y="121" font-size="15">0.3715 ± 0.0085</text>
+<text x="145" y="179" font-size="17" text-anchor="end">GCN</text>
+<rect x="160" y="156" width="265.493" height="33" fill="#60a5fa" rx="3"/>
+<path d="M 410.539 172 H 440.447 M 410.539 165 V 179 M 440.447 165 V 179" stroke="#152d4e" stroke-width="2"/>
+<text x="452.447" y="178" font-size="15">0.3637 ± 0.0205</text>
+<text x="145" y="236" font-size="17" text-anchor="end">GAT</text>
+<rect x="160" y="213" width="194.539" height="33" fill="#60a5fa" rx="3"/>
+<path d="M 342.045 229 H 367.033 M 342.045 222 V 236 M 367.033 222 V 236" stroke="#152d4e" stroke-width="2"/>
+<text x="379.033" y="235" font-size="15">0.2665 ± 0.0171</text>
+<text x="145" y="293" font-size="17" text-anchor="end">GraphSAGE</text>
+<rect x="160" y="270" width="358.882" height="33" fill="#60a5fa" rx="3"/>
+<path d="M 494.382 286 H 543.381 M 494.382 279 V 293 M 543.381 279 V 293" stroke="#152d4e" stroke-width="2"/>
+<text x="555.381" y="292" font-size="15">0.4916 ± 0.0336</text>
+<text x="145" y="350" font-size="17" text-anchor="end">X-MoE</text>
+<rect x="160" y="327" width="479.971" height="33" fill="#0b1f3a" rx="3"/>
+<path d="M 588.004 343 H 691.937 M 588.004 336 V 350 M 691.937 336 V 350" stroke="#152d4e" stroke-width="2"/>
+<text x="703.937" y="349" font-size="15">0.6575 ± 0.0712</text></g></svg>

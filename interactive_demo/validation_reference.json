@@ -1,51 +1,58 @@
 {
   "models": [
     {
+      "model": "MLP",
+      "nodes": 10955,
+      "matching_predictions": 10955,
+      "max_probability_error": 2.9772949217132805e-08,
+      "passed": true,
+      "full_graph_inference_seconds": 0.04086710000410676
+    },
+    {
       "model": "GCN",
       "nodes": 10955,
       "matching_predictions": 10955,
-      "max_probability_error": 4.7357513427437326e-07,
+      "max_probability_error": 2.9786682120835906e-08,
       "passed": true,
-      "full_graph_inference_seconds": 0.06500538799991773
+      "full_graph_inference_seconds": 0.1260369000956416
     },
     {
       "model": "GAT",
       "nodes": 10955,
       "matching_predictions": 10955,
-      "max_probability_error": 1.4554367067098894e-07,
+      "max_probability_error": 1.7453643796905283e-07,
       "passed": true,
-      "full_graph_inference_seconds": 0.11902600399980656
+      "full_graph_inference_seconds": 0.1853808998130262
     },
     {
       "model": "GraphSAGE",
       "nodes": 10955,
       "matching_predictions": 10955,
-      "max_probability_error": 1.8742218022005375e-07,
+      "max_probability_error": 2.9787445066098428e-08,
       "passed": true,
-      "full_graph_inference_seconds": 0.03918913000006796
+      "full_graph_inference_seconds": 0.060376500245183706
     },
     {
       "model": "X-MoE",
       "nodes": 10955,
       "matching_predictions": 10955,
-      "max_probability_error": 4.7572547912100305e-07,
+      "max_probability_error": 2.9776000998182894e-08,
       "passed": true,
-      "full_graph_inference_seconds": 0.18270775699988917
+      "full_graph_inference_seconds": 0.40919490018859506
     }
   ],
   "environment": {
-    "python": "3.12.14",
-    "torch": "2.14.1+cpu",
-    "torch-geometric": "2.8.1",
-    "numpy": "2.3.5",
-    "pandas": "2.2.3",
-    "scikit-learn": "1.8.0",
-    "streamlit": "1.66.1",
-    "altair": "6.3.0"
+    "python": "3.11.9",
+    "torch": "2.14.1",
+    "torch-geometric": "2.8.0.post1",
+    "numpy": "2.4.6",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "streamlit": "1.65.0"
   },
   "tolerance": {
     "atol": 1e-05,
     "rtol": 0.0001
   },
-  "scope": "All 10955 held-out seed-100 nodes; full released graph; no training."
+  "scope": "All 10955 held-out seed-100 nodes; five models; full released graph; no training."
 }

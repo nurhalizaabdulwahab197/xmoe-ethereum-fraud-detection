@@ -5,7 +5,8 @@ This directory contains the manuscript-specific validation runners that compleme
 ## Entry points
 
 - `ablation.py` — A0–A7 X-MoE ablation study, including connectivity-stratified evaluation.
-- `strict_inductive.py` — STRICT-INDUCTIVE evaluation with restricted topology visibility.
+- `strict_inductive.py` — five-model STRICT-INDUCTIVE evaluation with restricted topology visibility.
+- `summarize_five_model_results.py` — checks/rebuilds paper and demo tables from frozen reference CSVs without training.
 
 The main five-model clean-protocol comparison is run through `src/reproduce.py` using:
 
@@ -86,3 +87,5 @@ Machine-readable sensitivity results are available in `results/lambda_sensitivit
 The BLTE dataset is not redistributed by this repository. The study uses the released processed BLTE artifacts and does not independently reconstruct the raw Ethereum collection or label-generation pipeline.
 
 See the root `README.md` and `REPRODUCIBILITY.md` for dataset hashes, environment details, reproduction commands, and manuscript result tables.
+
+MLP is included in both protocols and ignores edges. All ten matched strict MLP seeds were run and match clean Macro-F1 exactly. See the root README for commands and the explicit Holm test families.

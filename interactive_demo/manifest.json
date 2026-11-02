@@ -27,11 +27,42 @@
     "checkpoints_reference/final_gat/clean_gat_seed-100_predictions.csv": "2eea80011a423c4ce6060ec4e4db236dfb2ca14e6645e28c99d465d9b8f3dac2",
     "checkpoints_reference/final_gcn/clean_gcn_seed-100_predictions.csv": "5a7dd40594642252fb3d095fa115078ae30c65b41509752fe11c64b1290b2126",
     "predictor_models/gat.py": "12d1d682083b7b4708e934ccbf77e90ff0ee59d81a906a1deb18aceedfff21dd",
-    "predictor_models/__init__.py": "71a9b7bf8dce38179d6fd895b7ac3fc800b360177d7f8ea47005828894bfddbe",
+    "predictor_models/__init__.py": "12dc18543482a276a4f955939116cdc7e94d95de59f5fe3162d8166c5cbce299",
     "predictor_models/gcn.py": "fc69f8f0345b521a963bdea9694a3b0d1b4a8c34e2dcf47c6e6d6a3b7b0bc965",
     "predictor_models/xmoe.py": "8b7a56482f97e5c32944def4f030f2792367fcffbe377b1b9ce767381fdd4c6d",
     "predictor_models/graphsage.py": "297eff70d26d5f697b2d6132dba8ada060907d63e2eb8f9249803c3f9d43d97f",
-    "engine.py": "4bf6217a1525ef73dc06039270a39c057a566473987d742bc19f8baed63c323d",
-    "prediction_page.py": "5adcddc70d415f0740b44abf3f5e47be2f7f9743aaa75419d40b2d60f72f0628"
+    "engine.py": "83663886ed377fa25f4a19e2ee9a2043f7bdb89032d2f242f0b4f293385f0272",
+    "prediction_page.py": "12a7950f1be6c202460a7aab80c5a804e57871b40ff5719be228c3ab00b0ecf5",
+    "predictor_models/mlp.py": "015e5979c270de6c16c929704ed4b635f5863669801d2ea3c669f27350394103",
+    "README.md": "bffca0b375bfffe1033b5c9147c3c68885c0b137ddba7a30c615fcc3655c3e37",
+    "checkpoints_reference/final_mlp/clean_mlp_seed-100_checkpoint.pt": "6a225f8a65b471bd2c42320f07663c89e2ff0bf5a35bca31855ef0d698af82fa",
+    "checkpoints_reference/final_mlp/clean_mlp_seed-100_predictions.csv": "54a3f919ab4eacd488c2017e3738993cd327d5b87cb4cde79849d6763ed19509"
+  },
+  "results_scope": {
+    "models": [
+      "MLP",
+      "GCN",
+      "GAT",
+      "GraphSAGE",
+      "X-MoE"
+    ],
+    "protocols": [
+      "clean",
+      "strict_inductive"
+    ],
+    "seeds": [
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109
+    ],
+    "inference_protocol": "clean",
+    "inference_seed": 100
   }
 }
