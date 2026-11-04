@@ -273,8 +273,6 @@ The local evidence index is the completed ablation BATCH_STATUS.json in reports/
 
 We successfully executed the released BLTE GNN implementations and evaluated documented reconstructions of released-code and paper-described settings. Exact recovery of the original repeated experiment was not established because original numerical seeds/partitions and some implementation details were unavailable, and the paper and code specify different settings. Under the reconstructed data/evaluation conditions, Full X-MoE achieved the highest mean Macro-F1 in both configurations and exceeded every evaluated comparator on all ten matched splits. The CE-only architecture variant showed configuration-dependent benefits. The Full-versus-CE comparison supports the complete additional training package rather than any single component. These results remain exploratory, with overlapping repeated partitions and prior exposure to test outcomes.
 
-## 16. Publication preparation status
+## 16. Release and validation status
 
-This report is drafted from the validated outputs supplied in the working session. No new training, branch creation, commit or push was performed to create it. The local indexing helper can verify and index the underlying 120-run evidence on the user's WSL computer.
-
-Before public release, complete a portable runner interface, validate its commands, include the recorded dependency freeze, confirm redistribution/attribution terms, map all reported numbers to immutable relative-path evidence, and review the beginner README. Exclude unrelated manuscript source and machine-specific backup material from the branch.
+Local verification covered the archived evidence for all 120 primary runs and 40 PCGrad ablation runs. The `reproduction` branch includes the result tables, source provenance, and dependency records. Full per-run evidence is stored in the local WSL archive. GPU execution of the public reproduction wrapper remains pending validation.

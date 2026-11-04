@@ -1,22 +1,18 @@
 # BLTE reproduction and X-MoE evaluation
 
-**Local release candidate — 4 November 2026. GPU wrapper execution and full local evidence verification remain pending. Do not publish yet.**
-
 This project examines how far the multiclass BLTE experiments can be reconstructed from the published paper and released code. It evaluates an additional MLP baseline and Full X-MoE under the reconstructed data/evaluation conditions. X-MoE–CE is retained as a training-control variant to examine the contribution of the complete additional training package.
 
 The paper and released code specify different training settings. We retain both configurations rather than silently choosing one. Original numerical split seeds and partitions could not be recovered from the audited materials, so repeated evaluation uses our documented reconstructed partitions.
 
 **Scope:** five main methods plus one training-control variant × two configurations × ten splits = **120 primary runs**, each with 300 epochs. The six released-mask pilot runs are separate. This is not a reproduction of all seven models reported in the reference paper.
 
-The accompanying [reproduction report](REPRODUCTION_REPORT.md) explains source differences, assumptions and findings.
+The accompanying [reproduction report](docs/REPRODUCTION_REPORT.md) explains source differences, assumptions and findings.
 
 ## Release status
 
-The frozen training scripts and model sources in this package are byte-identical to the selected audit sources. A portable `scripts/runner.py` wraps them without refactoring their training calculations. Its GPU execution must still be checked in the recorded local environment. Static checks and reference-summary reconstruction have passed; these do not certify GPU execution or the missing full historical prediction/checkpoint payloads.
+The archived evidence for all 120 primary runs and 40 PCGrad ablation runs was verified locally. This branch provides source code, documentation, saved split indices, and result tables. GPU execution of the public reproduction wrapper, `scripts/runner.py`, remains pending validation.
 
-No training is started by a plain runner invocation: `--run` is required. No Git branch, commit, tag or push is created by these tools. The historical audit and existing baseline folders remain separate.
-
-Run `python scripts/check_package.py`, then follow `LOCAL_FIRST_STEPS.md` to verify the original 120-run evidence. Do not treat this candidate as a completed public release until those checks and the local GPU preflight pass.
+Run `python scripts/check_package.py` to check the published package. See [LOCAL_FIRST_STEPS.md](LOCAL_FIRST_STEPS.md) for local audit and evidence import instructions. Training through the wrapper requires `--run`.
 
 ## Evaluation structure
 
@@ -568,7 +564,7 @@ Runtime versions also differ from the historical main-branch environment. Do not
 
 Frozen CE and Full model modules are deliberately duplicated at their original relative import locations. Matching hashes establish identity. No new `pcgrad.py` is introduced: PCGrad stays in the existing Full runner. No training-loop refactor is performed to create this candidate.
 
-Datasets, environments, backup folders, development diagnostics and unrelated manuscript/demo source are excluded. Applicable upstream source terms must be reviewed before public redistribution; this candidate does not assign a new license to author code.
+Datasets, environments, backup folders, development diagnostics and unrelated manuscript/demo source are excluded. See the [upstream attribution](provenance/UPSTREAM_ATTRIBUTION.md) for the source license and dataset terms.
 
 ### 20. Troubleshooting
 
@@ -584,7 +580,7 @@ Datasets, environments, backup folders, development diagnostics and unrelated ma
 | Output directory already contains runs | Use a new directory or a verified resume policy; never overwrite results silently |
 | Scores differ slightly on a rerun | Verify settings/input hashes; exact GPU equality is not guaranteed |
 | Scores differ substantially | Inspect source, splits, scaling, objectives and checkpoint selection before drawing conclusions |
-| Local wrapper check fails | Keep the error and the audit unchanged; the candidate is not ready for publication |
+| Local wrapper check fails | Save the error output and review the wrapper and runtime configuration |
 
 ### 21. Limitations and attribution
 
@@ -594,6 +590,6 @@ Class minorities are small. Repeated partitions may overlap. Earlier test outcom
 
 The upstream dataset and code remain subject to their own terms. Include the upstream license and attribution where redistribution is permitted. Cite the original BLTE dataset publication as appropriate and the multiclass paper. PCGrad is an existing technique; this repository's fixed-order implementation is not a claim of inventing PCGrad.
 
-## Before publication
+## Validation scope
 
-Finish local evidence verification/import and GPU preflight. Validate the portable wrapper before new public training instructions are called tested. Preserve source hashes, review attribution/source terms, verify imported evidence and inspect the final folder. No GitHub changes are performed by these steps.
+Static package checks verify the distributed files. The local audit verifies the archived run evidence. GPU testing of the portable wrapper is a separate validation step.

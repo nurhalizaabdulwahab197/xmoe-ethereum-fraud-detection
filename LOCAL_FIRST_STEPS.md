@@ -1,6 +1,6 @@
 # Langkah pertama pada PC WSL — tiada training
 
-Pakej ini ialah calon release local. Ia belum sedia untuk push. Folder audit asal tidak dipindahkan atau dipadam.
+Pakej ini ialah salinan daripada branch `reproduction`. Langkah di bawah menyemak fail pakej dan menerangkan cara mengimport bukti audit tempatan.
 
 ## 1. Buka terminal pada folder pakej yang diekstrak
 

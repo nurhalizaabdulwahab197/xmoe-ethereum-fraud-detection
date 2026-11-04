@@ -19,12 +19,12 @@ Unlike the earlier proposed single-model-file layout, configuration-specific pre
 
 Public summary tables have machine-specific folder prefixes replaced by relative audit run identifiers. Numeric strings are copied without recomputing saved reference values. Original table/evidence hashes remain available for local verification. Personal absolute paths in original metadata are not included in the portable reference metadata.
 
-## Pending local checks
+## Local evidence verification
 
-The export omits historical predictions, checkpoints and input datasets. Therefore this review cannot independently recompute each historical run from predictions here. `verify_audit.py` must perform that check on the original WSL machine. It checks the original evidence SHA chain, metadata, outputs, saved test IDs/labels, probabilities, metrics, histories and recorded Full reload results. A historical reload report is not a new GPU reload.
+The archived evidence for 120 primary runs and 40 PCGrad ablation runs was verified in WSL. The 20 ablation pairs had matching initialization hashes. Public result tables report the audited results, and the full per-run evidence is stored in the local audit archive.
 
-This cloud runtime has no PyTorch/PyG or NVIDIA GPU. GPU execution of the new wrapper has NOT been tested. Do not call the package fully runnable/validated until local checks pass. The local model preflight performs no optimizer steps and does not certify an entire training execution. Any later controlled wrapper execution must retain its outputs and be labeled as a new execution, not replace primary runs.
+GPU execution of the portable public wrapper remains pending validation. A future wrapper run should be recorded as a separate execution.
 
-## Publication boundary
+## Published package scope
 
-This candidate is local review material, not a new Git branch. No training, Git tag, commit, push or baseline edit was performed. Upstream attribution/redistribution terms remain a publication check. The source export's broader development files are not copied into the candidate.
+The `reproduction` branch contains source code, documentation, split indices, and result tables. See [upstream attribution](../provenance/UPSTREAM_ATTRIBUTION.md) for the source license and dataset terms.
