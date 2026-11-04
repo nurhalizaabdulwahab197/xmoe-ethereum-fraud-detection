@@ -72,6 +72,20 @@ Dataset size:
 
 The severe imbalance and sparse connectivity motivate the use of Macro-F1 as the primary comparison metric and motivate X-MoE's isolate-safe routing design.
 
+### BLTE Input Features
+
+The X-MoE benchmark checkpoint uses the following 23 features in the order shown. The BLTE CSV supplies the raw feature values. Under the `clean` protocol, the runner fits `StandardScaler` on training nodes and applies the fitted transformation to the validation and test nodes.
+
+| Positions | Features in checkpoint order |
+|---|---|
+| 1–5 | `all_degree`, `in_degree`, `out_degree`, `unique in_degree`, `unique out_degree` |
+| 6–9 | `Avg amount incoming`, `Avg amount outgoing`, `Total amount incoming`, `Total amount outgoing` |
+| 10–13 | `Max amount incoming`, `Max amount outgoing`, `Min amount incoming`, `Min amount outgoing` |
+| 14–18 | `Avg time incoming`, `Avg time outgoing`, `Total transaction time`, `Active Duration`, `Clustering coefficient` |
+| 19–23 | `Mean time interval`, `Max time interval`, `Min time interval`, `Avg gas price`, `Avg gas limit` |
+
+The benchmark demo uses the stored BLTE features and graph. Feature equivalence for newly queried Etherscan addresses has yet to be established.
+
 ## Architecture Comparison
 
 The figure below compares all five models. MLP uses node attributes only; the remaining models also use graph structure.
@@ -779,6 +793,8 @@ outer_gate_hidden = 32
 The reference Normal–Phishing coefficient λ_NP = 0.30 is a manuscript reference setting, not a uniquely optimal coefficient.
 
 ## 11. Ablation Study: A0–A7
+
+The A0–A7 ablation below uses the main study protocol. The `reproduction` branch reports a separate PCGrad ON/OFF ablation under two reconstructed BLTE configurations. [PCGrad ablation results](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/blob/reproduction/README.md#pcgrad-ablation)
 
 Runner:
 
