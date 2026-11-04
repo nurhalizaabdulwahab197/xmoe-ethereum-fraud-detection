@@ -1,0 +1,14 @@
+{
+  "status": "PASS_STATIC_AND_REFERENCE_SUMMARY_ONLY",
+  "training_performed": false,
+  "github_changed": false,
+  "export_hashes_verified": 110,
+  "frozen_source_files": 30,
+  "partitions_verified": 10,
+  "primary_run_identities": 120,
+  "summary_metric_rows_recomputed": 96,
+  "full_comparisons_recomputed": 10,
+  "gpu_wrapper_execution": "NOT_RUN",
+  "historical_predictions_and_checkpoints": "NOT_IN_EXPORT; LOCAL_VERIFICATION_REQUIRED",
+  "local_checks": "See LOCAL_FIRST_STEPS.md"
+}

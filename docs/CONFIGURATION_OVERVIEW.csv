@@ -1,0 +1,13 @@
+configuration,method,epochs,learning_rate,weight_decay,base_loss,pcgrad
+released-code,gcn,300,0.001,0.0005,weighted_ce,False
+released-code,gat,300,0.001,0.0005,weighted_ce,False
+released-code,graphsage,300,0.001,0.0005,weighted_ce,False
+paper-described,gcn,300,0.01,0.0005,weighted_ce,False
+paper-described,gat,300,0.01,0.0005,weighted_ce,False
+paper-described,graphsage,300,0.01,0.0005,weighted_ce,False
+released-code,mlp,300,0.001,0.0005,weighted_ce,False
+released-code,xmoe-ce,300,0.001,0.0005,weighted_ce,False
+paper-described,mlp,300,0.01,0.0005,weighted_ce,False
+paper-described,xmoe-ce,300,0.01,0.0005,weighted_ce,False
+released-code,full-xmoe,300,0.001,0.0005,weighted_ce,True
+paper-described,full-xmoe,300,0.01,0.0005,weighted_ce,True

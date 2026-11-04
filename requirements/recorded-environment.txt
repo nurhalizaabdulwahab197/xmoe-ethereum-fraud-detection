@@ -1,0 +1,14 @@
+Python: 3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]
+Executable: python (recorded virtual environment)
+Platform: Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.35
+PyTorch: 2.0.1+cu118
+PyG: 2.3.1
+torch_scatter: 2.1.1+pt20cu118
+torch_sparse: 0.6.17+pt20cu118
+NumPy: 1.24.4
+SciPy: 1.10.1
+pandas: 2.0.3
+scikit-learn: 1.3.2
+CUDA runtime: 11.8
+CUDA available: True
+GPU: NVIDIA GeForce GTX 1660 SUPER

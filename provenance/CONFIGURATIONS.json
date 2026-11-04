@@ -1,0 +1,74 @@
+{
+  "released-code/gcn": {
+    "script": "sources/prepared/author/GCN_training_GNNExplainer.py",
+    "sha256": "47fb433cef12b8ea54ec90c412c2e576436b2653b10e945ba3475c1a32f27fb9",
+    "learning_rate": 0.001,
+    "label": "GCN"
+  },
+  "released-code/gat": {
+    "script": "sources/prepared/author/GAT_training_GNNExplainer.py",
+    "sha256": "39c00e233c232a0a60291769a953b69ec0239519c6de474abb24cc65a3d80ffd",
+    "learning_rate": 0.001,
+    "label": "GAT"
+  },
+  "released-code/graphsage": {
+    "script": "sources/prepared/author/GraphSAGE_training_GNNExplainer.py",
+    "sha256": "2cf547e656f8af82d7c38ae67644d618bc9e487473a10af8a62510e4e04f8df3",
+    "learning_rate": 0.001,
+    "label": "GraphSAGE"
+  },
+  "paper-described/gcn": {
+    "script": "sources/prepared/paper/GCN_training_GNNExplainer.py",
+    "sha256": "17c1ce9dfbdb6d3a06a5445119e88812d9bb2b7a6fb021e0b27ca201b53271b4",
+    "learning_rate": 0.01,
+    "label": "GCN"
+  },
+  "paper-described/gat": {
+    "script": "sources/prepared/paper/GAT_training_GNNExplainer.py",
+    "sha256": "d5fb70bdf81b636c9fb143418093b5c6342a43d8956065370c58fe0f19ea58a8",
+    "learning_rate": 0.01,
+    "label": "GAT"
+  },
+  "paper-described/graphsage": {
+    "script": "sources/prepared/paper/GraphSAGE_training_GNNExplainer.py",
+    "sha256": "4edcfdb48802bc18a9aa22ab37e9df44faf23b819f050edb6b7dbf64bcd83abe",
+    "learning_rate": 0.01,
+    "label": "GraphSAGE"
+  },
+  "released-code/mlp": {
+    "script": "sources/prepared/author/MLP_training.py",
+    "sha256": "fe28e25235738d4b8325959030c0eaa55d0c0e21181ccb4917309b732c5cbc67",
+    "learning_rate": 0.001,
+    "label": "MLP"
+  },
+  "released-code/xmoe-ce": {
+    "script": "sources/prepared/author/XMoE_CE_training.py",
+    "sha256": "96651008c1c5fd6efca179d8b12fb0f69bb17606b0ce10485108a5e941b73fba",
+    "learning_rate": 0.001,
+    "label": "XMoE_CE"
+  },
+  "paper-described/mlp": {
+    "script": "sources/prepared/paper/MLP_training.py",
+    "sha256": "e33676e7b290a4631e2cfbc3fcb695ee6542fb9b589ddb988ac68a921279d13e",
+    "learning_rate": 0.01,
+    "label": "MLP"
+  },
+  "paper-described/xmoe-ce": {
+    "script": "sources/prepared/paper/XMoE_CE_training.py",
+    "sha256": "903f53d81f486b2899aa91920bb5ec085ae9c2db916b1f6f42ff3c6d8755c461",
+    "learning_rate": 0.01,
+    "label": "XMoE_CE"
+  },
+  "released-code/full-xmoe": {
+    "script": "sources/full/runner_full_blte.py",
+    "sha256": "fc063392386f9662ce5776e979c8fa45ac91f17bb649d5daa609e23e841778c7",
+    "learning_rate": 0.001,
+    "label": "Full_XMoE"
+  },
+  "paper-described/full-xmoe": {
+    "script": "sources/full/runner_full_blte.py",
+    "sha256": "fc063392386f9662ce5776e979c8fa45ac91f17bb649d5daa609e23e841778c7",
+    "learning_rate": 0.01,
+    "label": "Full_XMoE"
+  }
+}
