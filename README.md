@@ -288,6 +288,41 @@ its components have fixture checks, while a fresh complete raw rebuild must stil
 be validated before claiming end-to-end archive reproduction. The existing
 prepared-array route below is separately verified.
 
+### Preparation time and progress
+
+Users starting from the original archives need to perform this preparation once.
+The same verified graph/features and ten prepared splits are then reused by all
+five models. Do not repeat ZIP extraction and graph construction for each model,
+seed, or training restart. A deliberate fresh-input reproduction is a separate
+reason to build into a new output directory.
+
+Observed timings from the earlier preparation on the reference i9-13900/31.7 GiB
+Windows PC are useful planning evidence, not a measured end-to-end time for a
+fresh installation:
+
+| Phase | Work / progress indication | Recorded time or scope |
+|---|---|---|
+| Nested extraction | `Opening nested archive: ...`; streams three pickles totaling about 10.7 GB | Varies with disk, compression and antivirus; no separately recorded phase time |
+| Source verification | `PASS raw graph: ...`; hashes each entire pickle and verifies label lists | Full-file I/O; no separate benchmark |
+| Stage 1/4 | Indexes cohort-incident source observations | Progress reports millions of source edge records |
+| Stage 2/4 | Cohort feature aggregation over 1,695,923 selected range tasks | About **22 minutes** previously (1,302.8 seconds) |
+| Stage 3/4 | Builds context features and graph arrays for 1,322,252 nodes | About **53 minutes** previously (3,162.8 seconds) |
+| Stage 4/4 | Builds per-seed training-only scaling and masks | Prints `Seed 100` through `Seed 109`; no separate benchmark |
+
+For planning, allow **roughly 1.5–3 hours** on comparable hardware, possibly longer
+on slower or busy disks/CPUs. This is an allowance, not a guaranteed duration; a
+clean end-to-end preparation measurement is still being collected. The two
+historically measured aggregation/graph phases alone total about 75 minutes.
+Downloading archives and model training are additional time, not included here.
+
+Keep the terminal open, prevent automatic sleep, leave at least 60 GB free disk
+and run only one preparation job at a time. A quiet terminal during ZIP copying,
+hashing or a SQLite query does not itself prove a hang; check CPU/disk activity
+and output-file growth. Do not launch a duplicate process to obtain more logs.
+Preserve errors and the output folder. Successful preparation ends with
+`RQ1 graph prepared` and ten seed summaries; verify hashes/scalers with the next
+section before training. Full performance tables are not produced by this step.
+
 ## 7. Verify every prepared input and create local paths
 
 ```powershell

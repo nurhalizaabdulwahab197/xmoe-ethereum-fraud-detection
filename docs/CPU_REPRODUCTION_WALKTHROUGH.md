@@ -82,6 +82,8 @@ expected hashes and RQ1 member hashes are in the README and dataset document.
 
 Allow at least 60 GB free disk. Close unnecessary applications after saving work.
 Keep the terminal open. This stage is CPU/disk preparation, not model training.
+It is required once when starting from ZIPs; the output is reused for all five
+models and seeds. It is not repeated for each training run or verified restart.
 
 ```powershell
 python -B .\preparation\prepare_rq1.py `
@@ -95,6 +97,18 @@ context/graph arrays, and ten per-seed standardized inputs. This can take over a
 hour. Do not call the source graph a full blockchain history. No unsafe graph
 unpickling, invented amount feature, graph sampling or context-to-Normal labeling
 is performed. Existing output directories are refused rather than overwritten.
+
+On the reference PC, earlier cohort aggregation took about 22 minutes and the
+context/graph stage about 53 minutes, before adding extraction, hashing, indexing
+and scaling. Allow roughly **1.5–3 hours** for planning on comparable hardware;
+slower/busy systems can take longer. A complete fresh-install total has not yet
+been measured. See the root README's phase table for log messages and timing
+scope. Download and training time are separate.
+
+`Opening nested archive` and full-file hash checks may run quietly between log
+messages. Check CPU/disk activity or file growth rather than starting another
+copy. Keep automatic sleep disabled and do not delete output files while a job
+is active. Preserve a failed directory and its last console output for diagnosis.
 
 Expected graph: 1,322,252 nodes, 3,856,855 directed pairs, five features, 4,913
 labeled nodes (636/1,165/3,112), and 1,317,339 unknown context nodes. A final graph
