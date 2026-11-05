@@ -24,6 +24,42 @@ the architecture and training method; it does not transfer a BLTE checkpoint to
 RQ1. Feature semantics, topology, class balance and source annotation definitions
 differ. We do not describe this as an identical-feature experiment.
 
+## Model implementations and repository layout
+
+The five model definitions are visible under **[src/models](src/models)**,
+matching the model-directory layout of the BLTE branch:
+
+| Model | Implementation |
+|---|---|
+| MLP | [src/models/mlp.py](src/models/mlp.py) |
+| GCN | [src/models/gcn.py](src/models/gcn.py) |
+| GAT | [src/models/gat.py](src/models/gat.py) |
+| GraphSAGE | [src/models/graphsage.py](src/models/graphsage.py) |
+| X-MoE | [src/models/xmoe.py](src/models/xmoe.py) |
+
+```text
+src/models/          Five readable model implementations
+run.py               The single shared experiment runner
+common_config.json   Shared, frozen training configuration
+adapters.py          BLTE and RQ1 input adapters
+preparation/         RQ1 primitive indexing and feature/graph preparation
+scripts/             Input configuration, package and result checks
+docs/                Protocol, dataset provenance and validation status
+results/reference/   Published aggregates and histories for 100 completed runs
+provenance/          Source/input/evidence hashes and frozen cohort policy
+reference_src/       Byte-preserved execution snapshot from the completed study
+```
+
+To preserve the completed study's source hashes, the runner continues to import
+its frozen snapshot from `reference_src`. The visible model files are exact byte
+copies, not new architectures; `scripts/check_package.py` rejects differences
+between the two locations. This layout adds no second training runner and does
+not change model computations, configuration or the 100 reported results.
+
+For a fresh CPU reproduction, follow
+**[docs/CPU_REPRODUCTION_WALKTHROUGH.md](docs/CPU_REPRODUCTION_WALKTHROUGH.md)**.
+It separates package/setup checks, raw ZIP reconstruction and training checks.
+
 ## Branches and study boundaries
 
 | Branch | Purpose |

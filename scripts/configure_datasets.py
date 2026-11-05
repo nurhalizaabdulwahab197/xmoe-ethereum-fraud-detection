@@ -36,6 +36,9 @@ def configure(blte, graph, inputs, output):
             np.testing.assert_array_equal(np.load(folder/f'{name}_mask.npy',allow_pickle=False), mask)
         np.testing.assert_array_equal(meta['mean'], scaler.mean_)
         np.testing.assert_array_equal(meta['scale'], scaler.scale_)
+        np.testing.assert_array_equal(meta['variance'], scaler.var_)
+        if meta['feature_names'] != expected['feature_names']:
+            raise ValueError('Prepared feature names/order differ')
         if meta['partition_counts'] != wanted['partition_counts']:
             raise ValueError('Partition class counts differ')
         records[str(seed)] = dict(wanted, manifest_sha256=sha(folder/'preprocessing_and_split.json'))

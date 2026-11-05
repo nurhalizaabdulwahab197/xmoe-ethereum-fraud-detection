@@ -10,6 +10,9 @@ from audit_results import audit
 
 def main():
     verify_code(ROOT)
+    for path in (ROOT/'src/models').glob('*.py'):
+        if sha(path)!=sha(ROOT/'reference_src/models'/path.name):
+            raise ValueError('Public model differs from frozen execution snapshot: '+path.name)
     manifest=read(ROOT/'PACKAGE_MANIFEST.json')
     for name,expected in manifest['files_sha256'].items():
         if sha(ROOT/name)!=expected:
