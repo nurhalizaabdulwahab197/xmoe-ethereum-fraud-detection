@@ -6,6 +6,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / 'provenance/frozen_pipeline'))
 sys.path.insert(0, str(ROOT / 'preparation'))
 from utility import read, sha
 

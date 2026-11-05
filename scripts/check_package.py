@@ -4,14 +4,17 @@ from pathlib import Path
 import sys
 
 ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(ROOT))
+FROZEN=ROOT/'provenance/frozen_pipeline'
+sys.path.insert(0,str(FROZEN))
 from utility import read,sha,verify_code
 from audit_results import audit
 
 def main():
-    verify_code(ROOT)
+    verify_code(FROZEN)
+    if sha(ROOT/'common_config.json')!=sha(FROZEN/'common_config.json'):
+        raise ValueError('Visible configuration differs from the frozen execution configuration')
     for path in (ROOT/'src/models').glob('*.py'):
-        if sha(path)!=sha(ROOT/'reference_src/models'/path.name):
+        if sha(path)!=sha(FROZEN/'reference_src/models'/path.name):
             raise ValueError('Public model differs from frozen execution snapshot: '+path.name)
     manifest=read(ROOT/'PACKAGE_MANIFEST.json')
     for name,expected in manifest['files_sha256'].items():

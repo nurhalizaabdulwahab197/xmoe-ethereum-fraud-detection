@@ -5,12 +5,18 @@ classification datasets using one CPU environment, one training configuration,
 one experiment runner and two dataset adapters. All **100 planned runs** are
 complete: two datasets × five models × ten seeds, with 300 epochs per run.
 
+ScamSweeper reference: **ScamSweeper: Detecting Illegal Accounts in Web3 Scams via
+Transactions Analysis**, IEEE Transactions on Information Forensics and Security.
+Journal DOI: **[10.1109/TIFS.2025.3646027](https://doi.org/10.1109/TIFS.2025.3646027)**.
+The [author artifact](https://figshare.com/s/65d00a4c50c9d5188c06) is downloaded
+separately; it is not bundled in this repository.
+
 ```text
 One environment + common_config.json
                  |
   MLP / GCN / GAT / GraphSAGE / X-MoE
                  |
-             run.py
+          src/runner.py
                  |
         +--------+--------+
     BLTE adapter      RQ1 adapter
@@ -38,20 +44,22 @@ matching the model-directory layout of the BLTE branch:
 | X-MoE | [src/models/xmoe.py](src/models/xmoe.py) |
 
 ```text
-src/models/          Five readable model implementations
-run.py               The single shared experiment runner
-common_config.json   Shared, frozen training configuration
-adapters.py          BLTE and RQ1 input adapters
-preparation/         RQ1 primitive indexing and feature/graph preparation
-scripts/             Input configuration, package and result checks
-docs/                Protocol, dataset provenance and validation status
-results/reference/   Published aggregates and histories for 100 completed runs
-provenance/          Source/input/evidence hashes and frozen cohort policy
-reference_src/       Byte-preserved execution snapshot from the completed study
+src/models/                  Five readable model implementations
+src/runner.py                Public entry point for the shared experiment engine
+common_config.json           Shared, frozen training configuration
+preparation/                 RQ1 primitive indexing and feature/graph preparation
+scripts/                     Input configuration, package and result checks
+tests/                       Shared-pipeline regression test entry point
+docs/                        Protocol, data provenance and CPU walkthrough
+results/reference/           Aggregates and histories for 100 completed runs
+provenance/frozen_pipeline/  Byte-preserved engine, adapters and execution snapshot
+ENVIRONMENT_CPU.txt          Recorded CPU hardware and runtime
+requirements-cpu.txt         Pinned CPU installation requirements
 ```
 
-To preserve the completed study's source hashes, the runner continues to import
-its frozen snapshot from `reference_src`. The visible model files are exact byte
+To preserve the completed study's source hashes, `src/runner.py` delegates to the
+same engine now stored in `provenance/frozen_pipeline`. Its model snapshot is
+under `provenance/frozen_pipeline/reference_src/models`. Visible model files are exact byte
 copies, not new architectures; `scripts/check_package.py` rejects differences
 between the two locations. This layout adds no second training runner and does
 not change model computations, configuration or the 100 reported results.
@@ -156,7 +164,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .\.venv-cpu\Scripts\Activate.ps1
 python --version
 python -m pip install pip==26.2.2
-python -m pip install -r .\requirements-cpu-tested.txt
+python -m pip install -r .\requirements-cpu.txt
 python -m pip check
 ```
 
@@ -182,7 +190,7 @@ The runner rejects a mismatched principal environment. A PyG FutureWarning about
 ```powershell
 Get-Content .\common_config.json
 python .\scripts\check_package.py
-python -B -m unittest discover -s . -p "test_*.py" -v
+python -B -m unittest discover -s .\tests -p "test_*.py" -v
 python -B -m unittest discover -s .\preparation -p "test_*.py" -v
 ```
 
@@ -208,7 +216,7 @@ and published predictions, not new performance training.
 | Evaluation | Native topology visible transductively; validation/test labels excluded from training loss |
 
 Details, objective definitions and architecture source are in
-[docs/PROTOCOL.md](docs/PROTOCOL.md) and `reference_src/models/`.
+[docs/PROTOCOL.md](docs/PROTOCOL.md) and [src/models](src/models).
 
 ## 5. Obtain and verify BLTE
 
@@ -232,9 +240,12 @@ counts 72,865/69/99. Source artifacts remain subject to the provider's terms.
 
 ## 6. Prepare ScamSweeper RQ1
 
-Obtain **RQ1** and **RQ4** archives from the
+Both **RQ1** and **RQ4** archives are required for the fresh reconstruction. Obtain them from the
 [ScamSweeper online artifact](https://figshare.com/s/65d00a4c50c9d5188c06).
 RQ1 contains the transaction graphs; explicit source account lists are in RQ4.
+RQ4 is used only as a label-list source; the evaluated graph is built from RQ1.
+RQ2&3 and Cases are not required by this frozen reconstruction workflow. The
+historical case/marker review decisions are already frozen in the exclusion policy.
 Place the downloaded archives in `data/raw/` and name them `RQ1.zip` and `RQ4.zip`.
 The filenames in the download interface may include numbered prefixes; renaming
 the ZIP does not change its internal files. Read [docs/DATASETS.md](docs/DATASETS.md)
@@ -290,8 +301,8 @@ they do not alter the shared training source/configuration. No test metrics are
 calculated. Do not copy historical absolute filesystem paths from another PC.
 
 ```powershell
-python -B .\run.py --dataset blte --mode verify --registry .\datasets.local.json --seeds 100,101,102,103,104,105,106,107,108,109
-python -B .\run.py --dataset rq1 --mode verify --registry .\datasets.local.json --seeds 100,101,102,103,104,105,106,107,108,109
+python -B .\src\runner.py --dataset blte --mode verify --registry .\datasets.local.json --seeds 100,101,102,103,104,105,106,107,108,109
+python -B .\src\runner.py --dataset rq1 --mode verify --registry .\datasets.local.json --seeds 100,101,102,103,104,105,106,107,108,109
 ```
 
 ## 8. Check execution and memory before a long run
@@ -309,8 +320,8 @@ reference PC; it increases compute time. A short probe does not guarantee memory
 availability throughout a long run.
 
 ```powershell
-python -B .\run.py --dataset blte --mode validate --check-epochs 5 --seeds 100 --threads 24 --registry .\datasets.local.json --output-dir .\checks\blte_validation5
-python -B .\run.py --dataset rq1 --mode probe --seeds 100 --threads 24 --registry .\datasets.local.json --output-dir .\checks\rq1_memory_probe
+python -B .\src\runner.py --dataset blte --mode validate --check-epochs 5 --seeds 100 --threads 24 --registry .\datasets.local.json --output-dir .\checks\blte_validation5
+python -B .\src\runner.py --dataset rq1 --mode probe --seeds 100 --threads 24 --registry .\datasets.local.json --output-dir .\checks\rq1_memory_probe
 ```
 
 `validate` trains briefly and checks validation/checkpoint reloading without test
@@ -320,7 +331,7 @@ These are technical checks, excluded from the 100-run final comparison.
 ## 9. Run all BLTE experiments first
 
 ```powershell
-python -B .\run.py `
+python -B .\src\runner.py `
   --dataset blte `
   --mode train `
   --registry .\datasets.local.json `
@@ -333,7 +344,7 @@ python -B .\run.py `
 ## 10. Run all RQ1 experiments
 
 ```powershell
-python -B .\run.py `
+python -B .\src\runner.py `
   --dataset rq1 `
   --mode train `
   --registry .\datasets.local.json `

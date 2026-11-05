@@ -31,7 +31,7 @@ py -3.11 -m venv .venv-cpu
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .\.venv-cpu\Scripts\Activate.ps1
 python -m pip install pip==26.2.2
-python -m pip install -r .\requirements-cpu-tested.txt
+python -m pip install -r .\requirements-cpu.txt
 python -m pip check
 ```
 
@@ -43,7 +43,7 @@ Verify package content and versions:
 python --version
 python -c "import torch, torch_geometric, numpy, pandas, sklearn, scipy, psutil; print('Torch:',torch.__version__); print('PyG:',torch_geometric.__version__); print('NumPy:',numpy.__version__); print('pandas:',pandas.__version__); print('sklearn:',sklearn.__version__); print('SciPy:',scipy.__version__); print('psutil:',psutil.__version__); print('CUDA:',torch.cuda.is_available())"
 python -B .\scripts\check_package.py
-python -B -m unittest discover -s . -p "test_*.py" -v
+python -B -m unittest discover -s .\tests -p "test_*.py" -v
 python -B -m unittest discover -s .\preparation -p "test_*.py" -v
 ```
 
@@ -106,8 +106,8 @@ python -B .\scripts\configure_datasets.py `
   --rq1-graph .\data\fresh_rq1\graph `
   --rq1-inputs .\data\fresh_rq1\seed_inputs
 
-python -B .\run.py --dataset blte --mode verify --registry .\datasets.local.json --seeds 100,101,102,103,104,105,106,107,108,109
-python -B .\run.py --dataset rq1 --mode verify --registry .\datasets.local.json --seeds 100,101,102,103,104,105,106,107,108,109
+python -B .\src\runner.py --dataset blte --mode verify --registry .\datasets.local.json --seeds 100,101,102,103,104,105,106,107,108,109
+python -B .\src\runner.py --dataset rq1 --mode verify --registry .\datasets.local.json --seeds 100,101,102,103,104,105,106,107,108,109
 ```
 
 All graph hashes, all ten normalized-feature/mask hashes and independently fitted
@@ -119,8 +119,8 @@ paths and their own hashes; do not use them to resume old output folders.
 
 ```powershell
 python -c "import psutil; print('Available GiB:',round(psutil.virtual_memory().available/1024**3,2))"
-python -B .\run.py --dataset blte --mode validate --check-epochs 5 --seeds 100 --threads 24 --registry .\datasets.local.json --output-dir .\checks\fresh_blte_validation5
-python -B .\run.py --dataset rq1 --mode validate --check-epochs 5 --seeds 100 --threads 24 --registry .\datasets.local.json --output-dir .\checks\fresh_rq1_validation5
+python -B .\src\runner.py --dataset blte --mode validate --check-epochs 5 --seeds 100 --threads 24 --registry .\datasets.local.json --output-dir .\checks\fresh_blte_validation5
+python -B .\src\runner.py --dataset rq1 --mode validate --check-epochs 5 --seeds 100 --threads 24 --registry .\datasets.local.json --output-dir .\checks\fresh_rq1_validation5
 ```
 
 Aim for at least 12 GiB available before RQ1 and run only one block at a time.
@@ -133,8 +133,8 @@ test. This does not by itself reproduce the final 300-epoch performance table.
 After Stages A–E pass, execute one seed for both datasets in **new** output roots:
 
 ```powershell
-python -B .\run.py --dataset blte --mode train --registry .\datasets.local.json --models mlp,gcn,gat,graphsage,x_moe_gnn --seeds 100 --threads 24 --output-dir .\results\new_runs\fresh_blte
-python -B .\run.py --dataset rq1 --mode train --registry .\datasets.local.json --models mlp,gcn,gat,graphsage,x_moe_gnn --seeds 100 --threads 24 --output-dir .\results\new_runs\fresh_rq1
+python -B .\src\runner.py --dataset blte --mode train --registry .\datasets.local.json --models mlp,gcn,gat,graphsage,x_moe_gnn --seeds 100 --threads 24 --output-dir .\results\new_runs\fresh_blte
+python -B .\src\runner.py --dataset rq1 --mode train --registry .\datasets.local.json --models mlp,gcn,gat,graphsage,x_moe_gnn --seeds 100 --threads 24 --output-dir .\results\new_runs\fresh_rq1
 ```
 
 Run BLTE first, then RQ1. These are 300-epoch training runs, not smoke tests.

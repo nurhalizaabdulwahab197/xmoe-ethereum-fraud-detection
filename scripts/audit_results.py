@@ -8,6 +8,7 @@ from pathlib import Path
 import statistics
 
 ROOT=Path(__file__).resolve().parents[1]
+FROZEN=ROOT/'provenance/frozen_pipeline'
 MODELS=['mlp','gcn','gat','graphsage','x_moe_gnn']
 
 def read(path):
@@ -47,7 +48,7 @@ def audit(root,dataset,published=False):
             raise ValueError('Run identity mismatch')
         if r['epochs']!=300 or p['status']!='passed' or not r['test_evaluated']:
             raise ValueError('Incomplete final run')
-        if r['shared_config_sha256']!=sha(ROOT/'common_config.json') or r['release_manifest_sha256']!=sha(ROOT/'release_manifest.json'):
+        if r['shared_config_sha256']!=sha(ROOT/'common_config.json') or r['release_manifest_sha256']!=sha(FROZEN/'release_manifest.json'):
             raise ValueError('Training source/config changed')
         if r['optimizer']!=config['optimizer'] or r['actual_torch_threads']!=24:
             raise ValueError('Execution differs from shared protocol')

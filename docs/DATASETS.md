@@ -31,6 +31,7 @@ from the repository's strict visibility experiment.
 
 Source: [Online Artifact of ScamSweeper](https://figshare.com/s/65d00a4c50c9d5188c06),
 with the [ScamSweeper paper](https://csxqli.github.io/files/ScamSweeper.pdf).
+Journal DOI: [10.1109/TIFS.2025.3646027](https://doi.org/10.1109/TIFS.2025.3646027).
 The source describes a processed NetworkX Ethereum graph crawled by second-order
 BFS in the first 18 million block heights. Its Normal/Phishing sources and Web3
 scam sources differ; a source-list Scams label is not automatically equivalent

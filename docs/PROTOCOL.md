@@ -1,9 +1,12 @@
 # Shared training and evaluation protocol
 
 The original model/training source is pinned to repository commit
-`e660a0fbf20eb24ad5d519404489e996b92eec52`. The frozen `reference_src` files and
-the shared runner have the same bytes as those used in the completed 100-run
-study. `release_manifest.json` checks those bytes. Portable data preparation,
+`e660a0fbf20eb24ad5d519404489e996b92eec52`. The snapshot in
+`provenance/frozen_pipeline` preserves the same engine/model bytes used in the
+completed 100-run study. Its `release_manifest.json` checks those bytes.
+`src/runner.py` delegates to that engine, while `src/models` exposes identical
+model definitions for review. `FILE_RELOCATION_MAP.json` records the layout change.
+Portable data preparation,
 publication checks and documentation are outside that training inventory.
 
 ## Architecture and objectives

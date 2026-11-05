@@ -1,0 +1,7 @@
+{
+  "scope": "One hundred completed runs; published aggregate evidence with archived prediction/checkpoint hashes",
+  "evidence_inventory": "provenance/evidence_inventory.json",
+  "shared_config_sha256": "c118ea10a4e0f3a9c6d0c7cf72f7298d57ed8b508c3d98c792ac76f790518ac0",
+  "training_manifest_sha256": "ddc1a18a45334f1d842638d989034fe4b51eae410584b15497e9180c2b32f061",
+  "training_manifest": "provenance/frozen_pipeline/release_manifest.json"
+}
