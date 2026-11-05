@@ -281,12 +281,14 @@ features, **4,913 labeled accounts** (636 Normal, 1,165 Phishing, 3,112 Scams) a
 737 test accounts. The wrapper checks rebuilt graph hashes; the next step checks
 every seed array against the original study.
 
-Preparation historically took roughly an hour for the aggregation/context stages,
-plus indexing, extraction and verification. Allow at least 60 GB free disk and a
-32 GB RAM system. The combined portable raw-archive wrapper is new packaging:
-its components have fixture checks, while a fresh complete raw rebuild must still
-be validated before claiming end-to-end archive reproduction. The existing
-prepared-array route below is separately verified.
+Allow at least 60 GB free disk and a 32 GB RAM system. On 5 November 2026, a fresh
+CPU checkout rebuilt the RQ1 outer ZIP through graph/features and all ten seed
+inputs. All four graph-array hashes and 40 seed-array hashes matched the original
+study; training-only scaling and masks were independently recomputed and equal.
+This input reconstruction used Python 3.11.9 and Node.js 26.13.0 on the reference
+PC. It does not yet constitute selected 300-epoch model-performance reproduction
+in that fresh checkout, or validation on an independent computer. The record is
+[provenance/fresh_cpu_input_validation.json](provenance/fresh_cpu_input_validation.json).
 
 ### Preparation time and progress
 
@@ -311,9 +313,15 @@ fresh installation:
 
 For planning, allow **roughly 1.5–3 hours** on comparable hardware, possibly longer
 on slower or busy disks/CPUs. This is an allowance, not a guaranteed duration; a
-clean end-to-end preparation measurement is still being collected. The two
+complete end-to-end wall time was not captured. The two
 historically measured aggregation/graph phases alone total about 75 minutes.
 Downloading archives and model training are additional time, not included here.
+
+The subsequent fresh CPU reconstruction recorded about **16.4 minutes** for
+cohort aggregation and **21.3 minutes** for context/graph building. These are
+individual phase measurements, not a full ZIP-to-input total; workload and I/O
+conditions can materially change timings. Preserve both the earlier timings and
+this fresh-run observation rather than presenting one as a guaranteed duration.
 
 Keep the terminal open, prevent automatic sleep, leave at least 60 GB free disk
 and run only one preparation job at a time. A quiet terminal during ZIP copying,

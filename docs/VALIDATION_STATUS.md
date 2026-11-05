@@ -39,17 +39,23 @@ Completed checks:
   Training-only scaler and split arrays were independently recomputed and found
   equal. Both BLTE and RQ1 pass the shared runner's all-seed verification using
   the new machine-local registry. No test inference is performed in this check.
+- The user subsequently completed the full outer-ZIP reconstruction in a fresh
+  CPU checkout/environment on the reference PC, using Node.js 26.13.0. All four
+  rebuilt graph arrays and all 40 seed arrays independently matched the original
+  study hashes. The public configuration checker confirmed exact masks and
+  training-only normalized values/mean/scale/variance for every seed. BLTE input
+  hashes also passed. See `provenance/fresh_cpu_input_validation.json`.
+- That fresh run measured 985.531 seconds for cohort aggregation and 1280.125
+  seconds for context/graph building. A full end-to-end wall time was not recorded.
 
 Validation limits:
 
 - An internet dependency installation on a fresh second machine has not been
   exercised. The complete observed freeze and exact principal versions are
   provided. Do not claim every future package index will supply the same wheels.
-- The raw-archive orchestration wrapper combines the original, tested primitive
-  decoder/indexer/aggregator/context builder with a portable cohort/path setup.
-  Raw-byte/cohort preflight and component fixtures pass. A complete new raw ZIP
-  extraction through rebuilt full arrays has not been rerun for this packaging.
-  Existing prepared-array verification is complete; these are different scopes.
+- Raw ZIP-to-input reconstruction is verified on this PC. Selected final-training
+  reproduction in the fresh checkout is the next stage; do not report the input
+  check as a second completed 100-run performance study.
 - The raw data, prepared graph arrays, per-node predictions and checkpoints are not hosted in Git.
   Provider access and dataset terms remain separate from the code license.
 - Exact numerical equality across different hardware, libraries and thread
