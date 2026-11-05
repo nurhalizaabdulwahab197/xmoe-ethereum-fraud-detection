@@ -1,0 +1,52 @@
+# Publication validation — 5 November 2026
+
+The complete study consists of 100 final CPU runs, 300 epochs each. This branch
+packages their saved evidence and unchanged training implementation. Packaging
+did not retrain performance models or change the reported outcomes.
+
+Completed checks:
+
+- All 100 completed attempts have their original checkpoint, history and
+  prediction hashes verified against the original local archive.
+- Published history bytes match the archive. Published JSON changes
+  only absolute local path strings; original and public hashes are both recorded.
+- Before packaging, all 100 locally archived prediction sets reproduce their confusion matrices, accuracy and
+  per-class/Macro-F1. Each history has 300 rows and the recorded checkpoint epoch
+  is the earliest maximum validation Macro-F1. Dataset summaries reproduce
+  the ten-seed means and sample SDs from the run records.
+- Per-node prediction files are not distributed. The public checker verifies
+  aggregate confusion cells, metric consistency, histories and publication hashes;
+  it does not claim to re-audit undistributed per-node probabilities.
+- Shared configuration and model/training source hashes match the completed
+  study. The model source files also match the current main-branch model modules
+  after ignoring platform line endings.
+- Sixteen existing model/adapter/selection/attempt tests pass in the recorded
+  Python environment. These use synthetic fixtures, not additional final runs.
+- Seven primitive-index, feature aggregation and real-context tests pass,
+  including parallel edges, malformed endpoints, time handling and label checks.
+- The raw-input preflight verifies all three complete pickle hashes and each
+  explicit source account-list hash. Its reconstructed cohort matches all 4,913
+  original canonical address/class pairs after the frozen 13 exclusions.
+- Relocated copies of all ten prepared RQ1 seed arrays match the frozen hashes.
+  Training-only scaler and split arrays were independently recomputed and found
+  equal. Both BLTE and RQ1 pass the shared runner's all-seed verification using
+  the new machine-local registry. No test inference is performed in this check.
+
+Validation limits:
+
+- An internet dependency installation on a fresh second machine has not been
+  exercised. The complete observed freeze and exact principal versions are
+  provided. Do not claim every future package index will supply the same wheels.
+- The raw-archive orchestration wrapper combines the original, tested primitive
+  decoder/indexer/aggregator/context builder with a portable cohort/path setup.
+  Raw-byte/cohort preflight and component fixtures pass. A complete new raw ZIP
+  extraction through rebuilt full arrays has not been rerun for this packaging.
+  Existing prepared-array verification is complete; these are different scopes.
+- The raw data, prepared graph arrays, per-node predictions and checkpoints are not hosted in Git.
+  Provider access and dataset terms remain separate from the code license.
+- Exact numerical equality across different hardware, libraries and thread
+  settings is not guaranteed. All final results, including the RQ1 seed where
+  GraphSAGE has higher Macro-F1 than X-MoE, are retained.
+
+This branch is independent of the BLTE reconstruction and demo branches. Its
+documentation does not change their study configurations or deployment state.

@@ -1,0 +1,45 @@
+{
+  "source_lists": {
+    "normal": {
+      "archive": "archived-local/(3) RQ4.zip",
+      "member": "(3) RQ4/normal_account.txt",
+      "sha256": "4447ed932ebf67471a2370d53c559f6c444a1379c04054b431b0c7e57bb4813b",
+      "addresses": 636
+    },
+    "phish": {
+      "archive": "archived-local/(3) RQ4.zip",
+      "member": "(3) RQ4/phish_account.txt",
+      "sha256": "637b55c15742017db968b9515301452afbae1e9525a566de50f7b787d9882d36",
+      "addresses": 1165
+    },
+    "scams": {
+      "archive": "archived-local/(3) RQ4.zip",
+      "member": "(3) RQ4/scams_account.txt",
+      "sha256": "aa4b7d7a2618b10838dd75ba3c7669c321423160701c0f9aad85da23be12ef3a",
+      "addresses": 3125
+    }
+  },
+  "excluded_address_sha256": [
+    "02c442016bf273a360c34af20ff2131eb41a865589f35a6d34cd405a077ff845",
+    "0721c085aa58239c1579c287d0bd7749ed3423db541eba7df533abf431833109",
+    "18a8c5d0c44adb53c37ff6a102ebce28c25410b5d9c0d9c063ca5b44df141439",
+    "5367e9b4f4badc655349131a70981d7eada3ce1489965a96850d3dca178c1f4e",
+    "5a9bf3ab96017dd661c7acc3befdd20196e1f3bc871d7a63237908005e3165ab",
+    "5d082f9aceb2de38e3a164f57c8a57e40ddf1a311c2beb751a194a90580a0d82",
+    "5d70a8ef118614c8d2c1d4352f8f9971da4ac5b6df22fd1ebdf5487f7444f124",
+    "705d48b5084eb1a7d3cb35c38f5192669577a2be65afe4745ff6acce7b09bf48",
+    "99c003f7a690890abb760a80f6e0ba78fcbec12ce2f73de2b93631fb7086ca5e",
+    "b98ff7ab6241836ab2d8b7d1107ec82955a92d70e3c63e03168eb07f94daaeb7",
+    "cc15d515674f4d9fe7e6f976f83b466b2914ffff8097094428ebb6376bcf079f",
+    "e784063d41528701d60b97bd1db44f871397766dad9b4300c536350dac3f53a3",
+    "e8b497ddea75578e8c81400c25178527c806f90c6d58710c8b32b0f611efe292"
+  ],
+  "excluded_count": 13,
+  "reason": "Frozen pre-training source-marker/case review exclusions; do not relabel context as Normal",
+  "expected_class_counts": [
+    636,
+    1165,
+    3112
+  ],
+  "policy": "Explicit lists in the RQ4 archive label RQ1 accounts; hashes identify the 13 historically reviewed exclusions."
+}

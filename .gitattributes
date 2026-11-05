@@ -1,2 +1,2 @@
-
-interactive_demo/** -text
+# Preserve the audited source and evidence bytes across Windows/Linux checkouts.
+* -text

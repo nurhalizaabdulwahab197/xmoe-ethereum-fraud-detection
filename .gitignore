@@ -1,44 +1,12 @@
-# Python
+.venv*/
 __pycache__/
-*.py[cod]
-
-# Virtual environments
-.venv/
-.venv-cpu/
-venv/
-
-# Upstream dataset/artifacts
+*.pyc
+datasets.local*.json
+data/
 upstream-paper/
-
-# Model checkpoints
+checks/
+results/new_runs/
 *.pt
-*.pth
-
-# Generated experiment outputs
-results/smoke_*/
-results/final_*/
-
-
-# Temporary / cache
-.pytest_cache/
-.ipynb_checkpoints/
-
-# OS / editor
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-
-# Local backup
-src/reproduce_backup.py
-.venv-gpu/
-
-results/checks/gcn_seed108/
-results/strict_fresh/
-
-# Curated inference checkpoints, including the validated MLP
-!interactive_demo/checkpoints_reference/**/*.pt
-
-# Local archives are not published
-results/history/
-results/inference_validation/
+*.sqlite
+*.zip
+*.npy

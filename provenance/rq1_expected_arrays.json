@@ -1,0 +1,378 @@
+{
+  "graph_file_sha256": {
+    "features_raw.npy": "3282111c2bd2a5229636843af62346a9ce4419261d405062596602fa10055874",
+    "labels.npy": "76580687e8c6c1560d0f1399e7a08053383a2ee96ad871d7061657e05a0cf79b",
+    "candidate_labeled_mask.npy": "ca89f08bba99bcf20fa10cc904bc5427e58afaa40328afeb5af2327db654fdda",
+    "edge_index.npy": "1d60cbd9026b44bbb15f79d6baf09f2fda6517bc51167560a3605a29c1f73bbd"
+  },
+  "seed_inputs": {
+    "100": {
+      "manifest_sha256": "74f28d0eadcf6cdfe47aca85edf76021241c489dcd1dd27e9f0fd51b4a232905",
+      "array_sha256": {
+        "features_normalized.npy": "6b415757bb847d22fa014456492e2d794d58bfad9b35a734db24ce0705fe2db7",
+        "test_mask.npy": "49b65e055df51ab1f22b70dfdb8ae54fa633f21d3f42a2ca4d6d03032f9ce86c",
+        "train_mask.npy": "098d53b4e2f506b53f93c48643b858306e9c894e359657ad88be7f6c92191589",
+        "validation_mask.npy": "10a8bb268ab8a255e8c35d2b3d533a72c288a49ffb4360b2be8e37c39db74a24"
+      },
+      "partition_counts": {
+        "train": {
+          "total": 3439,
+          "classes": [
+            445,
+            816,
+            2178
+          ]
+        },
+        "validation": {
+          "total": 737,
+          "classes": [
+            95,
+            175,
+            467
+          ]
+        },
+        "test": {
+          "total": 737,
+          "classes": [
+            96,
+            174,
+            467
+          ]
+        }
+      },
+      "train_only_scaler_recomputed": true
+    },
+    "101": {
+      "manifest_sha256": "d4537e30750efc9bff2407a5d10d8943694c60283ced29118524848264cfc628",
+      "array_sha256": {
+        "features_normalized.npy": "4ec30d863aff1d616b84cb7799f6c0887839f3114a998ef56a896cd08c452b45",
+        "test_mask.npy": "6c9629cfe99b659d2b358c862339fc3ad729c7dd63d266126200e4cd4193c5c7",
+        "train_mask.npy": "0989a88266fcbda685b893ccc37bbecbdd9e266a0f1542137d514cbbfa251bb0",
+        "validation_mask.npy": "25713d484f60b027dfb0c334a6ff2297402f0273da459477e8ba8f45d663976f"
+      },
+      "partition_counts": {
+        "train": {
+          "total": 3439,
+          "classes": [
+            445,
+            816,
+            2178
+          ]
+        },
+        "validation": {
+          "total": 737,
+          "classes": [
+            96,
+            174,
+            467
+          ]
+        },
+        "test": {
+          "total": 737,
+          "classes": [
+            95,
+            175,
+            467
+          ]
+        }
+      },
+      "train_only_scaler_recomputed": true
+    },
+    "102": {
+      "manifest_sha256": "3a793b4d7bc33c83680e988c38e60ac71e57c1f8d74fd1bd7a69c8d24c03a9df",
+      "array_sha256": {
+        "features_normalized.npy": "5d46195a7e2d808f0a337be1afeecf32eb897a4318bcb23f5faff3f6d6533307",
+        "test_mask.npy": "7bfe51c76d84aa4fc710cbc162c18707a8e61319de02edd3964b12909a95ffcd",
+        "train_mask.npy": "9aff25bcf415a048c5ab21f633bea675b6cef9ebd8edb5aff6a046b24e9fe212",
+        "validation_mask.npy": "a40d60b87f5259aaf6e83e7f2393987f29c44d6e0f2cc34e9d58683eaaef5412"
+      },
+      "partition_counts": {
+        "train": {
+          "total": 3439,
+          "classes": [
+            445,
+            816,
+            2178
+          ]
+        },
+        "validation": {
+          "total": 737,
+          "classes": [
+            95,
+            175,
+            467
+          ]
+        },
+        "test": {
+          "total": 737,
+          "classes": [
+            96,
+            174,
+            467
+          ]
+        }
+      },
+      "train_only_scaler_recomputed": true
+    },
+    "103": {
+      "manifest_sha256": "4240fe1a4536a583e011a52f98fe0f87d6cac73257f2c1582bad6da9cf77c97b",
+      "array_sha256": {
+        "features_normalized.npy": "53bdc5ba539d7966633ef1d29719980ab969613eb5232d4b2c9406a18fdf23f4",
+        "test_mask.npy": "53cd4f8d1fc3c9923bde2ee1e16e729bde077c2dddd39b63152c297d14636b26",
+        "train_mask.npy": "4b46277a5554104a2be7787535ebc363c336e77f01f76d3eec1bea2c78ae33b2",
+        "validation_mask.npy": "3e563ed9373aae38c6eede6042bd46f0a4da15c997846c02cf24ebd0fd0a0d8f"
+      },
+      "partition_counts": {
+        "train": {
+          "total": 3439,
+          "classes": [
+            445,
+            816,
+            2178
+          ]
+        },
+        "validation": {
+          "total": 737,
+          "classes": [
+            96,
+            174,
+            467
+          ]
+        },
+        "test": {
+          "total": 737,
+          "classes": [
+            95,
+            175,
+            467
+          ]
+        }
+      },
+      "train_only_scaler_recomputed": true
+    },
+    "104": {
+      "manifest_sha256": "f5de70846b0efa2a3400ce423bb3cf04f8ad5abe9d344e38d98be1b90c9d88f7",
+      "array_sha256": {
+        "features_normalized.npy": "c158c3ced228c33168f5dc82847898edc4bf685f29f22e26d740560d36d5c589",
+        "test_mask.npy": "2c936a8a106fb19765cfa8231309f9a9f54e0a68baac385ae8ebaa9304fb86ab",
+        "train_mask.npy": "a7be63c08603116d8ff3c25cc6cce29428ba566c08a152275acf5605642f076e",
+        "validation_mask.npy": "0179de4c2e9901fa3d60e73c4cc9273d99bdaaf6be0b721c5148947f5dabb861"
+      },
+      "partition_counts": {
+        "train": {
+          "total": 3439,
+          "classes": [
+            445,
+            816,
+            2178
+          ]
+        },
+        "validation": {
+          "total": 737,
+          "classes": [
+            96,
+            174,
+            467
+          ]
+        },
+        "test": {
+          "total": 737,
+          "classes": [
+            95,
+            175,
+            467
+          ]
+        }
+      },
+      "train_only_scaler_recomputed": true
+    },
+    "105": {
+      "manifest_sha256": "78e64aea6fb6f480154bc6392b36010e1d9a2791b2ec75c5522be37ef1c550f2",
+      "array_sha256": {
+        "features_normalized.npy": "80b01fcd2c52ab6f42b911d448d7057b718b99a77570e73ee5f60225415b1af4",
+        "test_mask.npy": "a357c9fa14114d72a81b356c57a84d732f9b384240e4fb0f16515613bf61e703",
+        "train_mask.npy": "43e68de48e9202c1b2c2aad73213e6fb92d4bed2cd6ee2d3236e2df7d9d511d1",
+        "validation_mask.npy": "099a1920ac4e771e1f66625818c30888204e6ac52650681c250d8544470f4ecf"
+      },
+      "partition_counts": {
+        "train": {
+          "total": 3439,
+          "classes": [
+            445,
+            816,
+            2178
+          ]
+        },
+        "validation": {
+          "total": 737,
+          "classes": [
+            95,
+            175,
+            467
+          ]
+        },
+        "test": {
+          "total": 737,
+          "classes": [
+            96,
+            174,
+            467
+          ]
+        }
+      },
+      "train_only_scaler_recomputed": true
+    },
+    "106": {
+      "manifest_sha256": "80da637653846c0414215fe29bfed0c0edc5e94ca4549e6a98975dbf5edae833",
+      "array_sha256": {
+        "features_normalized.npy": "1f0017f794275de824c0817d402e81dbd9987af6d5c98f7efcdcaa9f640657cd",
+        "test_mask.npy": "c23104a12af03de18d0fbae3191c083665ece5b455bc80cf9209c40abef3776c",
+        "train_mask.npy": "6fb1b75eccd95ede1571c9d17c13e4eb9be309ff43496ddeb1e6eebba8656061",
+        "validation_mask.npy": "f0a67c94073b40ac1aff4ea361cfd2b06e3ba6e3428196f9d5d161d3e8ce93b8"
+      },
+      "partition_counts": {
+        "train": {
+          "total": 3439,
+          "classes": [
+            445,
+            816,
+            2178
+          ]
+        },
+        "validation": {
+          "total": 737,
+          "classes": [
+            95,
+            175,
+            467
+          ]
+        },
+        "test": {
+          "total": 737,
+          "classes": [
+            96,
+            174,
+            467
+          ]
+        }
+      },
+      "train_only_scaler_recomputed": true
+    },
+    "107": {
+      "manifest_sha256": "cb3f29fac23dc6115415a64e3c795a5bdd5524abe30e7a3d0a39127aab6f1783",
+      "array_sha256": {
+        "features_normalized.npy": "8acf33bc66b17af8181df58840ef7754b4f05808fd13b5d7cae95382a4cb77df",
+        "test_mask.npy": "9b6ea5d50ac5762d21fd3e8f18129965a418349d2ecd50c0a462547f8ae63a03",
+        "train_mask.npy": "01109a333628929bf589e1c01d64fc98982dee8c1ef0184109103ea95e8f8565",
+        "validation_mask.npy": "2a4dd649c6c92760395dc4b633a4b282da1d371d9f41f535f3225864741c6964"
+      },
+      "partition_counts": {
+        "train": {
+          "total": 3439,
+          "classes": [
+            445,
+            816,
+            2178
+          ]
+        },
+        "validation": {
+          "total": 737,
+          "classes": [
+            95,
+            175,
+            467
+          ]
+        },
+        "test": {
+          "total": 737,
+          "classes": [
+            96,
+            174,
+            467
+          ]
+        }
+      },
+      "train_only_scaler_recomputed": true
+    },
+    "108": {
+      "manifest_sha256": "3fde03835400ce85383450bbf151929089e17bdbfb235fe20e61681d966881e9",
+      "array_sha256": {
+        "features_normalized.npy": "6c9e580334c5ec22fde0a253e7b9efe3dff433299dfc4b21c8d1084437f1bbf8",
+        "test_mask.npy": "bd8a21802d2b592d734196e45ad2f362996e89ff34ef913adcf85bb0f780509b",
+        "train_mask.npy": "48dcc0da16c148e7d0b2096c172831b8871623a42580e018d75f4791cd279385",
+        "validation_mask.npy": "3022c6a42684382caec5d8cdf30a9a6366bee27163e96e6c23d73eb937a8081e"
+      },
+      "partition_counts": {
+        "train": {
+          "total": 3439,
+          "classes": [
+            445,
+            816,
+            2178
+          ]
+        },
+        "validation": {
+          "total": 737,
+          "classes": [
+            96,
+            174,
+            467
+          ]
+        },
+        "test": {
+          "total": 737,
+          "classes": [
+            95,
+            175,
+            467
+          ]
+        }
+      },
+      "train_only_scaler_recomputed": true
+    },
+    "109": {
+      "manifest_sha256": "2c701753037a69355fcf1f0b4fd18678f25283c14306d04392253489d1dc7e4b",
+      "array_sha256": {
+        "features_normalized.npy": "82b7743bc7c0cad2acdebc18aa9251f0cf4c29008e518465b23e0ac9c443d498",
+        "test_mask.npy": "313f788ce2fa3568b12a2f72bcb41beb703719bcae85191957649ad913b96071",
+        "train_mask.npy": "b3ad929a5c083044240e344998c8b0cd49e792a1d2b8c56921a6c7747e0b22fd",
+        "validation_mask.npy": "f9c987d89db6ade7d9ece210139bfea5e7c51f275ea333224603b0b49f5970ee"
+      },
+      "partition_counts": {
+        "train": {
+          "total": 3439,
+          "classes": [
+            445,
+            816,
+            2178
+          ]
+        },
+        "validation": {
+          "total": 737,
+          "classes": [
+            95,
+            175,
+            467
+          ]
+        },
+        "test": {
+          "total": 737,
+          "classes": [
+            96,
+            174,
+            467
+          ]
+        }
+      },
+      "train_only_scaler_recomputed": true
+    }
+  },
+  "feature_names": [
+    "distinct_in_counterparties",
+    "distinct_out_counterparties",
+    "reciprocal_counterparties",
+    "active_days",
+    "activity_span_seconds"
+  ],
+  "historical_lock_sha256": "7983c2123e55007b876bbd69c0ca743507381d07fb11d21b2e0608241425962b"
+}
