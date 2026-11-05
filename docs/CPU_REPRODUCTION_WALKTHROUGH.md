@@ -5,6 +5,20 @@ archive and its environment intact. Do not start a second experiment while a
 previous worker is still running. Reproducing the ScamSweeper method and live
 wallet inference are outside this walkthrough.
 
+The main README is the complete user guide. The original 100 runs and the fresh
+seed-100 verification are already complete for the author. The commands here are
+for a **new user's execution**, not instructions for the author to repeat them.
+Stages A–F lead to ten selected seed-100 runs; continuing 101–109 is optional.
+
+| Author's completed work | Status |
+|---|---|
+| BLTE main experiment, five models × seeds 100–109 | 50/50 complete |
+| RQ1 main experiment, five models × seeds 100–109 | 50/50 complete |
+| Fresh-checkout seed-100 reproduction, both datasets × five models | 10/10 exact reference matches |
+
+The main reported results use all 100 original runs. This walkthrough describes
+a new reader's own execution and does not require the author to repeat training.
+
 ## Stage A — new checkout and environment
 
 Use a normal Windows PowerShell terminal. Confirm prerequisites:
@@ -16,16 +30,18 @@ node --version
 ```
 
 Python must be 3.11.9. Install missing prerequisites using the official links in
-the root README; Node.js is needed by the primitive indexer. The recorded current
-preparation checks used Node.js 24.22.1. Do not silently change the pinned Python
+the root README; Node.js is needed by the primitive indexer. The successful fresh
+reconstruction used Node.js 26.13.0; earlier checks used 24.22.1. If `node` is not
+recognized, use the installation/PATH instructions in README step 1; this is not
+a project-folder problem. Do not silently change the pinned Python
 or numerical libraries to get past an installation error.
 
 Clone to a fresh, unused folder:
 
 ```powershell
 Set-Location "$env:USERPROFILE\Documents"
-git clone --branch two-dataset-comparison --single-branch https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git xmoe-two-dataset-cpu-check
-Set-Location .\xmoe-two-dataset-cpu-check
+git clone --branch two-dataset-comparison --single-branch https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git xmoe-two-dataset
+Set-Location .\xmoe-two-dataset
 git branch --show-current
 py -3.11 -m venv .venv-cpu
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
@@ -89,7 +105,7 @@ models and seeds. It is not repeated for each training run or verified restart.
 python -B .\preparation\prepare_rq1.py `
   --rq1-zip .\data\raw\RQ1.zip `
   --rq4-zip .\data\raw\RQ4.zip `
-  --output-dir .\data\fresh_rq1
+  --output-dir .\data\prepared_rq1
 ```
 
 Wait for all four preparation stages: observation indexing, cohort aggregation,
@@ -119,8 +135,8 @@ hash mismatch is a stop condition; do not change expected hashes to accept it.
 ```powershell
 python -B .\scripts\configure_datasets.py `
   --blte .\upstream-paper `
-  --rq1-graph .\data\fresh_rq1\graph `
-  --rq1-inputs .\data\fresh_rq1\seed_inputs
+  --rq1-graph .\data\prepared_rq1\graph `
+  --rq1-inputs .\data\prepared_rq1\seed_inputs
 
 python -B .\src\runner.py --dataset blte --mode verify --registry .\datasets.local.json --seeds 100,101,102,103,104,105,106,107,108,109
 python -B .\src\runner.py --dataset rq1 --mode verify --registry .\datasets.local.json --seeds 100,101,102,103,104,105,106,107,108,109
@@ -135,8 +151,8 @@ paths and their own hashes; do not use them to resume old output folders.
 
 ```powershell
 python -c "import psutil; print('Available GiB:',round(psutil.virtual_memory().available/1024**3,2))"
-python -B .\src\runner.py --dataset blte --mode validate --check-epochs 5 --seeds 100 --threads 24 --registry .\datasets.local.json --output-dir .\checks\fresh_blte_validation5
-python -B .\src\runner.py --dataset rq1 --mode validate --check-epochs 5 --seeds 100 --threads 24 --registry .\datasets.local.json --output-dir .\checks\fresh_rq1_validation5
+python -B .\src\runner.py --dataset blte --mode validate --check-epochs 5 --seeds 100 --threads 24 --registry .\datasets.local.json --output-dir .\checks\blte_validation5
+python -B .\src\runner.py --dataset rq1 --mode validate --check-epochs 5 --seeds 100 --threads 24 --registry .\datasets.local.json --output-dir .\checks\rq1_validation5
 ```
 
 Aim for at least 12 GiB available before RQ1 and run only one block at a time.
@@ -144,20 +160,55 @@ Both blocks cover all five models. Validation mode saves and reloads the selecte
 checkpoint and checks identical validation logits after reload. It does not score
 test. This does not by itself reproduce the final 300-epoch performance table.
 
-## Stage F — selected final-run reproduction
+## Stage F — reproduce seed 100, BLTE first and then RQ1
 
 After Stages A–E pass, execute one seed for both datasets in **new** output roots:
 
 ```powershell
-python -B .\src\runner.py --dataset blte --mode train --registry .\datasets.local.json --models mlp,gcn,gat,graphsage,x_moe_gnn --seeds 100 --threads 24 --output-dir .\results\new_runs\fresh_blte
-python -B .\src\runner.py --dataset rq1 --mode train --registry .\datasets.local.json --models mlp,gcn,gat,graphsage,x_moe_gnn --seeds 100 --threads 24 --output-dir .\results\new_runs\fresh_rq1
+python -B .\src\runner.py `
+  --dataset blte `
+  --mode train `
+  --registry .\datasets.local.json `
+  --models mlp,gcn,gat,graphsage,x_moe_gnn `
+  --seeds 100 `
+  --threads 24 `
+  --output-dir .\results\new_runs\cpu_reproduction_blte
 ```
 
-Run BLTE first, then RQ1. These are 300-epoch training runs, not smoke tests.
-Compare seed 100 with `results/reference/<dataset>/per_seed.csv`, accounting for
-documented cross-machine numerical limits. Preserve unfavorable outcomes. Full
-ten-seed reproduction is a separate commitment: use the complete seed list from
-the root README in these same new roots; verified seed 100 will be skipped.
+Wait for all five BLTE models to finish, then run:
+
+```powershell
+python -B .\src\runner.py `
+  --dataset rq1 `
+  --mode train `
+  --registry .\datasets.local.json `
+  --models mlp,gcn,gat,graphsage,x_moe_gnn `
+  --seeds 100 `
+  --threads 24 `
+  --output-dir .\results\new_runs\cpu_reproduction_rq1
+```
+
+These are 300-epoch training runs. A new output folder may report `5/50` after
+seed 100 because its progress counter covers the optional ten-seed plan. That
+counter describes only this new folder; the published study is already 50/50 for
+BLTE and 50/50 for RQ1. Compare the five selected runs before choosing whether to
+perform a full new execution:
+
+```powershell
+python -B .\scripts\compare_seed.py --dataset blte --results-dir .\results\new_runs\cpu_reproduction_blte --seed 100
+python -B .\scripts\compare_seed.py --dataset rq1 --results-dir .\results\new_runs\cpu_reproduction_rq1 --seed 100
+```
+
+The reference-PC result is `exact_reference_match`, five completed runs per
+dataset. The checker reports 25 predictive-field comparisons per model,
+prediction-byte equality and selected-epoch equality. It also checks artifact
+integrity and input metadata. Differences on other hardware require review;
+do not tune the recipe against reference test scores.
+
+For the selected reproduction scope, stop here and retain the evidence. For a
+new full ten-seed execution, use README step 12's explicit **101–109** commands in
+these same output roots. Seed 100 is already included and will not be retrained.
+This adds 90 runs to the ten already completed, for 100 total. Reuse prepared data.
 
 The complete-study `audit_results.py` command expects 50 runs per dataset and
 will correctly reject a one-seed study as incomplete. A selected reproduction
