@@ -47,15 +47,26 @@ Completed checks:
   hashes also passed. See `provenance/fresh_cpu_input_validation.json`.
 - That fresh run measured 985.531 seconds for cohort aggregation and 1280.125
   seconds for context/graph building. A full end-to-end wall time was not recorded.
+- Five-epoch validation-only checks then passed for all five models on each
+  dataset: selected checkpoints reloaded to identical validation logits and test
+  evaluation was excluded.
+- Selected full reproduction subsequently completed for seed 100: five models
+  on BLTE and five on the rebuilt RQ1, each at 300 epochs. All 250 predictive
+  metric comparisons (25 per run), all ten prediction-file hashes and all ten
+  best-epoch selections matched the original seed-100 reference exactly. New
+  checkpoint/history/prediction integrity hashes passed. This does not assert
+  equality of serialized checkpoint files, which include run-specific metadata.
+  See `provenance/fresh_cpu_seed100_reproduction.json`.
 
 Validation limits:
 
 - An internet dependency installation on a fresh second machine has not been
   exercised. The complete observed freeze and exact principal versions are
   provided. Do not claim every future package index will supply the same wheels.
-- Raw ZIP-to-input reconstruction is verified on this PC. Selected final-training
-  reproduction in the fresh checkout is the next stage; do not report the input
-  check as a second completed 100-run performance study.
+- Raw ZIP-to-input reconstruction and selected seed-100 final-training reproduction
+  are verified on this PC. The other nine seeds were not rerun in the fresh
+  checkout. Retain the primary 100-run study separately from these ten additional
+  verification runs; do not treat repeated identical results as independent data.
 - The raw data, prepared graph arrays, per-node predictions and checkpoints are not hosted in Git.
   Provider access and dataset terms remain separate from the code license.
 - Exact numerical equality across different hardware, libraries and thread

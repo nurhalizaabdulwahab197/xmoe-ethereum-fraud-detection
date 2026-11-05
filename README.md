@@ -5,6 +5,14 @@ classification datasets using one CPU environment, one training configuration,
 one experiment runner and two dataset adapters. All **100 planned runs** are
 complete: two datasets × five models × ten seeds, with 300 epochs per run.
 
+**Selected CPU reproduction is also verified:** a fresh checkout/environment on
+the reference PC rebuilt RQ1 from the original nested ZIP and reproduced all five
+models at seed 100 for both datasets (ten additional verification runs, 300 epochs
+each). All 25 predictive metrics per run, prediction-file bytes and best epochs
+matched the original seed-100 evidence exactly. This is not a second ten-seed
+study or independent-hardware validation. See
+[docs/CPU_REPRODUCTION_RESULT.md](docs/CPU_REPRODUCTION_RESULT.md).
+
 ScamSweeper reference: **ScamSweeper: Detecting Illegal Accounts in Web3 Scams via
 Transactions Analysis**, IEEE Transactions on Information Forensics and Security.
 Journal DOI: **[10.1109/TIFS.2025.3646027](https://doi.org/10.1109/TIFS.2025.3646027)**.
@@ -286,8 +294,9 @@ CPU checkout rebuilt the RQ1 outer ZIP through graph/features and all ten seed
 inputs. All four graph-array hashes and 40 seed-array hashes matched the original
 study; training-only scaling and masks were independently recomputed and equal.
 This input reconstruction used Python 3.11.9 and Node.js 26.13.0 on the reference
-PC. It does not yet constitute selected 300-epoch model-performance reproduction
-in that fresh checkout, or validation on an independent computer. The record is
+PC. Selected 300-epoch reproduction at seed 100 has subsequently passed for all
+five models on both datasets. Independent-computer validation and repeating all
+ten seeds in the fresh checkout have not been performed. The input record is
 [provenance/fresh_cpu_input_validation.json](provenance/fresh_cpu_input_validation.json).
 
 ### Preparation time and progress
