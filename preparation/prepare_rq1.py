@@ -8,12 +8,57 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 sys.path.insert(0,str(ROOT/'provenance/frozen_pipeline'))
 from utility import read, sha
+
+
+def named_members(archive, name):
+    return [m for m in archive.infolist()
+            if not m.is_dir() and m.filename.replace('\\','/').rsplit('/',1)[-1]==name]
+
+
+def copy_member(archive, member, target, expected_size):
+    if member.file_size != expected_size:
+        raise ValueError('Unexpected uncompressed member size: '+member.filename)
+    target.parent.mkdir(parents=True,exist_ok=True)
+    with archive.open(member) as source, target.open('xb') as destination:
+        shutil.copyfileobj(source,destination,8*1024**2)
+    if target.stat().st_size != expected_size:
+        raise ValueError('Extracted size differs: '+target.name)
+
+
+def extract_graphs(archive_path, raw_root, boundaries):
+    """Read either direct pickles or the author's outer ZIP -> group ZIP layout.
+
+    Only selected members are streamed to explicitly chosen destination names;
+    archive paths are never extracted as filesystem paths. Nested ZIPs are
+    temporarily spooled to disk, not held as multi-gigabyte memory buffers.
+    """
+    with zipfile.ZipFile(archive_path) as outer:
+        for group, entry in boundaries.items():
+            name=Path(entry['file']).name
+            direct=named_members(outer,name)
+            nested=named_members(outer,group+'_pkl.zip')
+            if len(direct)+len(nested)!=1:
+                raise ValueError('Missing/ambiguous raw graph or nested archive: '+name)
+            target=raw_root/entry['file']
+            if direct:
+                copy_member(outer,direct[0],target,entry['file_bytes'])
+            else:
+                print('Opening nested archive: '+group+'_pkl.zip',flush=True)
+                with tempfile.TemporaryDirectory(prefix='nested_',dir=raw_root) as tmp:
+                    inner_path=Path(tmp)/'member.zip'
+                    copy_member(outer,nested[0],inner_path,nested[0].file_size)
+                    with zipfile.ZipFile(inner_path) as inner:
+                        matches=named_members(inner,name)
+                        if len(matches)!=1:
+                            raise ValueError('Missing/ambiguous member in nested archive: '+name)
+                        copy_member(inner,matches[0],target,entry['file_bytes'])
 
 
 def cohort(rq4, output):
@@ -68,15 +113,7 @@ def main():
     boundaries=read(ROOT/'provenance/rq1_node_boundaries.json')
     if a.rq1_zip:
         raw_root=out/'raw';raw_root.mkdir()
-        with zipfile.ZipFile(a.rq1_zip) as archive:
-            for group, entry in boundaries.items():
-                name=Path(entry['file']).name
-                matches=[m for m in archive.infolist() if not m.is_dir() and Path(m.filename).name==name]
-                if len(matches)!=1 or matches[0].file_size!=entry['file_bytes']:
-                    raise ValueError('Missing/ambiguous raw graph: '+name)
-                target=raw_root/entry['file'];target.parent.mkdir(parents=True,exist_ok=True)
-                with archive.open(matches[0]) as src,target.open('xb') as dst:
-                    shutil.copyfileobj(src,dst,8*1024**2)
+        extract_graphs(a.rq1_zip,raw_root,boundaries)
     else:
         raw_root=a.rq1_unpacked.resolve()
     expected={r['Name']:r['SHA256'] for r in read(ROOT/'provenance/rq1_raw_hashes.json')}

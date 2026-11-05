@@ -243,6 +243,10 @@ counts 72,865/69/99. Source artifacts remain subject to the provider's terms.
 Both **RQ1** and **RQ4** archives are required for the fresh reconstruction. Obtain them from the
 [ScamSweeper online artifact](https://figshare.com/s/65d00a4c50c9d5188c06).
 RQ1 contains the transaction graphs; explicit source account lists are in RQ4.
+The downloaded RQ1 ZIP contains three nested ZIPs: `normal_pkl.zip`,
+`phish_pkl.zip` and `scams_pkl.zip`. The preparation script opens those archives
+automatically and streams the selected pickle files to disk. Do not expect the
+pickle files to be top-level members of the outer ZIP.
 RQ4 is used only as a label-list source; the evaluated graph is built from RQ1.
 RQ2&3 and Cases are not required by this frozen reconstruction workflow. The
 historical case/marker review decisions are already frozen in the exclusion policy.

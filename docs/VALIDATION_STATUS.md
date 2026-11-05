@@ -22,8 +22,16 @@ Completed checks:
   after ignoring platform line endings.
 - Sixteen existing model/adapter/selection/attempt tests pass in the recorded
   Python environment. These use synthetic fixtures, not additional final runs.
-- Seven primitive-index, feature aggregation and real-context tests pass,
+- Twelve archive, primitive-index, feature aggregation and real-context tests pass,
   including parallel edges, malformed endpoints, time handling and label checks.
+- The fresh CPU check revealed that the author's RQ1 ZIP contains three nested
+  group ZIPs. The extraction wrapper was corrected to support that actual layout.
+  Added tests cover direct/nested members, canonical output paths, missing or
+  ambiguous members and raw-size checks. This does not change training code.
+- The corrected wrapper was then run on the actual outer RQ1 ZIP: all three
+  nested pickles were fully extracted and matched their pinned SHA-256 values;
+  the RQ4 lists produced the frozen 4,913-account cohort. This was a raw-only
+  preflight, not a complete graph/feature rebuild or model training run.
 - The raw-input preflight verifies all three complete pickle hashes and each
   explicit source account-list hash. Its reconstructed cohort matches all 4,913
   original canonical address/class pairs after the frozen 13 exclusions.

@@ -49,7 +49,7 @@ python -B -m unittest discover -s .\preparation -p "test_*.py" -v
 
 Expected Python 3.11.9, Torch 2.14.1+cpu, PyG 2.8.0.post1, NumPy 2.4.6,
 pandas 3.0.6, scikit-learn 1.9.1, SciPy 1.17.1, psutil 7.2.2, CUDA False.
-Expect 16 shared-pipeline tests and seven preparation tests to pass. The package
+Expect 16 shared-pipeline tests and 12 preparation tests to pass. The package
 check verifies 100 published run aggregates; it does not retrain models or audit
 undistributed per-node predictions.
 
@@ -59,6 +59,8 @@ Download RQ1 and RQ4 from the source artifact link in the README. Use the origin
 ZIP contents rather than copying old prepared arrays for this fresh reconstruction.
 The RQ4 archive supplies explicit account lists, including Scams. No RQ4 graph is
 used as the evaluated graph. The frozen review exclusions are applied by the code.
+The RQ1 outer ZIP holds `normal_pkl.zip`, `phish_pkl.zip` and `scams_pkl.zip`;
+the script handles this nesting without requiring manual unpacking.
 
 ```powershell
 New-Item -ItemType Directory -Force .\data\raw
