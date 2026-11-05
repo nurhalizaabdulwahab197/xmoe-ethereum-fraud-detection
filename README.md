@@ -404,7 +404,12 @@ python -B .\src\runner.py `
 Do not launch these two blocks concurrently. Keep the training terminal open and
 disable automatic sleep while running. Based on observed RQ1 seed 100, five models
 took about 5 h 40 min; ten seeds would be roughly 57 h at that rate. This is an
-estimate, not a timeout setting or guarantee. X-MoE is the slowest model.
+estimate, not a timeout setting or guarantee. In that recorded RQ1 seed-100 CPU
+run, X-MoE took approximately 3 h 54 min with expert activation recomputation
+enabled to reduce memory use. This is a hardware- and execution-specific training
+measurement, not a general claim about inference latency or every deployment.
+Multi-expert/multitask training and memory-saving recomputation add computational
+cost; predictive performance and runtime should both be considered.
 
 Every final run selects its best validation checkpoint, reloads it, then evaluates
 test once. It writes `result.json`, `resource_probe.json`, `best_checkpoint.pt`,
