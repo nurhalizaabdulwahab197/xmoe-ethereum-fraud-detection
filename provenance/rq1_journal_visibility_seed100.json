@@ -1,0 +1,40 @@
+{
+  "scope": "Graph/feature visibility audit only; no training or performance evaluation.",
+  "seed": 100,
+  "training_performed": false,
+  "model_inference_performed": false,
+  "nodes": 1322252,
+  "source_edges": 3856855,
+  "labeled_accounts": 4913,
+  "unlabeled_context_nodes": 1317339,
+  "test_addresses": 737,
+  "audits": {
+    "train": {
+      "visible_feature_nodes": 3439,
+      "edges": 3460,
+      "forbidden_feature_values": 0,
+      "forbidden_edges": 0,
+      "unlabeled_context_edges": 0
+    },
+    "validation": {
+      "visible_feature_nodes": 4176,
+      "edges": 4733,
+      "forbidden_feature_values": 0,
+      "forbidden_edges": 0,
+      "unlabeled_context_edges": 0
+    },
+    "test": {
+      "visible_feature_nodes": 4176,
+      "edges": 4496,
+      "forbidden_feature_values": 0,
+      "forbidden_edges": 0,
+      "unlabeled_context_edges": 0
+    }
+  },
+  "source_sha256": {
+    "features_normalized.npy": "6b415757bb847d22fa014456492e2d794d58bfad9b35a734db24ce0705fe2db7",
+    "labels.npy": "76580687e8c6c1560d0f1399e7a08053383a2ee96ad871d7061657e05a0cf79b",
+    "edge_index.npy": "1d60cbd9026b44bbb15f79d6baf09f2fda6517bc51167560a3605a29c1f73bbd",
+    "test_mask.npy": "49b65e055df51ab1f22b70dfdb8ae54fa633f21d3f42a2ca4d6d03032f9ce86c"
+  }
+}

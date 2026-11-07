@@ -1,0 +1,9 @@
+{
+  "scope": "New exploratory RQ1 experiments; archived results are not changed.",
+  "blte_source_commit": "2b9e78bf66171bbe279f46cba3fd68558dd361bd",
+  "files": {
+    "experiments/ablation.py": "5ed67809576971b48f761e6e2015bc81467a5b67ef67a05fa00f6a28309baad1",
+    "experiments/strict_inductive.py": "cd9e8d4d8da65d0cae14a1c6527f385305a472da1c71595bdca5ec7c1f7521a0",
+    "experiments/summarize_results.py": "e8da2127d05efb4bd0a4887c4876146a083fee96a10b5ec6b66aec244cdcc0c7"
+  }
+}
