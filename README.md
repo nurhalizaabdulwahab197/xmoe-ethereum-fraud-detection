@@ -65,15 +65,28 @@ following checkpoint input order:
 
 | Position | Feature | Description | Unit |
 |---|---|---|---|
-| 1 | `distinct_in_counterparties` | Number of distinct incoming counterparties | Count |
-| 2 | `distinct_out_counterparties` | Number of distinct outgoing counterparties | Count |
-| 3 | `reciprocal_counterparties` | Number of counterparties with interactions in both directions | Count |
-| 4 | `active_days` | Number of distinct days with observed activity | Days |
-| 5 | `activity_span_seconds` | Time between the first and last observed activity | Seconds |
+| 1 | `distinct_in_counterparties` | Number of distinct incoming counterparties, excluding self | Count |
+| 2 | `distinct_out_counterparties` | Number of distinct outgoing counterparties, excluding self | Count |
+| 3 | `reciprocal_counterparties` | Number of distinct non-self counterparties with both directions observed | Count |
+| 4 | `active_days` | Number of observed integer Unix-day bins (`timestamp // 86400`) over incident records | Days |
+| 5 | `activity_span_seconds` | Maximum minus minimum valid incident timestamp; zero if no valid timestamp exists | Seconds |
 
 These features describe activity within the dataset observation
 window. They are not current wallet balances or live Etherscan
 measurements.
+
+All five features are computed for labeled accounts and unlabeled context
+nodes from the retained cohort-incident observations, rather than complete
+address histories. Overlapping source observations are not assumed to be
+unique transactions; transaction frequency, amount and gas features are
+excluded. Timestamp checks enforce integral values, key/attribute consistency
+and the declared Unix-second plausibility window, but independent confirmation
+of source time units remains incomplete. See [dataset definitions and
+provenance](docs/DATASETS.md).
+
+The merged [RQ1 journal-parity experiment guide](docs/RQ1_JOURNAL_PARITY.md)
+describes the ablation and restricted-topology suite. Its available code and
+validation records do not imply that all planned experiments have completed.
 
 #### Preprocessing and graph context
 
