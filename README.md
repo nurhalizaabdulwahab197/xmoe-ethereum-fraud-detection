@@ -58,6 +58,56 @@ the architecture and training method; it does not transfer a BLTE checkpoint to
 RQ1. Feature semantics, topology, class balance and source annotation definitions
 differ. We do not describe this as an identical-feature experiment.
 
+### ScamSweeper RQ1 Input Features
+
+ScamSweeper RQ1 uses five dataset-native node features in the
+following checkpoint input order:
+
+| Position | Feature | Description | Unit |
+|---|---|---|---|
+| 1 | `distinct_in_counterparties` | Number of distinct incoming counterparties | Count |
+| 2 | `distinct_out_counterparties` | Number of distinct outgoing counterparties | Count |
+| 3 | `reciprocal_counterparties` | Number of counterparties with interactions in both directions | Count |
+| 4 | `active_days` | Number of distinct days with observed activity | Days |
+| 5 | `activity_span_seconds` | Time between the first and last observed activity | Seconds |
+
+These features describe activity within the dataset observation
+window. They are not current wallet balances or live Etherscan
+measurements.
+
+#### Preprocessing and graph context
+
+For each seed, labeled accounts are divided into stratified
+training, validation and test sets using a 70/15/15 split.
+`StandardScaler` is fitted only on labeled training accounts.
+The fitted transformation is then applied to all node features,
+including unlabeled graph-context nodes. No additional `log1p`
+transformation is applied by the shared training runner.
+
+The RQ1 graph contains 1,322,252 nodes and 3,856,855 directed
+edges. Of these nodes, 4,913 are labeled accounts and 1,317,339
+are unlabeled context nodes. Unlabeled nodes are not assigned
+to the Normal class and are excluded from supervised losses
+and labeled performance metrics.
+
+#### Relationship to BLTE
+
+BLTE uses 23 features; ScamSweeper RQ1 uses the five features
+listed above. Each dataset has its own fitted scaler,
+dataset-specific input dimension and trained checkpoints.
+
+“BLTE + ScamSweeper RQ1” denotes evaluation on two separate
+benchmarks. It does not mean concatenating their features,
+merging their training data or combining their prediction scores.
+
+Feature extraction:
+`preparation/rq1_aggregate_features.py`
+
+Feature order and expected input hashes:
+`provenance/rq1_expected_arrays.json`
+
+
+
 ## Model implementations and repository layout
 
 The five model definitions are visible under **[src/models](src/models)**,
