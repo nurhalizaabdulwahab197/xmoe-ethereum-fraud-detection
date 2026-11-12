@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-11-12",
+  "series": [
+    {
+      "id": "six_method",
+      "expected_rows": 120,
+      "group_by": [
+        "configuration",
+        "model"
+      ],
+      "expected_groups": [
+        [
+          "author",
+          "MLP"
+        ],
+        [
+          "author",
+          "GCN"
+        ],
+        [
+          "author",
+          "GAT"
+        ],
+        [
+          "author",
+          "GraphSAGE"
+        ],
+        [
+          "author",
+          "XMoE_CE"
+        ],
+        [
+          "author",
+          "Full_XMoE"
+        ],
+        [
+          "paper",
+          "MLP"
+        ],
+        [
+          "paper",
+          "GCN"
+        ],
+        [
+          "paper",
+          "GAT"
+        ],
+        [
+          "paper",
+          "GraphSAGE"
+        ],
+        [
+          "paper",
+          "XMoE_CE"
+        ],
+        [
+          "paper",
+          "Full_XMoE"
+        ]
+      ],
+      "test_nodes": 10955,
+      "description": "120 GPU reconstruction runs: six method entries, two configurations, ten saved splits.",
+      "evidence_origin": "Original WSL probabilities; 360 prediction/metric/metadata hashes match the GitHub evidence manifest."
+    },
+    {
+      "id": "pcgrad",
+      "expected_rows": 40,
+      "group_by": [
+        "configuration",
+        "condition"
+      ],
+      "expected_groups": [
+        [
+          "released-code",
+          "pcgrad_on"
+        ],
+        [
+          "released-code",
+          "pcgrad_off"
+        ],
+        [
+          "paper-described",
+          "pcgrad_on"
+        ],
+        [
+          "paper-described",
+          "pcgrad_off"
+        ]
+      ],
+      "test_nodes": 10955,
+      "description": "40 GPU PCGrad on/off runs: two configurations, ten matched seeds.",
+      "evidence_origin": "Original WSL probabilities; supplied metadata hashes and public Macro-F1 values reconcile, with matching initialization hashes for all 20 pairs. PCGrad metadata is not independently anchored to a public file-hash manifest."
+    }
+  ],
+  "files_sha256": {
+    "README.md": "541a6111b0100d73dc2d5029980f6946a6753ac86fba77cbb13eaad995a584fc",
+    "docs/COMPLETED_METRICS.md": "af7ff56e27bd0cef58b526b4ef87f2374cef1252111048539add5ff3bfebc682",
+    "docs/METRIC_METHODS.md": "6dc32dca58441c793b8be6eec660c1078ad12b0ab4f3d93dfdab22b64c15eb61",
+    "docs/REPRODUCTION_REPORT.md": "bd7ffd9f90b11fdd948fb1b7083d2ba0eb83f9b0f77f0f4d6733e6e7d63b96de",
+    "results/metrics_completion/AUDIT_PROVENANCE.json": "916759761403e4f045d1d86be67f17b0f0331137608362fa9c1d4e9b7b14fe72",
+    "results/metrics_completion/pcgrad/per_seed.csv": "14730c96f03078d0d6550b53437c4a942184c81282da69da2f3e6e877d12f83d",
+    "results/metrics_completion/pcgrad/summary.csv": "592eae806079a6afb28b732669c088c7b63435b898ee106baea6aaa8033e8455",
+    "results/metrics_completion/pcgrad/validation.json": "5975ba31ecbfa2a9a2ed7c9fddd361c3b8160eaf7bc4c97341018b9addda42e7",
+    "results/metrics_completion/six_method/per_seed.csv": "87e2ba3d4303ed28e230e1d34cc7d02fb389f350dbd6097637e5675c0e5d4e11",
+    "results/metrics_completion/six_method/summary.csv": "fb5ac28e6da2c67f18ac496686d2e4b99a9b6c7d5996fdea8bf092e6f27bff9f",
+    "results/metrics_completion/six_method/validation.json": "5975ba31ecbfa2a9a2ed7c9fddd361c3b8160eaf7bc4c97341018b9addda42e7",
+    "scripts/check_completed_metrics.py": "1c6aac78b2a6d3876457060508a27cb4d6f7f87a90a0cc81955c838dc858afd0",
+    "scripts/evaluate_saved_predictions.py": "63f7baeaa60cdd4952a4f1015464368cfddeca97ad8ddabb394d9ec4331cde55",
+    "scripts/test_completed_metrics.py": "392fd2937c5cda7a4be851abe67152394e75e20812fe5ee77de37994b778c338"
+  },
+  "scope_note": "Aggregate metrics only. Counts across series/branches overlap. No per-address data, weights, live-demo or manuscript changes."
+}

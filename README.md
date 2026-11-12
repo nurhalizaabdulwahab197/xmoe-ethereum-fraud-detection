@@ -2,6 +2,12 @@
 
 This project examines how far the multiclass BLTE experiments can be reconstructed from the published paper and released code. It evaluates an additional MLP baseline and Full X-MoE under the reconstructed data/evaluation conditions. X-MoE–CE is retained as a training-control variant to examine the contribution of the complete additional training package.
 
+## Audited Accuracy, Precision, Recall, F1 and ROC-AUC
+
+Updated 2026-11-12: completed per-seed and per-class metrics are available in [the audit report](docs/COMPLETED_METRICS.md) and [aggregate CSV files](results/metrics_completion). AUC and F1 within each run use the same saved test probabilities. Tables report mean ± sample SD over ten seeds. [Definitions and read-only checks](docs/METRIC_METHODS.md) document provenance and evidence limits.
+
+The 120 primary GPU reconstruction runs and 40 PCGrad on/off runs now have verified probability-based metrics. All original public Macro-F1 scores reconcile. The six fixed-mask pilots and future public-wrapper execution remain separate evidence scopes.
+
 The paper and released code specify different training settings. We retain both configurations rather than silently choosing one. Original numerical split seeds and partitions could not be recovered from the audited materials, so repeated evaluation uses our documented reconstructed partitions.
 
 **Scope:** five main methods plus one training-control variant × two configurations × ten splits = **120 primary runs**, each with 300 epochs. The six released-mask pilot runs are separate. This is not a reproduction of all seven models reported in the reference paper.

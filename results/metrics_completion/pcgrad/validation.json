@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "inventory_files_verified": 560,
+  "original_prediction_files_verified": 160,
+  "prediction_rows_verified": 1752800,
+  "primary_runs": 120,
+  "pcgrad_runs": 40,
+  "primary_github_manifest_hashes_matched": 360,
+  "prediction_and_metric_hashes_matched_to_metadata": 320,
+  "primary_and_pcgrad_github_scores_reconciled": true,
+  "primary_published_means_and_sd_reconciled": true,
+  "identical_test_node_labels_and_split_hashes_across_all_models_conditions_configs_for_each_seed": true,
+  "pcgrad_initialization_hashes_matched_pairs": 20,
+  "max_abs_stored_ap_difference": 3.3306690738754696e-16,
+  "training_or_inference_performed": false,
+  "scope": "Reproduction GPU primary comparison and PCGrad on/off only. Does not cover original CPU A0-A7 or lambda sensitivity.",
+  "limitations": "Checkpoints, training histories, raw inputs and split NPZ files were not supplied; no model execution/reload performed. PCGrad metadata and predictions reconcile with public Macro-F1 scores; full PCGrad metadata hashes are not independently anchored to a GitHub manifest here.",
+  "auc_definition": "One-vs-rest ROC-AUC computed per class per seed with tie half-credit, then unweighted class mean; statistics are mean and sample SD across ten seeds.",
+  "ap_definition": "Non-interpolated AP with grouped thresholds, not trapezoidal PR-AUC."
+}

@@ -1,6 +1,6 @@
 # BLTE reproduction and X-MoE evaluation report
 
-**Review draft, 4 November 2026. Proposed for branch `reproduction`; not yet published.**
+**Original reconstruction report, 4 November 2026.** The probability-based metric completion published on 12 November 2026 is documented in [COMPLETED_METRICS.md](COMPLETED_METRICS.md); original scientific results below are retained.
 
 ## 1. Purpose and scope
 

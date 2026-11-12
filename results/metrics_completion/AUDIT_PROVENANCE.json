@@ -1,0 +1,15 @@
+{
+  "audit_date": "2026-11-12",
+  "upstream_branch_revisions": {
+    "main": "dd4c988df124f8f27bf71f7741d8103323c315d1",
+    "reproduction": "081a01a7cb0d3429af435f720f4fb1937b10423f",
+    "two-dataset-comparison": "4ee11dbde3b2b365fb7df6d6e2873aee44a84621"
+  },
+  "input_archives_sha256": {
+    "reproduction_and_pcgrad": "bba50eaf62b8817fdc822965a161b555e05980469707f01e7a4eb63f0fdda435"
+  },
+  "archive_contents_published": false,
+  "node_predictions_or_checkpoints_published": false,
+  "audit_environment": "Python standard library; no training/inference during metrics recomputation",
+  "scope_note": "The 120 primary reconstruction runs and 40 PCGrad on/off runs now have\ncompleted probability-based metrics. The six fixed-mask pilots still have the\npreviously documented Macro-F1 evidence and are not claimed to have a newly\ncompleted metric audit. Public wrapper GPU execution remains separately pending\nvalidation; importing original audit results is not a new wrapper execution.\n`author` means released-code configuration; `paper` means paper-described\nconfiguration. These are not the clean/strict main-branch protocols."
+}
