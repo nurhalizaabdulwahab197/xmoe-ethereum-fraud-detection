@@ -5,6 +5,32 @@ classification datasets using one CPU environment, one training configuration,
 one experiment runner and two dataset adapters. All **100 planned runs** are
 complete: two datasets × five models × ten seeds, with 300 epochs per run.
 
+## Audited Accuracy, Precision, Recall, F1 and ROC-AUC
+
+Updated 2026-11-12: completed per-seed and per-class metrics are available in [the audit report](docs/COMPLETED_METRICS.md) and [aggregate CSV files](results/metrics_completion). AUC and F1 within each run use the same saved test probabilities. Tables report mean ± sample SD over ten seeds. [Definitions and read-only checks](docs/METRIC_METHODS.md) document provenance and evidence limits.
+
+### BLTE clean
+
+| Entry | Accuracy | Macro Precision | Macro Recall | Macro-F1 | Macro ROC-AUC OvR |
+|---|---:|---:|---:|---:|---:|
+| MLP | 96.72 ± 0.81 | 35.72 ± 0.51 | 61.27 ± 6.53 | 37.15 ± 0.85 | 91.24 ± 6.09 |
+| GCN | 88.11 ± 3.29 | 36.22 ± 1.41 | 74.41 ± 3.89 | 36.37 ± 2.05 | 94.29 ± 2.25 |
+| GAT | 59.17 ± 3.36 | 34.35 ± 0.65 | 58.35 ± 8.57 | 26.65 ± 1.71 | 81.79 ± 3.38 |
+| GraphSAGE | 98.82 ± 0.21 | 44.39 ± 3.79 | 74.55 ± 7.34 | 49.16 ± 3.36 | 95.58 ± 3.29 |
+| X-MoE | 99.69 ± 0.12 | 63.93 ± 6.68 | 75.41 ± 7.15 | 65.75 ± 7.12 | 99.05 ± 0.81 |
+
+### ScamSweeper-derived RQ1 clean
+
+| Entry | Accuracy | Macro Precision | Macro Recall | Macro-F1 | Macro ROC-AUC OvR |
+|---|---:|---:|---:|---:|---:|
+| MLP | 63.91 ± 2.65 | 66.98 ± 1.92 | 69.84 ± 2.09 | 65.77 ± 1.40 | 81.42 ± 2.03 |
+| GCN | 80.85 ± 1.26 | 74.93 ± 2.23 | 73.51 ± 1.77 | 74.08 ± 1.83 | 89.65 ± 0.83 |
+| GAT | 72.35 ± 2.11 | 61.82 ± 2.45 | 56.76 ± 2.20 | 58.34 ± 2.09 | 80.34 ± 2.26 |
+| GraphSAGE | 89.32 ± 0.60 | 85.18 ± 1.05 | 87.43 ± 0.66 | 86.19 ± 0.71 | 96.71 ± 0.31 |
+| X-MoE | 91.71 ± 0.95 | 88.64 ± 1.32 | 90.07 ± 0.87 | 89.23 ± 1.00 | 98.02 ± 0.30 |
+
+**RQ1 journal 230-run suite is still in progress; full scientific completion has not been verified.** The completed 100-run clean study is a separate result series. BLTE and RQ1 remain separate benchmarks, not concatenated training data.
+
 ## Completed study and reproduction checks
 
 | Existing work | Scope | Status |

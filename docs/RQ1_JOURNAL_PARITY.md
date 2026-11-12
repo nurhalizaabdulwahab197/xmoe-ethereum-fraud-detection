@@ -1,5 +1,14 @@
 # RQ1 journal experiment parity
 
+## Scientific execution status — 12 November 2026
+
+**In progress: the full 230-run scientific RQ1 journal suite is not yet verified
+complete.** No completed-run count is asserted from this checkout. Smoke and
+synthetic implementation tests are not final performance results. The completed
+100-run BLTE/RQ1 clean study is separate; its newly audited metric tables are in
+[COMPLETED_METRICS.md](COMPLETED_METRICS.md). Keep the prespecified matrix below
+and retain all completed/partial local evidence.
+
 This branch adds fresh **exploratory** experiments after existing RQ1 outcomes
 were inspected. It does not overwrite reference runs, retrain the deployed demo,
 or turn existing benchmark predictions into new experimental results.
