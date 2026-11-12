@@ -1,5 +1,16 @@
 # Manuscript Result Audit Status
 
+## Metric completion audit — 12 November 2026
+
+Overall/per-class Accuracy, Precision, Recall, F1, ROC-AUC and AP for the clean,
+strict, A0–A7, sensitivity and four-model historical CPU/GPU series are now in
+[`results/metrics_completion`](../metrics_completion), with [definitions and
+provenance](../../docs/METRIC_METHODS.md). Original tables below remain intact.
+The A0–A7 and three GPU baseline supplementary runs reproduce all recorded
+original classification scores; sensitivity reuses 20 attributed A0/A6 runs.
+AUC/F1 within a run are computed from the same saved probabilities. Isolated
+single-class subset AUC is undefined. No new AUC significance claim is made.
+
 This file records the current traceability status of the quantitative results used in the manuscript.
 
 ## VERIFIED

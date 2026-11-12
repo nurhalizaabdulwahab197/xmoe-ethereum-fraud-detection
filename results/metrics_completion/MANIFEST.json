@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-11-12",
+  "series": [
+    {
+      "id": "clean",
+      "expected_rows": 50,
+      "group_by": [
+        "model"
+      ],
+      "expected_groups": [
+        [
+          "mlp"
+        ],
+        [
+          "gcn"
+        ],
+        [
+          "gat"
+        ],
+        [
+          "graphsage"
+        ],
+        [
+          "x_moe_gnn"
+        ]
+      ],
+      "test_nodes": 10955,
+      "description": "BLTE clean: five models, ten seeds, 300 epochs.",
+      "evidence_origin": "Original saved predictions from the matched CPU series; scores coincide with the main clean reference."
+    },
+    {
+      "id": "strict",
+      "expected_rows": 50,
+      "group_by": [
+        "model"
+      ],
+      "expected_groups": [
+        [
+          "mlp"
+        ],
+        [
+          "gcn"
+        ],
+        [
+          "gat"
+        ],
+        [
+          "graphsage"
+        ],
+        [
+          "x_moe_gnn"
+        ]
+      ],
+      "test_nodes": 10955,
+      "description": "BLTE strict: five models, ten seeds, 300 epochs.",
+      "evidence_origin": "Original GitHub prediction CSVs; the published utility recomputed scores without training."
+    },
+    {
+      "id": "ablation",
+      "expected_rows": 80,
+      "group_by": [
+        "variant"
+      ],
+      "expected_groups": [
+        [
+          "a0_full"
+        ],
+        [
+          "a1_conflict_only"
+        ],
+        [
+          "a2_graphsage_only"
+        ],
+        [
+          "a3_global_routing"
+        ],
+        [
+          "a4_no_isolate_mask"
+        ],
+        [
+          "a5_no_scam_specialist"
+        ],
+        [
+          "a6_no_normal_phishing_penalty"
+        ],
+        [
+          "a7_fixed_50"
+        ]
+      ],
+      "test_nodes": 10955,
+      "description": "BLTE A0-A7 component ablation: 80 runs, 300 epochs.",
+      "evidence_origin": "Supplementary CPU rerun; 1,280 original recorded metric values and all 80 confusion matrices reproduced exactly. AUC and F1 use the same supplementary predictions."
+    },
+    {
+      "id": "sensitivity",
+      "expected_rows": 50,
+      "group_by": [
+        "lambda_np"
+      ],
+      "expected_groups": [
+        [
+          "0.0"
+        ],
+        [
+          "0.1"
+        ],
+        [
+          "0.3"
+        ],
+        [
+          "0.5"
+        ],
+        [
+          "1.0"
+        ]
+      ],
+      "test_nodes": 10955,
+      "description": "BLTE Normal-Phishing coefficient sensitivity: five coefficients, ten seeds.",
+      "evidence_origin": "30 new CPU runs (lambda 0.10, 0.50, 1.00) plus 20 attributed reused ablation runs (A6=lambda 0.00, A0=lambda 0.30). All 60 available original summary values match within 1e-12. Reused rows are not independent extra runs."
+    },
+    {
+      "id": "historical_gpu",
+      "expected_rows": 40,
+      "group_by": [
+        "model"
+      ],
+      "expected_groups": [
+        [
+          "gcn"
+        ],
+        [
+          "gat"
+        ],
+        [
+          "graphsage"
+        ],
+        [
+          "x_moe_gnn"
+        ]
+      ],
+      "test_nodes": 10955,
+      "description": "BLTE historical CUDA comparison: four GNNs, ten seeds.",
+      "evidence_origin": "30 supplementary GPU baseline runs reproduce all 480 original classification metric values and confusion matrices; X-MoE uses ten original explanation-probability files. Each AUC/F1 pair uses one prediction file."
+    }
+  ],
+  "files_sha256": {
+    "README.md": "8018a192a07e0ad66d03ed25f6e917541eade4c08227f15b9086ed9d214d0414",
+    "docs/COMPLETED_METRICS.md": "0d16bb733badb6dc1744073b379c0d4ef78a95df9c74bb0ded6e85a4c2d6d577",
+    "docs/METRIC_METHODS.md": "6dc32dca58441c793b8be6eec660c1078ad12b0ab4f3d93dfdab22b64c15eb61",
+    "results/metrics_completion/AUDIT_PROVENANCE.json": "5110de49be73f0b6c89b6690de8fad8ab6db3591938e49b597b11e95d3f467cf",
+    "results/metrics_completion/ablation/original_comparison.csv": "9bc0b21ce9fe90915f8df9b4496f5d1599d3890d02b2637355a6e1791abc42a3",
+    "results/metrics_completion/ablation/per_seed.csv": "ff635c7f872824774ed7df08e324d7beab82ab3c5cb490bb378f1da7d9acaeca",
+    "results/metrics_completion/ablation/summary.csv": "e804b11edf31f7fbeec01643455ac1cebe6fd86cd75d62bec68c938ac34bad6a",
+    "results/metrics_completion/ablation/validation.json": "efc7b1817a3ca3f3076145b46d0ed0a58bc3f23446de2468cd775beab0f2fe34",
+    "results/metrics_completion/clean/per_seed.csv": "d7ca271681d64105c8394c6167a502537513b0a5dff1c8884ee45a8c095b4cb8",
+    "results/metrics_completion/clean/summary.csv": "4bd939da658912ac08cae75bb32af1514c3347b114ebccd41ccd4f6659f75f37",
+    "results/metrics_completion/clean/validation.json": "c0815eff2baddde8c71e5008de979b82ecbc619ba0ee55cd1ec087747069739f",
+    "results/metrics_completion/cpu_gpu_summary.csv": "8e20092730b50ff240cd38a4d32b5db802597661a05911004b54f02d8a60bd24",
+    "results/metrics_completion/historical_gpu/original_comparison.csv": "fad64d82420ef334694f281f539d5f1b13fd545ed3c4989d29c152cf00b20ce6",
+    "results/metrics_completion/historical_gpu/per_seed.csv": "9f20451b855a20c3856d4284948457f9f34aaf35f2c4b7fb64c80ecf3e16dffb",
+    "results/metrics_completion/historical_gpu/summary.csv": "9778d02f458ec9c76116c17bc514aec5c499d38e6f6ceb3861d6f007b167e89c",
+    "results/metrics_completion/historical_gpu/validation.json": "71487af89691bbf06424a4c912e1eac985147763ef371f9e4a2bc65a56d9575d",
+    "results/metrics_completion/historical_gpu/xmoe_original_validation.json": "9dae4f9e66d6835be65e6d8424aa13b80a760867b6c086acaf34a2aee8127ed3",
+    "results/metrics_completion/sensitivity/original_comparison.csv": "7db7a30551ed8b2c08614736261250162d37b9cee3c0519d76d7d0d7af95f315",
+    "results/metrics_completion/sensitivity/per_seed.csv": "fa7a4674d57cf220e45ab5a7445eeeac87b1099e813e29d781e6a38f8003769f",
+    "results/metrics_completion/sensitivity/summary.csv": "4ed797d4e25e0e09c9a5a2be6098ae9fcb9cdcaae22ab14c711c9fdf8335a6c2",
+    "results/metrics_completion/sensitivity/validation.json": "1bf7f88539fed4b187650efdb8c5ea289ce0edd37413931f6bac22e497935850",
+    "results/metrics_completion/strict/per_seed.csv": "8ae4f9684907906e5334dda714e6dfa3f21ce6cb609882fa8f50ab492a5c2bbc",
+    "results/metrics_completion/strict/summary.csv": "280166f230394e3e41c4ababe148bd820d8dc1a92efaf6fa7a5414e803137ad2",
+    "results/metrics_completion/strict/validation.json": "2cd90b0450c743763589c57cae9a4ee1be67d81e7ca9075d6a9265578f51c3a4",
+    "results/tables/AUDIT_STATUS.md": "94c270a64992cc406b57cf2fbb386557f216fceb10979833f5d855c20c5a9af2",
+    "scripts/check_completed_metrics.py": "1c6aac78b2a6d3876457060508a27cb4d6f7f87a90a0cc81955c838dc858afd0",
+    "scripts/evaluate_saved_predictions.py": "63f7baeaa60cdd4952a4f1015464368cfddeca97ad8ddabb394d9ec4331cde55",
+    "scripts/test_completed_metrics.py": "392fd2937c5cda7a4be851abe67152394e75e20812fe5ee77de37994b778c338"
+  },
+  "scope_note": "Aggregate metrics only. Counts across series/branches overlap. No per-address data, weights, live-demo or manuscript changes."
+}

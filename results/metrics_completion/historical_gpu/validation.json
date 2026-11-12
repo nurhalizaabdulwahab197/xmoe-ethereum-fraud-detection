@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "new_gpu_runs_verified": 30,
+  "previously_audited_original_xmoe_gpu_runs": 10,
+  "gpu_comparison_runs": 40,
+  "new_prediction_rows_verified": 328650,
+  "inventory_files_verified": 158,
+  "prediction_and_history_hashes_verified": 60,
+  "run_completion_and_result_hashes_verified": 30,
+  "earliest_max_validation_epoch_verified": true,
+  "original_metric_values_compared": 480,
+  "max_abs_historical_metric_difference": 0.0,
+  "all_historical_confusion_matrices_match": true,
+  "all_published_gpu_summary_fields_match_six_decimal_rounding": true,
+  "test_nodes_and_labels_match_original_cpu_references": 30,
+  "max_auc_recomputation_difference": 1.1102230246251565e-16,
+  "max_ap_recomputation_difference": 8.204548151979907e-14,
+  "checkpoint_bytes_supplied": false,
+  "training_or_inference_performed_during_audit": false,
+  "limitations": [
+    "Three baselines are a supplementary GPU rerun with original recorded metrics reproduced; original probability/checkpoint identity is not established.",
+    "X-MoE GPU AUC is from the original historical explanation probability files.",
+    "Checkpoint bytes were not supplied, so no reload was independently tested.",
+    "Do not compare historical and concurrent timing as equal-load efficiency measurements.",
+    "No new AUC significance claim or hyperparameter selection."
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "completed_unique_runs": 80,
+  "variants": 8,
+  "seeds_per_variant": 10,
+  "epochs": 300,
+  "prediction_rows_verified": 876400,
+  "inventory_files_verified": 326,
+  "source_files_matched_to_github_windows_line_endings": 10,
+  "prediction_and_history_hashes_verified": 160,
+  "completion_markers_and_result_hashes_verified": 80,
+  "best_epochs_match_earliest_max_validation_macro_f1": true,
+  "test_node_ids_and_labels_match_across_variants": true,
+  "original_confusion_matrices_match_all_80_runs": true,
+  "original_metric_values_compared": 1280,
+  "max_abs_original_metric_difference": 0,
+  "all_original_metrics_match_within_1e_12": true,
+  "max_abs_auc_recomputation_difference": 2.220446049250313e-16,
+  "max_abs_ap_recomputation_difference": 7.30526750203353e-14,
+  "checkpoint_bytes_supplied": false,
+  "training_or_inference_performed_during_audit": false,
+  "limitations": [
+    "Checkpoints exist as recorded hashes but were excluded from upload; checkpoint bytes/reload not independently verified here.",
+    "Original CPU A0-A7 result table had no probability hashes. Aggregate metric equality does not prove byte-identical probabilities/checkpoints across old and new runs.",
+    "All reported complete-set AUC and F1 are derived from the same new saved prediction files.",
+    "No subset AUC claimed; per-node connectivity absent, and isolated subsets contain only Normal."
+  ]
+}

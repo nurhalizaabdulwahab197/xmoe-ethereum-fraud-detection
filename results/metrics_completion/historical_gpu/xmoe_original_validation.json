@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "original_gpu_runs": 10,
+  "prediction_rows_verified": 109550,
+  "inventory_files_verified": 20,
+  "original_result_tables_byte_identical_to_previously_audited_package": true,
+  "accuracy_precision_recall_f1_and_confusions_reconciled_with_original_run_rows": true,
+  "all_published_xmoe_gpu_means_sd_match_six_decimal_rounding": true,
+  "max_abs_stored_ap_difference": 2.220446049250313e-16,
+  "test_nodes_and_labels_matched_to_original_cpu_clean_runs": 10,
+  "full_model_probability_columns_used": true,
+  "feature_only_probability_columns_used": false,
+  "connected_auc_computed": true,
+  "isolated_auc": "undefined: only Normal test nodes",
+  "training_or_inference_performed": false,
+  "checkpoints_supplied": false,
+  "scope": "Historical main-branch X-MoE GPU only. Historical GCN/GAT/GraphSAGE GPU probabilities remain unresolved."
+}

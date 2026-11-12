@@ -1,0 +1,19 @@
+{
+  "audit_date": "2026-11-12",
+  "upstream_branch_revisions": {
+    "main": "dd4c988df124f8f27bf71f7741d8103323c315d1",
+    "reproduction": "081a01a7cb0d3429af435f720f4fb1937b10423f",
+    "two-dataset-comparison": "4ee11dbde3b2b365fb7df6d6e2873aee44a84621"
+  },
+  "input_archives_sha256": {
+    "matched_clean": "7529a83313d7cde1368be69e4a1022357a8fdcead6e0699defa728a2c5bcbfa0",
+    "ablation": "59bd27a9967b5d0a8a097501889db0b8b996468d4ddd06e78c92699af24cf70c",
+    "sensitivity": "52bfadc12cb15404efdc770b976206e08cba57d2e588b5a9e2bca253fe60bb02",
+    "historical_gpu_baselines": "b7d452616b19fa8ecb8103ca2bb006848f02b5529264cd7e6effd88ab8c6e0f8",
+    "historical_gpu_xmoe": "fcc6684e71dcea7dc8331c458dd225c217203b1b57e5b60318b33124527dba38"
+  },
+  "archive_contents_published": false,
+  "node_predictions_or_checkpoints_published": false,
+  "audit_environment": "Python standard library; no training/inference during metrics recomputation",
+  "scope_note": "The main BLTE clean/strict, A0-A7, coefficient sensitivity and four-model\nhistorical CPU/GPU comparison now have audited overall and per-class Accuracy,\nPrecision, Recall, F1, ROC-AUC and AP. This does not assert completion of every\npilot or every subgroup AUC. Fixed-mask pilots and the RQ1 journal suite are\nseparate scopes. Hardware/parameter-count and routing tables remain descriptive\nanalyses of their documented runs, not extra independent experiments."
+}
