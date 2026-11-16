@@ -1,10 +1,10 @@
 # X-MoE for Ethereum Fraud Detection
 
-This repository provides a reproducible implementation for multi-class Ethereum address fraud detection under severe class imbalance and sparse graph connectivity. It includes conventional graph baselines, a feature-only MLP baseline, the proposed X-MoE framework, manuscript-aligned ablation and sensitivity experiments, strict node-inductive evaluation, reference result summaries, and the interactive Streamlit research demo.
+This repository provides a reproducible implementation for multi-class Ethereum address fraud detection under severe class imbalance and sparse graph connectivity. It includes conventional graph baselines, a feature-only MLP baseline, the proposed X-MoE framework, manuscript-aligned ablation and sensitivity experiments, strict node-inductive evaluation, reference result summaries, and metric-audit utilities.
 
 ## Audited Accuracy, Precision, Recall, F1 and ROC-AUC
 
-Updated 2026-11-12: completed per-seed and per-class metrics are available in [the audit report](docs/COMPLETED_METRICS.md) and [aggregate CSV files](results/metrics_completion). AUC and F1 within each run use the same saved test probabilities. Tables report mean ± sample SD over ten seeds. [Definitions and read-only checks](docs/METRIC_METHODS.md) document provenance and evidence limits.
+Updated 2026-11-12: completed per-seed and per-class metrics are available in [the audit report](docs/COMPLETED_METRICS.md) and [aggregate CSV files](results/metrics_completion). AUC and F1 within each run use the same saved test probabilities. The table below reports percentages (0–100), as mean ± sample SD over ten seeds (100–109), for the BLTE clean CPU series. [Definitions and read-only checks](docs/METRIC_METHODS.md) document provenance and evidence limits.
 
 | Entry | Accuracy | Macro Precision | Macro Recall | Macro-F1 | Macro ROC-AUC OvR |
 |---|---:|---:|---:|---:|---:|
@@ -61,14 +61,12 @@ The MLP uses node features only and ignores graph edges. GCN, GAT, and GraphSAGE
 ![Clean-protocol Macro-F1 across ten seeds](figures/clean_macro_f1_five_models.svg)
 
 Bars show mean Macro-F1 and error bars show sample standard deviation across
-seeds 100–109, with 300 epochs per run. The address prediction demo separately
-uses the five seed-100 checkpoints. These single-seed predictions are not
-substitutes for the ten-seed experimental estimates.
+seeds 100–109, with 300 epochs per run. The values are experimental aggregates;
+individual checkpoint predictions do not replace these estimates.
 
 The active MLP ten-seed evidence is in `results/clean/reference/mlp_10seed.csv`.
-The MLP seed-100 checkpoint was regenerated and checked against its original
-reported metrics, then reloaded and checked against all 10,955 saved test
-predictions using the packaged demo inputs. Other datasets are outside this release.
+This `main` release covers BLTE. The `two-dataset-comparison` branch is a separate
+workstream; its experiments are outside the reproduction commands in this guide.
 
 ## Dataset Summary
 
@@ -88,9 +86,9 @@ The severe imbalance and sparse connectivity motivate the use of Macro-F1 as the
 
 ### BLTE Input Features
 
-The X-MoE benchmark checkpoint uses the following 23 features in the order shown. The BLTE CSV supplies the raw feature values. Under the `clean` protocol, the runner fits `StandardScaler` on training nodes and applies the fitted transformation to the validation and test nodes.
+The BLTE model inputs comprise the following 23 features in CSV column order. The BLTE CSV supplies the raw feature values. Under the `clean` protocol, the runner fits `StandardScaler` on training nodes and applies the fitted transformation to the validation and test nodes.
 
-| Positions | Features in checkpoint order |
+| Positions | Features in input order |
 |---|---|
 | 1–5 | `all_degree`, `in_degree`, `out_degree`, `unique in_degree`, `unique out_degree` |
 | 6–9 | `Avg amount incoming`, `Avg amount outgoing`, `Total amount incoming`, `Total amount outgoing` |
@@ -98,7 +96,7 @@ The X-MoE benchmark checkpoint uses the following 23 features in the order shown
 | 14–18 | `Avg time incoming`, `Avg time outgoing`, `Total transaction time`, `Active Duration`, `Clustering coefficient` |
 | 19–23 | `Mean time interval`, `Max time interval`, `Min time interval`, `Avg gas price`, `Avg gas limit` |
 
-The benchmark demo uses the stored BLTE features and graph. Feature equivalence for newly queried Etherscan addresses has yet to be established.
+These experiments use the released BLTE features and graph. Feature equivalence for newly queried Etherscan addresses has yet to be established.
 
 ## Architecture Comparison
 
@@ -180,6 +178,8 @@ The Graph Attention Network (GAT) extends neighbourhood aggregation by learning 
 ```text
 Node features + graph edges
         |
+   Dropout(0.5) on node features
+        |
         v
 GATConv(32, heads=4)
         |
@@ -198,7 +198,7 @@ GATConv(32, heads=1)
 Normal | Phishing | Scamming
 ```
 
-Unlike GCN, GAT does not treat all neighbours equally. It learns which neighbouring addresses should receive greater attention. This provides additional flexibility, but attention alone does not explicitly address severe class imbalance, expert disagreement, or the fact that some Ethereum addresses may have little or no useful neighbourhood structure.
+GAT learns attention weights over neighbouring addresses, while GCN uses degree-based convolutional normalisation. Both GATConv layers also use attention dropout of 0.5. Attention provides additional flexibility, but does not explicitly address severe class imbalance, expert disagreement, or the fact that some Ethereum addresses may have little or no useful neighbourhood structure.
 
 ### D) GraphSAGE
 
@@ -311,7 +311,7 @@ This produces an adaptive decision mechanism rather than applying the same graph
 
 ## Main Clean-Protocol Results
 
-The verified deterministic CPU experiment uses seeds 100–109 and 300 epochs per seed.
+The verified deterministic CPU experiment uses seeds 100–109 and 300 epochs per seed. Values in this section are fractions (0–1), reported as mean ± sample SD where shown.
 
 | Model | Accuracy (mean ± std) | Macro-F1 (mean ± std) |
 |---|---:|---:|
@@ -346,7 +346,7 @@ Accuracy is reported for completeness. Because the dataset is extremely imbalanc
 | GraphSAGE | 0.9944 | 0.1023 | 0.3782 |
 | **X-MoE** | **0.9988** | **0.5374** | **0.4363** |
 
-The largest class-specific improvement is observed for Phishing.
+These are mean class-specific F1 scores over ten seeds. Relative to GraphSAGE, the larger minority-class F1 improvement is observed for Phishing.
 
 ## Paired Statistical Comparison
 
@@ -398,9 +398,16 @@ The CPU experiments were reproduced using:
 | `RESULT_SOURCE_HASHES.json` | Evidence hashes |
 | `FILE_RELOCATION_MAP.json` | Historical-to-current path mapping |
 
-The repository uses two branches: `main` for experiment code, results,
-supporting tables and figures; and `demo/streamlit` for the application
-and inference assets. The paper's LaTeX is maintained separately.
+At the documentation audit on 16 November 2026, the repository has three branches:
+
+| Branch | Scope |
+|---|---|
+| `main` | BLTE experiment code, reference results, metric audits, tables and figures documented here |
+| `reproduction` | Separate reconstructed BLTE reproduction and PCGrad ablation workstream |
+| `two-dataset-comparison` | Separate dataset-comparison workstream |
+
+`main` contains no Streamlit application source or packaged inference checkpoints.
+The paper's LaTeX is maintained separately.
 `src/models/__init__.py` exports model classes; run experiments through the runner.
 
 # Step-by-Step CPU Reproduction
@@ -408,7 +415,7 @@ and inference assets. The paper's LaTeX is maintained separately.
 ## 1. Clone This Repository
 
 ```powershell
-git clone https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git
+git clone --branch main --single-branch https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git
 cd xmoe-ethereum-fraud-detection
 ```
 
@@ -906,6 +913,8 @@ results/sensitivity/lambda/summary.csv
 
 Each block runs X-MoE for ten seeds. Together the five blocks request 50 runs.
 All other settings are held fixed. Activate `.venv-cpu` before running them.
+The published metric-completion audit reuses A6 for λ=0.00 and A0 for λ=0.30;
+those 20 rows are shared evidence, not additional independent trials.
 
 #### Coefficient 0.00
 
@@ -1039,29 +1048,20 @@ Verified Macro-F1:
 
 X-MoE exceeds MLP, GCN, GAT and GraphSAGE in all ten matched seeds under this protocol. Each exact paired Wilcoxon comparison has raw p = 0.001953125 and Holm-adjusted p = 0.0078125 across four baselines.
 
-All five models were evaluated using strict seeds 100-109. Its seed-level Macro-F1 equals its clean result for every seed; MLP does not use graph edges. The five-model strict evidence is in `results/strict/reference/strict_50_runs.csv`.
+All five models were evaluated using strict seeds 100–109. MLP's seed-level Macro-F1 equals its clean result for every seed; MLP does not use graph edges. The five-model strict evidence is in `results/strict/reference/strict_50_runs.csv`.
 
 ![Five-model clean and strict comparison](figures/clean_vs_strict_five_models.svg)
 
 The clean-to-strict family contains five models. Adjusted p-values are MLP 1.000000, GCN 0.644531, GAT 0.058594, GraphSAGE 0.009766 and X-MoE 0.015625. GAT's increase is not significant at 0.05. GraphSAGE and X-MoE decrease significantly.
 
-Run all five strict models from the verified Python environment (this performs training):
-
-```powershell
-foreach ($model in @("mlp", "gcn", "gat", "graphsage", "x_moe_gnn")) {
-    python .\experiments\strict_inductive.py --model $model --seeds 100,101,102,103,104,105,106,107,108,109 --epochs 300 --device cpu --deterministic --base-loss weighted_ce --no-calibrate-class-bias --x-moe-normal-phishing-penalty 0.30 --save-predictions --upstream .\upstream-paper --output-dir ".\results\strict_fresh\$model"
-    if ($LASTEXITCODE -ne 0) { throw "Failed: $model" }
-}
-```
-
-Use a new output directory for a fresh experiment. Existing verified runs do not need repeating. Check or rebuild the curated tables from the frozen reference CSVs without training:
-
-```powershell
-python .\experiments\summarize_five_model_results.py
-python .\experiments\summarize_five_model_results.py --apply
-```
-
-These commands rebuild tables from archived evidence; they do not automatically promote a new experiment. For the strict minority comparison against GraphSAGE, Holm correction is applied separately across Phishing F1/AP and Scamming F1/AP: adjusted p = 0.0078125, 0.0078125, 0.275390625 and 0.02734375, respectively.
+Use the per-model commands below to run the strict experiments. To check or
+rebuild the curated tables from frozen reference CSVs without training, use
+[`experiments/summarize_results.py`](experiments/summarize_results.py) as shown
+in [Checking generated results](#checking-generated-results). This utility does
+not automatically promote a new experiment. For the strict minority comparison
+against GraphSAGE, Holm correction is applied separately across Phishing F1/AP
+and Scamming F1/AP: adjusted p = 0.0078125, 0.0078125, 0.275390625 and 0.02734375,
+respectively.
 
 STRICT-INDUCTIVE is a topology-visibility sensitivity analysis. It is not evidence of temporal, cross-chain, or cross-dataset generalisation, and the clean-to-strict change should not be presented as proof of leakage.
 
@@ -1201,40 +1201,20 @@ requirements-cpu.txt
 requirements-gpu.txt
 ```
 
-## 18. Live Research Demo
+## 18. Hosted Research Demo
 
-A public X-MoE research demo is available on Streamlit Community Cloud:
+Previously published research demo URL:
 
-**[Open the X-MoE Ethereum Fraud Detection Demo](https://xmoe-ethereum-fraud-detection.streamlit.app/)**
+**[X-MoE Ethereum Fraud Detection Demo](https://xmoe-ethereum-fraud-detection.streamlit.app/)**
 
-The repository now contains the latest demo source together with the manuscript-aligned research code. The remote repository keeps two long-lived branches:
+This is an external deployment reference. Its current availability and deployed
+version are not established by this repository audit. The application source,
+Streamlit configuration and inference assets are absent from this `main` snapshot,
+so this guide provides no local demo launch instructions.
 
-```text
-main   # complete current research source of truth
-demo/streamlit   # deployment/demo branch
-```
-
-The demo provides:
-
-- an overview of the multi-class Ethereum fraud detection problem;
-- architecture comparisons;
-- X-MoE architecture exploration;
-- verified model metrics;
-- class-wise performance;
-- graph exploration;
-- model explanation diagnostics;
-- reference prediction/checkpoint assets; and
-- research communication material.
-
-Relevant source locations include:
-
-```text
-demo/
-interactive_demo/
-.streamlit/
-```
-
-The demo is intended for research communication, reproducibility, and model exploration. Quantitative manuscript claims are based on controlled multi-seed experiments, not on individual demo predictions. The demo is not a production service for certifying whether an arbitrary Ethereum address is safe or fraudulent.
+Quantitative claims in this guide use controlled ten-seed experiments. An
+individual demo prediction is not a multi-seed performance estimate or a
+certification that an arbitrary Ethereum address is safe or fraudulent.
 
 # GPU Reproduction Results
 
@@ -1442,8 +1422,13 @@ python .\experiments\summarize_results.py
 ```
 
 The summarizer reads frozen reference inputs. It does **not** automatically ingest
-your `results/new_runs/` directory. Its default mode checks/prints reporting tables.
-To intentionally regenerate this branch's reporting tables from the frozen inputs:
+your `results/new_runs/` directory. Its default mode validates the frozen seed-level inputs and prints rebuilt reporting tables; it does not compare every existing table file against the rebuilt output.
+It rebuilds the strict, clean-to-strict, minority-class and paired-statistics tables,
+and can generate `results/tables/verified_protocol_metrics.csv`. It preserves
+existing ablation rows in the statistics table. It does not rebuild the clean
+baseline, ablation, connectivity or efficiency summary CSVs.
+
+To intentionally write the tables supported by this utility from the frozen inputs:
 
 ```powershell
 python .\experiments\summarize_results.py --apply
@@ -1463,26 +1448,6 @@ The published series contains 150 CSV files: five models, ten seeds (100-109),
 and metrics, summary and prediction files for each model/seed pair. GCN seed 108
 is one of these primary runs; it is not an extra experimental condition.
 
-## Run the demo from its dedicated branch
-
-Create a separate clone so switching branches cannot disturb experiment outputs:
-
-```powershell
-cd ..
-git clone --branch demo/streamlit --single-branch https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git xmoe-demo
-cd xmoe-demo
-py -3.11 -m venv .venv-demo
-.\.venv-demo\Scripts\Activate.ps1
-python -m pip install -r .\demo\requirements.txt
-python -m streamlit run .\demo\streamlit_app.py --server.port 8502
-```
-
-If another virtual environment is active, open a new terminal first. If activation
-is blocked, use the process-scoped execution-policy command given above.
-Open `http://localhost:8502`. Inference uses clean seed-100 checkpoints for all
-five models. Protocol Comparison displays ten-seed aggregates. Predictions from
-one demo checkpoint are not the multi-seed experimental estimates.
-
 ## Troubleshooting
 
 | Symptom | Action |
@@ -1494,7 +1459,7 @@ one demo checkpoint are not the multi-seed experimental estimates.
 | BLTE file is missing | Check both required files exist directly under the folder passed to `--upstream` |
 | Dataset hash differs | Identify the input version before comparing against the published reference |
 | A command rejects an argument | Use that specific script's `--help`; clean, strict and ablation options differ |
-| Two-epoch scores differ from the paper tables | Smoke tests validate execution, not final model performance |
+| Short smoke-test scores differ from the paper tables | Smoke tests validate execution, not final model performance |
 | `torch.jit.script` FutureWarning appears | Record the warning; it alone does not mean the run failed |
 | Existing output files would be reused | Choose a fresh `--output-dir` to preserve previous results |
 
@@ -1513,4 +1478,5 @@ salam-ammari/Graph-Neural-Network-Based-Fraudulent-Address-Classification-in-Eth
 
 The dataset and any external data used by the upstream project remain subject to the licenses, attribution requirements, terms of use, and ethical restrictions specified by their original providers.
 
-This repository claims authorship only for the code and methodology developed here, including the proposed X-MoE implementation, experimental validation, reproducibility workflow, and research demo, and does not claim ownership of the upstream BLTE dataset.
+This repository claims authorship only for the code and methodology developed here, including the proposed X-MoE implementation, experimental validation, and reproducibility workflow, and does not claim ownership of the upstream BLTE dataset.
+
