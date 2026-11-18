@@ -1,58 +1,10 @@
-# X-MoE — Source-Study Reproduction
-
-This branch keeps source-study reproduction separate from our benchmark evaluation. It has three dataset folders with explicit evidence status. The complete BLTE instructions are retained below; Sweeper and BERT4ETH have honest documentation scaffolds until their remaining work/import is ready.
-
-## 1. Choose the dataset and check status
-
-| Folder | Reproduction status | Repository evidence / next action |
-|---|---|---|
-| blte/ | Completed archived reproduction evidence | Full source, saved partitions, configuration comparison, result tables and detailed commands below; retain original public-wrapper validation caveats |
-| sweeper/ | IN PROGRESS | Owner is running source-study reproduction; import verified code, configuration and results when ready |
-| bert4eth/ | Completed according to owner; repository import PENDING | Create the structure now; upload exact implementation, environment, input/split details and verified results later |
-
-The 100-run matched CPU benchmark and the 230-run Sweeper GPU suite are retained on [benchmark](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/tree/benchmark). They do not change Sweeper source-study reproduction to complete. BERT4ETH source reproduction success also does not establish completion of an X-MoE sequence-encoder extension.
-
-## 2. Understand the folder layout
-
-| Path | Role |
-|---|---|
-| README.md | Complete reproduction entry and BLTE step-by-step guide |
-| blte/ | Byte-preserved original BLTE reproduction checkout |
-| sweeper/README.md | In-progress status and import requirements |
-| bert4eth/README.md | Owner-reported completed reproduction; import scaffold |
-| docs/BRANCH_GUIDE.md | Project's three branch roles |
-| docs/REPRODUCTION_STATUS.md | Evidence status and acceptance checklist |
-
-The original BLTE checkout now sits one level below the branch root so its internal ROOT-relative imports and package manifests remain unchanged. Run all scientific BLTE commands from inside blte. Its original README is retained as archived evidence; the integrated guide below adapts its checkout navigation.
-
-## 3. Clone the reproduction branch
-
-```bash
-cd "$HOME"
-git clone --branch reproduction --single-branch https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git xmoe-reproduction
-cd xmoe-reproduction
-```
-
-Before following the BLTE commands:
-
-```bash
-cd blte
-git rev-parse HEAD
-```
-
-Use that folder's environment files and scripts. Do not mix its GPU environment with the separate benchmark environment merely because both use BLTE data.
-
-## 4. BLTE reproduction — full existing guide
-
-The following complete guide retains the original configuration comparison, all method commands, PCGrad explanation, result tables and limitations. Any standalone clone example below enters blte before scientific commands. A public-wrapper validation caveat is not silently removed by reorganizing branches.
-
-### BLTE study: original detailed documentation
+# BLTE reproduction and X-MoE evaluation
 
 This project examines how far the multiclass BLTE experiments can be reconstructed from the published paper and released code. It evaluates an additional MLP baseline and Full X-MoE under the reconstructed data/evaluation conditions. X-MoE–CE is retained as a training-control variant to examine the contribution of the complete additional training package.
 
 ## Audited Accuracy, Precision, Recall, F1 and ROC-AUC
 
-Updated 2026-11-12: completed per-seed and per-class metrics are available in [the audit report](blte/docs/COMPLETED_METRICS.md) and [aggregate CSV files](blte/results/metrics_completion). AUC and F1 within each run use the same saved test probabilities. Tables report mean ± sample SD over ten seeds. [Definitions and read-only checks](blte/docs/METRIC_METHODS.md) document provenance and evidence limits.
+Updated 2026-11-12: completed per-seed and per-class metrics are available in [the audit report](docs/COMPLETED_METRICS.md) and [aggregate CSV files](results/metrics_completion). AUC and F1 within each run use the same saved test probabilities. Tables report mean ± sample SD over ten seeds. [Definitions and read-only checks](docs/METRIC_METHODS.md) document provenance and evidence limits.
 
 The 120 primary GPU reconstruction runs and 40 PCGrad on/off runs now have verified probability-based metrics. All original public Macro-F1 scores reconcile. The six fixed-mask pilots and future public-wrapper execution remain separate evidence scopes.
 
@@ -60,13 +12,13 @@ The paper and released code specify different training settings. We retain both 
 
 **Scope:** five main methods plus one training-control variant × two configurations × ten splits = **120 primary runs**, each with 300 epochs. The six released-mask pilot runs are separate. This is not a reproduction of all seven models reported in the reference paper.
 
-The accompanying [reproduction report](blte/docs/REPRODUCTION_REPORT.md) explains source differences, assumptions and findings.
+The accompanying [reproduction report](docs/REPRODUCTION_REPORT.md) explains source differences, assumptions and findings.
 
 ## Release status
 
 The archived evidence for all 120 primary runs and 40 PCGrad ablation runs was verified locally. This branch provides source code, documentation, saved split indices, and result tables. GPU execution of the public reproduction wrapper, `scripts/runner.py`, remains pending validation.
 
-Run `python scripts/check_package.py` to check the published package. See [LOCAL_FIRST_STEPS.md](blte/LOCAL_FIRST_STEPS.md) for local audit and evidence import instructions. Training through the wrapper requires `--run`.
+Run `python scripts/check_package.py` to check the published package. See [LOCAL_FIRST_STEPS.md](LOCAL_FIRST_STEPS.md) for local audit and evidence import instructions. Training through the wrapper requires `--run`.
 
 ## Evaluation structure
 
@@ -74,7 +26,7 @@ Run `python scripts/check_package.py` to check the published package. See [LOCAL
 2. **Additional MLP baseline:** complete the feature-only comparison using our explicitly described implementation.
 3. **Full X-MoE evaluation:** introduce the proposed complete method and compare it with the four baselines under both reconstructed configurations.
 4. **X-MoE–CE training control:** retain the architecture with weighted CE only to assess the combined benefit of the additional training package.
-5. **Clean/strict evaluation:** extend the investigation through the separate `benchmark` workflow to examine preprocessing and graph visibility.
+5. **Clean/strict evaluation:** extend the investigation through the separate `main` workflow to examine preprocessing and graph visibility.
 6. **Component ablation:** compare Full X-MoE with gradient projection enabled and disabled.
 
 This is the logical organization of the evaluation, not a claim about the chronology of model development. The primary results comprise 120 runs: six methods or variants evaluated under two configurations across ten reconstructed partitions. Additional implementation checks are excluded from these primary summaries.
@@ -134,7 +86,7 @@ CPU execution is not the environment used for these audit results. Do not silent
 3. Run the commands below from Ubuntu:
 
 ```bash
-cd "$HOME/xmoe-reproduction/blte"
+cd "$HOME/blte-reproduction/BLTE_reproduction_local_candidate"
 code .
 ```
 
@@ -190,7 +142,7 @@ python -m pip install pip==22.0.2
 When opening a new terminal later, return to this folder and activate again:
 
 ```bash
-cd "$HOME/xmoe-reproduction/blte"
+cd "$HOME/blte-reproduction/BLTE_reproduction_local_candidate"
 source .venv-author/bin/activate
 ```
 
@@ -315,7 +267,7 @@ The verified graph contains 73,033 nodes, 23 features and 6,588 directed edges. 
 
 The released graph includes fixed train/validation/test masks. Our fixed-mask pilots use those masks. The repeated primary evaluation instead uses ten saved reconstructed stratified partitions.
 
-The released features numerically match StandardScaler fitted on all CSV nodes. The audit retains these features for source fidelity; it does not claim train-only scaling. The `benchmark` clean experiment uses a different preprocessing procedure.
+The released features numerically match StandardScaler fitted on all CSV nodes. The audit retains these features for source fidelity; it does not claim train-only scaling. The `main` clean experiment uses a different preprocessing procedure.
 
 ### 8. Understand how the ten partitions are generated
 
@@ -509,7 +461,7 @@ The historical Full-X-MoE runner did not print epoch progress. A silent terminal
 
 ### 14. Verify results and rebuild summaries
 
-The public package includes the 120-run primary tables and [40 ablation scores](blte/results/tables/pcgrad_ablation_40_runs.csv). Per-run predictions and checkpoints are archived locally. After importing the full reference evidence using `LOCAL_FIRST_STEPS.md`, verify that local evidence with the following command:
+The public package includes the 120-run primary tables and [40 ablation scores](results/tables/pcgrad_ablation_40_runs.csv). Per-run predictions and checkpoints are archived locally. After importing the full reference evidence using `LOCAL_FIRST_STEPS.md`, verify that local evidence with the following command:
 
 ```bash
 python scripts/verify_results.py \
@@ -592,9 +544,9 @@ SD denotes the sample standard deviation across seeds. These 40 runs are reporte
 
 The BLTE reconstruction evaluates the reference methods and our proposed extensions while retaining the released feature matrix and graph topology. This preserves comparability with the available reference implementation, but leaves additional questions about preprocessing and graph visibility.
 
-We therefore extend the evaluation through the clean and strict protocols provided in the `benchmark` branch. The clean protocol fits preprocessing on training nodes only, while the strict protocol further restricts graph connections according to its documented visibility rules. These experiments assess whether the observed performance persists under more controlled information access. They complement the reconstruction and are reported separately because their input preparation and evaluation conditions differ.
+We therefore extend the evaluation through the clean and strict protocols provided in the `main` branch. The clean protocol fits preprocessing on training nodes only, while the strict protocol further restricts graph connections according to its documented visibility rules. These experiments assess whether the observed performance persists under more controlled information access. They complement the reconstruction and are reported separately because their input preparation and evaluation conditions differ.
 
-Runtime versions also differ from the historical benchmark environment. Do not directly subtract a benchmark Full-X-MoE score from this audit's CE score and attribute the gap to PCGrad. Existing benchmark results are not overwritten or automatically promoted by reproduction runs. Demo deployment remains on its separate branch.
+Runtime versions also differ from the historical main-branch environment. Do not directly subtract a main-branch Full-X-MoE score from this audit's CE score and attribute the gap to PCGrad. Existing main results are not overwritten or automatically promoted by reproduction runs. Demo deployment remains on its separate branch.
 
 ### 19. Candidate directory layout
 
@@ -618,7 +570,7 @@ Runtime versions also differ from the historical benchmark environment. Do not d
 
 Frozen CE and Full model modules are deliberately duplicated at their original relative import locations. Matching hashes establish identity. No new `pcgrad.py` is introduced: PCGrad stays in the existing Full runner. No training-loop refactor is performed to create this candidate.
 
-Datasets, environments, backup folders, development diagnostics and unrelated manuscript/demo source are excluded. See the [upstream attribution](blte/provenance/UPSTREAM_ATTRIBUTION.md) for the source license and dataset terms.
+Datasets, environments, backup folders, development diagnostics and unrelated manuscript/demo source are excluded. See the [upstream attribution](provenance/UPSTREAM_ATTRIBUTION.md) for the source license and dataset terms.
 
 ### 20. Troubleshooting
 
@@ -647,56 +599,3 @@ The upstream dataset and code remain subject to their own terms. Include the ups
 ## Validation scope
 
 Static package checks verify the distributed files. The local audit verifies the archived run evidence. GPU testing of the portable wrapper is a separate validation step.
-
-
----
-
-## 5. Sweeper reproduction — current scaffold
-
-### Sweeper: in progress
-
-Status supplied by the project owner: reproduction is currently being run. No completed source-study reproduction result is claimed in this folder.
-
-## What this folder will contain
-
-| Item | Required before marking repository reproduction complete |
-|---|---|
-| Source | Canonical paper/repository URL and exact source revision |
-| Dataset/task | Original files, hashes, label definitions and target task |
-| Environment | Python/framework/CUDA versions and installation commands |
-| Input preparation | Reproducible commands, split policy and preprocessing visibility |
-| Reproduction commands | Smoke, full training, checkpoint selection and result verification |
-| Evidence | Per-run metrics, predictions/checkpoints or access instructions, seeds and deviations |
-| Report | Original versus reproduced results and explanation of unavoidable differences |
-
-## Current boundary
-
-The separate RQ1/Sweeper cohort graph has completed matched clean and 230-run X-MoE benchmark studies. Those are documented on benchmark; they are not relabelled as completed reproduction of the source study.
-
-## Next update
-
-When the owner supplies the active reproduction checkout/results, inspect them first, preserve the exact code/environment, verify the outputs and then replace this scaffold with complete runnable instructions. No guessed source-paper task, training command or numerical result is inserted now.
-
-
-## 6. BERT4ETH reproduction — current scaffold
-
-### BERT4ETH: successful run reported; import pending
-
-The project owner reports successful BERT4ETH reproduction. The code, environment and numerical evidence for that run have not yet been imported into this repository. This folder is a documentation scaffold, not an executable reproduction package.
-
-## Planned import and complete guide
-
-1. Record the original paper/repository and exact revision.
-2. Preserve the successful local code without refactoring the training loop.
-3. Record dataset files/hashes, preprocessing, vocabulary/tokenization and sequence construction.
-4. Record the source task, labels, partitions and pretraining/fine-tuning stages actually used.
-5. Save the successful environment and hardware details.
-6. Add exact setup, smoke, training/evaluation and monitoring commands.
-7. Import verified metrics, seeds, selection rules and result provenance.
-8. Compare original/reference and reproduced outcomes, documenting deviations.
-
-Do not invent a binary task, model score or seed count before the artifacts are inspected. A future BERT4ETH encoder inside X-MoE belongs on benchmark and is a separate experiment from reproducing BERT4ETH itself.
-
-## Current action
-
-Keep this scaffold until the owner supplies the successful reproduction package. Mark repository import and verification separately from the owner-reported successful run.
