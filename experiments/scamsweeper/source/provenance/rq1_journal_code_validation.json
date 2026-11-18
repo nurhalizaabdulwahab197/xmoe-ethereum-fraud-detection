@@ -1,0 +1,150 @@
+{
+  "scope": "Implementation tests, not completed scientific RQ1 performance experiments.",
+  "scientific_rq1_training_performed": false,
+  "synthetic_training_performed": true,
+  "automated_tests_passed": 7,
+  "synthetic_cpu_configurations_trained": 23,
+  "blte_equivalence_checks": [
+    {
+      "family": "clean",
+      "model": "mlp",
+      "variant": "a0_full",
+      "passed": true,
+      "maximum_probability_error": 1.2138366645153553e-08
+    },
+    {
+      "family": "clean",
+      "model": "gcn",
+      "variant": "a0_full",
+      "passed": true,
+      "maximum_probability_error": 1.063003540746621e-08
+    },
+    {
+      "family": "clean",
+      "model": "gat",
+      "variant": "a0_full",
+      "passed": true,
+      "maximum_probability_error": 1.2561035156455347e-08
+    },
+    {
+      "family": "clean",
+      "model": "graphsage",
+      "variant": "a0_full",
+      "passed": true,
+      "maximum_probability_error": 1.1603164651319275e-08
+    },
+    {
+      "family": "clean",
+      "model": "x_moe_gnn",
+      "variant": "a0_full",
+      "passed": true,
+      "maximum_probability_error": 3.724365232882221e-08
+    },
+    {
+      "family": "strict",
+      "model": "mlp",
+      "variant": "a0_full",
+      "passed": true,
+      "maximum_probability_error": 1.2138366645153553e-08
+    },
+    {
+      "family": "strict",
+      "model": "gcn",
+      "variant": "a0_full",
+      "passed": true,
+      "maximum_probability_error": 4.461593650084694e-09
+    },
+    {
+      "family": "strict",
+      "model": "gat",
+      "variant": "a0_full",
+      "passed": true,
+      "maximum_probability_error": 1.2534713766942929e-08
+    },
+    {
+      "family": "strict",
+      "model": "graphsage",
+      "variant": "a0_full",
+      "passed": true,
+      "maximum_probability_error": 1.3375473006949079e-08
+    },
+    {
+      "family": "strict",
+      "model": "x_moe_gnn",
+      "variant": "a0_full",
+      "passed": true,
+      "maximum_probability_error": 1.4063262943064814e-08
+    },
+    {
+      "family": "ablation",
+      "model": "x_moe_gnn",
+      "variant": "a0_full",
+      "passed": true,
+      "maximum_probability_error": 1.1717605608030368e-08
+    },
+    {
+      "family": "ablation",
+      "model": "x_moe_gnn",
+      "variant": "a1_conflict_only",
+      "passed": true,
+      "maximum_probability_error": 1.4657211278024107e-08
+    },
+    {
+      "family": "ablation",
+      "model": "x_moe_gnn",
+      "variant": "a2_graphsage_only",
+      "passed": true,
+      "maximum_probability_error": 9.748458873470867e-09
+    },
+    {
+      "family": "ablation",
+      "model": "x_moe_gnn",
+      "variant": "a3_global_routing",
+      "passed": true,
+      "maximum_probability_error": 1.0203552225362955e-08
+    },
+    {
+      "family": "ablation",
+      "model": "x_moe_gnn",
+      "variant": "a4_no_isolate_mask",
+      "passed": true,
+      "maximum_probability_error": 6.49528503204877e-09
+    },
+    {
+      "family": "ablation",
+      "model": "x_moe_gnn",
+      "variant": "a5_no_scam_specialist",
+      "passed": true,
+      "maximum_probability_error": 6.77986145003473e-09
+    },
+    {
+      "family": "ablation",
+      "model": "x_moe_gnn",
+      "variant": "a6_no_normal_phishing_penalty",
+      "passed": true,
+      "maximum_probability_error": 1.275634764486e-08
+    },
+    {
+      "family": "ablation",
+      "model": "x_moe_gnn",
+      "variant": "a7_fixed_50",
+      "passed": true,
+      "maximum_probability_error": 9.254837063377153e-09
+    }
+  ],
+  "actual_rq1_visibility_audit": "provenance/rq1_journal_visibility_seed100.json",
+  "cuda_execution_tested": false,
+  "script_sha256": {
+    "experiments/rq1_parity/ablation_models.py": "1b2cf2581f1917fe6615afdef33977be1f33b4114bd669b41042098f5819a9ef",
+    "experiments/rq1_parity/data.py": "77c751332de7b868b4f204969982b7b5e25a1d280087dc854b0ea8fb0cf0980c",
+    "experiments/rq1_parity/plan.py": "a82a4232f1459d3599d0b93ccb392ede7ce1c80d9a69ea51292450064171013c",
+    "experiments/rq1_parity/protocol.py": "bee809fb94430216e2bf58ef5f0dd23b00aa32b505bcf59131211836f31513b7",
+    "experiments/rq1_parity/report.py": "9db636864a11e65e94f8c90e871d8d1eb1c421de57e174af78bc0333bc43d6ea",
+    "experiments/rq1_parity/run.py": "770cc5248168bd56e039082c0c6d6afbac87eaf14cdebc1e2c85f7dcc0896822",
+    "experiments/rq1_parity/train.py": "777eb43ae71233e3157aaa8a10d856cb996cd479b08798a7fcb4694bc77a3a13",
+    "tests/journal/blte_reference/ablation.py": "5ed67809576971b48f761e6e2015bc81467a5b67ef67a05fa00f6a28309baad1",
+    "tests/journal/blte_reference/strict_inductive.py": "cd9e8d4d8da65d0cae14a1c6527f385305a472da1c71595bdca5ec7c1f7521a0",
+    "tests/journal/check_blte_equivalence.py": "9799c08d2c224a3d6c12c656d8942a53718edebbacd265cbad47197b3b492fd7",
+    "tests/journal/test_rq1_parity.py": "31ec8ec71170ce84d0cf63f480b6e54756680d5621a684a9bb3b58139b5863c0"
+  }
+}

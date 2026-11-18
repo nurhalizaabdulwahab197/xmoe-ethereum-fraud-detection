@@ -1,0 +1,33 @@
+{
+  "files_sha256": {
+    "adapters.py": "fd9d48e12a7de25c9d52788f2c717093ab7b6a4563b3a368092f69b71d80542b",
+    "attempts.py": "a421e2560142da0a6e5cb8eb1cc98ed81c7f4af2b5bf0ccb97c4c07b94a480c4",
+    "bridge.py": "13c9cc986cedb967c204394402db4dffaa5c28162ff3f3ffe64d099661b5b457",
+    "common_config.json": "c118ea10a4e0f3a9c6d0c7cf72f7298d57ed8b508c3d98c792ac76f790518ac0",
+    "common_structure.py": "7375e790b80e8e096d4b4592d81c6142805d633161cd11108c3f2772f1d24b79",
+    "gat_activation_checkpoint.py": "214eb65714248545ff179cd22fe76a6013f8eeb95a7edf4f53ee8e150e2eb20b",
+    "gat_chunked_messages.py": "2b64b786b9e881c119a19b2d57f792dd6677bb989dcb01752823c4c84d0a9d4a",
+    "original_step.py": "ea5c76ad0a8ae181eae142a64055ddf29a983919cae7473c30e6e2038d5b0f3c",
+    "prepare_common_structure.py": "f60dee1cf1ee4a54414a93ac6364f4c9d03c47bc0e6a26021587e2b7d24e7b51",
+    "reference_src/models/__init__.py": "eefea95123ff7bd5eac43a742d616ac8b8d65acca4f33aa73f0f55dd6fe05b7b",
+    "reference_src/models/gat.py": "d8f959c1f79cd2b9f7c39c804f19592dd52f4b08fb54383c1ad91332fab3e137",
+    "reference_src/models/gcn.py": "47860b7a7a4938cfdc24c7459d510c0427ac516653efb47a36f54398fd35fd9e",
+    "reference_src/models/graphsage.py": "91b0903c53f98a6c0c27aa0c1e2516173cd211370f056f25f80e6eed26e414ba",
+    "reference_src/models/mlp.py": "b55942454cc8fd48163b0438a198acf8b9632ce8023b07a1f0be3a89666e45cc",
+    "reference_src/models/xmoe.py": "3735289c561a2aa7f22a859776e7eba3f74e20415af079c38cd8e4c8e6b6e081",
+    "reference_src/reproduce.py": "5480a3fbe95491ed2a60f316890601d1b81d9e1dd819cc432615b857f69314f0",
+    "resource_guard.py": "3d2f96de6d47aad2cd0dd984d0d166c7b346c651b148d21f799e8f41d0b500e2",
+    "rq1_safe_io.py": "5e823fea3b63d03f7cf54058ec4139c65358619b737cdf9c9a29b1aaf143f6c4",
+    "run.py": "fd1944eccdda2c0c682ee65e8a734c3789dfba81713e85f9a638fd14cd27c357",
+    "shared_engine.py": "0c00016f9c010013411ccee8289a02189980bbf5c7e9f68d5ae2cc89eaeda685",
+    "test_common_structure.py": "140e87e30e09b75a3f6e8ea44ee88eec8629c2919393ce60c3d2d5d4c725a4a8",
+    "test_shared_pipeline.py": "c9d725c9d9b1b614906bc75f1ad21f3d6f1f7a28cc411f428bddf4b7e751b5ae",
+    "test_validation_and_attempts.py": "ea3ac00e4dee84e50f6fd8409072457e76df8982b36c39e3363f6b54ec4e2132",
+    "utility.py": "91b878746399c644eccb1d1dc9f3f84662833534ad9a4d982cd4b1799c408b19",
+    "validation_only.py": "e95a58f3dca5e9b2a4d767bf78848283eddb2951b45be2925909f4e0ba7d8063",
+    "verify_common_inputs.py": "fd59d661ef7fa60e3e1deda96d4756417b6f995812a298b66108342eb6546748",
+    "xmoe_memory_checkpoint.py": "ffce6e3ea006f6ba1e94c45429d3e096593e4999084aacc5d34b96395f5fc1e4"
+  },
+  "stage": "shared_cpu24_reviewed_six_hour_supervisor_budget",
+  "source_commit": "e660a0fbf20eb24ad5d519404489e996b92eec52"
+}

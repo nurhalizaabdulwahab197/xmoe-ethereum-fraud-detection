@@ -1,0 +1,836 @@
+{
+  "role": "main",
+  "moves": [
+    {
+      "old": "results/reference/blte_clean/gat_10seed.csv",
+      "new": "results/clean/reference/gat_10seed.csv"
+    },
+    {
+      "old": "results/reference/blte_clean/gcn_10seed.csv",
+      "new": "results/clean/reference/gcn_10seed.csv"
+    },
+    {
+      "old": "results/reference/blte_clean/graphsage_10seed.csv",
+      "new": "results/clean/reference/graphsage_10seed.csv"
+    },
+    {
+      "old": "results/reference/blte_clean/mlp_10seed.csv",
+      "new": "results/clean/reference/mlp_10seed.csv"
+    },
+    {
+      "old": "results/reference/blte_clean/x_moe_gnn_10seed.csv",
+      "new": "results/clean/reference/x_moe_gnn_10seed.csv"
+    },
+    {
+      "old": "results/reference/blte_strict_five_models/clean_to_strict_holm5.csv",
+      "new": "results/strict/reference/clean_to_strict_holm5.csv"
+    },
+    {
+      "old": "results/reference/blte_strict_five_models/strict_50_runs.csv",
+      "new": "results/strict/reference/strict_50_runs.csv"
+    },
+    {
+      "old": "results/reference/blte_strict_five_models/strict_paired_holm4.csv",
+      "new": "results/strict/reference/strict_paired_holm4.csv"
+    },
+    {
+      "old": "results/reference/blte_strict_five_models/strict_summary.csv",
+      "new": "results/strict/reference/strict_summary.csv"
+    },
+    {
+      "old": "results/reference/blte_ablation/clean_all_seeds-100-101-102-103-104-105-106-107-108-109_epochs-300.csv",
+      "new": "results/ablation/reference/clean_all_seeds-100-101-102-103-104-105-106-107-108-109_epochs-300.csv"
+    },
+    {
+      "old": "results/reference/blte_ablation/paired_macro_f1_report.txt",
+      "new": "results/ablation/reference/paired_macro_f1_report.txt"
+    },
+    {
+      "old": "results/reference/blte_ablation/paired_macro_f1_statistics.csv",
+      "new": "results/ablation/reference/paired_macro_f1_statistics.csv"
+    },
+    {
+      "old": "results/reference/cpu_10seed_summary.csv",
+      "new": "results/cpu_gpu/cpu_10seed_summary.csv"
+    },
+    {
+      "old": "results/reference/gpu_10seed_summary.csv",
+      "new": "results/cpu_gpu/gpu_10seed_summary.csv"
+    },
+    {
+      "old": "results/reference/CPU_REFERENCE_RESULTS.txt",
+      "new": "results/cpu_gpu/CPU_REFERENCE_RESULTS.txt"
+    },
+    {
+      "old": "results/reference/lambda_np_sensitivity.csv",
+      "new": "results/sensitivity/lambda_np_sensitivity.csv"
+    },
+    {
+      "old": "results/reference/clean_baseline_statistics.csv",
+      "new": "results/history/clean_baseline_statistics.csv"
+    },
+    {
+      "old": "results/reference/manuscript_clean_results.csv",
+      "new": "results/history/manuscript_clean_results.csv"
+    },
+    {
+      "old": "results/reference/mlp_original_10seed.csv",
+      "new": "results/history/mlp_original_10seed.csv"
+    },
+    {
+      "old": "results/reference/mlp_original_10seed_summary.csv",
+      "new": "results/history/mlp_original_10seed_summary.csv"
+    },
+    {
+      "old": "results/paper/ablation_summary.csv",
+      "new": "results/tables/ablation_summary.csv"
+    },
+    {
+      "old": "results/paper/AUDIT_STATUS.md",
+      "new": "results/tables/AUDIT_STATUS.md"
+    },
+    {
+      "old": "results/paper/clean_baseline_10seed.csv",
+      "new": "results/tables/clean_baseline_10seed.csv"
+    },
+    {
+      "old": "results/paper/clean_to_strict_summary.csv",
+      "new": "results/tables/clean_to_strict_summary.csv"
+    },
+    {
+      "old": "results/paper/connectivity_analysis.csv",
+      "new": "results/tables/connectivity_analysis.csv"
+    },
+    {
+      "old": "results/paper/efficiency_summary.csv",
+      "new": "results/tables/efficiency_summary.csv"
+    },
+    {
+      "old": "results/paper/minority_class_summary.csv",
+      "new": "results/tables/minority_class_summary.csv"
+    },
+    {
+      "old": "results/paper/README.md",
+      "new": "results/tables/README.md"
+    },
+    {
+      "old": "results/paper/statistical_tests.csv",
+      "new": "results/tables/statistical_tests.csv"
+    },
+    {
+      "old": "results/paper/strict_inductive_10seed.csv",
+      "new": "results/tables/strict_inductive_10seed.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/strict_inductive_4models_10seed_reproduced.csv",
+      "new": "results/strict/runs/strict_inductive_4models_10seed_reproduced.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/strict_inductive_mlp_10seed.csv",
+      "new": "results/strict/runs/strict_inductive_mlp_10seed.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_100/strict_inductive_gat_seed-100_predictions.csv",
+      "new": "results/strict/runs/gat/seed_100/strict_inductive_gat_seed-100_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_100/strict_inductive_gat_seeds-100_epochs-300.csv",
+      "new": "results/strict/runs/gat/seed_100/strict_inductive_gat_seeds-100_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_100/strict_inductive_gat_seeds-100_epochs-300_summary.csv",
+      "new": "results/strict/runs/gat/seed_100/strict_inductive_gat_seeds-100_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_101/strict_inductive_gat_seed-101_predictions.csv",
+      "new": "results/strict/runs/gat/seed_101/strict_inductive_gat_seed-101_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_101/strict_inductive_gat_seeds-101_epochs-300.csv",
+      "new": "results/strict/runs/gat/seed_101/strict_inductive_gat_seeds-101_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_101/strict_inductive_gat_seeds-101_epochs-300_summary.csv",
+      "new": "results/strict/runs/gat/seed_101/strict_inductive_gat_seeds-101_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_102/strict_inductive_gat_seed-102_predictions.csv",
+      "new": "results/strict/runs/gat/seed_102/strict_inductive_gat_seed-102_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_102/strict_inductive_gat_seeds-102_epochs-300.csv",
+      "new": "results/strict/runs/gat/seed_102/strict_inductive_gat_seeds-102_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_102/strict_inductive_gat_seeds-102_epochs-300_summary.csv",
+      "new": "results/strict/runs/gat/seed_102/strict_inductive_gat_seeds-102_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_103/strict_inductive_gat_seed-103_predictions.csv",
+      "new": "results/strict/runs/gat/seed_103/strict_inductive_gat_seed-103_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_103/strict_inductive_gat_seeds-103_epochs-300.csv",
+      "new": "results/strict/runs/gat/seed_103/strict_inductive_gat_seeds-103_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_103/strict_inductive_gat_seeds-103_epochs-300_summary.csv",
+      "new": "results/strict/runs/gat/seed_103/strict_inductive_gat_seeds-103_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_104/strict_inductive_gat_seed-104_predictions.csv",
+      "new": "results/strict/runs/gat/seed_104/strict_inductive_gat_seed-104_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_104/strict_inductive_gat_seeds-104_epochs-300.csv",
+      "new": "results/strict/runs/gat/seed_104/strict_inductive_gat_seeds-104_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_104/strict_inductive_gat_seeds-104_epochs-300_summary.csv",
+      "new": "results/strict/runs/gat/seed_104/strict_inductive_gat_seeds-104_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_105/strict_inductive_gat_seed-105_predictions.csv",
+      "new": "results/strict/runs/gat/seed_105/strict_inductive_gat_seed-105_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_105/strict_inductive_gat_seeds-105_epochs-300.csv",
+      "new": "results/strict/runs/gat/seed_105/strict_inductive_gat_seeds-105_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_105/strict_inductive_gat_seeds-105_epochs-300_summary.csv",
+      "new": "results/strict/runs/gat/seed_105/strict_inductive_gat_seeds-105_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_106/strict_inductive_gat_seed-106_predictions.csv",
+      "new": "results/strict/runs/gat/seed_106/strict_inductive_gat_seed-106_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_106/strict_inductive_gat_seeds-106_epochs-300.csv",
+      "new": "results/strict/runs/gat/seed_106/strict_inductive_gat_seeds-106_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_106/strict_inductive_gat_seeds-106_epochs-300_summary.csv",
+      "new": "results/strict/runs/gat/seed_106/strict_inductive_gat_seeds-106_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_107/strict_inductive_gat_seed-107_predictions.csv",
+      "new": "results/strict/runs/gat/seed_107/strict_inductive_gat_seed-107_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_107/strict_inductive_gat_seeds-107_epochs-300.csv",
+      "new": "results/strict/runs/gat/seed_107/strict_inductive_gat_seeds-107_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_107/strict_inductive_gat_seeds-107_epochs-300_summary.csv",
+      "new": "results/strict/runs/gat/seed_107/strict_inductive_gat_seeds-107_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_108/strict_inductive_gat_seed-108_predictions.csv",
+      "new": "results/strict/runs/gat/seed_108/strict_inductive_gat_seed-108_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_108/strict_inductive_gat_seeds-108_epochs-300.csv",
+      "new": "results/strict/runs/gat/seed_108/strict_inductive_gat_seeds-108_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_108/strict_inductive_gat_seeds-108_epochs-300_summary.csv",
+      "new": "results/strict/runs/gat/seed_108/strict_inductive_gat_seeds-108_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_109/strict_inductive_gat_seed-109_predictions.csv",
+      "new": "results/strict/runs/gat/seed_109/strict_inductive_gat_seed-109_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_109/strict_inductive_gat_seeds-109_epochs-300.csv",
+      "new": "results/strict/runs/gat/seed_109/strict_inductive_gat_seeds-109_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gat/seed_109/strict_inductive_gat_seeds-109_epochs-300_summary.csv",
+      "new": "results/strict/runs/gat/seed_109/strict_inductive_gat_seeds-109_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_100/strict_inductive_gcn_seed-100_predictions.csv",
+      "new": "results/strict/runs/gcn/seed_100/strict_inductive_gcn_seed-100_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_100/strict_inductive_gcn_seeds-100_epochs-300.csv",
+      "new": "results/strict/runs/gcn/seed_100/strict_inductive_gcn_seeds-100_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_100/strict_inductive_gcn_seeds-100_epochs-300_summary.csv",
+      "new": "results/strict/runs/gcn/seed_100/strict_inductive_gcn_seeds-100_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_101/strict_inductive_gcn_seed-101_predictions.csv",
+      "new": "results/strict/runs/gcn/seed_101/strict_inductive_gcn_seed-101_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_101/strict_inductive_gcn_seeds-101_epochs-300.csv",
+      "new": "results/strict/runs/gcn/seed_101/strict_inductive_gcn_seeds-101_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_101/strict_inductive_gcn_seeds-101_epochs-300_summary.csv",
+      "new": "results/strict/runs/gcn/seed_101/strict_inductive_gcn_seeds-101_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_102/strict_inductive_gcn_seed-102_predictions.csv",
+      "new": "results/strict/runs/gcn/seed_102/strict_inductive_gcn_seed-102_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_102/strict_inductive_gcn_seeds-102_epochs-300.csv",
+      "new": "results/strict/runs/gcn/seed_102/strict_inductive_gcn_seeds-102_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_102/strict_inductive_gcn_seeds-102_epochs-300_summary.csv",
+      "new": "results/strict/runs/gcn/seed_102/strict_inductive_gcn_seeds-102_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_103/strict_inductive_gcn_seed-103_predictions.csv",
+      "new": "results/strict/runs/gcn/seed_103/strict_inductive_gcn_seed-103_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_103/strict_inductive_gcn_seeds-103_epochs-300.csv",
+      "new": "results/strict/runs/gcn/seed_103/strict_inductive_gcn_seeds-103_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_103/strict_inductive_gcn_seeds-103_epochs-300_summary.csv",
+      "new": "results/strict/runs/gcn/seed_103/strict_inductive_gcn_seeds-103_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_104/strict_inductive_gcn_seed-104_predictions.csv",
+      "new": "results/strict/runs/gcn/seed_104/strict_inductive_gcn_seed-104_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_104/strict_inductive_gcn_seeds-104_epochs-300.csv",
+      "new": "results/strict/runs/gcn/seed_104/strict_inductive_gcn_seeds-104_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_104/strict_inductive_gcn_seeds-104_epochs-300_summary.csv",
+      "new": "results/strict/runs/gcn/seed_104/strict_inductive_gcn_seeds-104_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_105/strict_inductive_gcn_seed-105_predictions.csv",
+      "new": "results/strict/runs/gcn/seed_105/strict_inductive_gcn_seed-105_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_105/strict_inductive_gcn_seeds-105_epochs-300.csv",
+      "new": "results/strict/runs/gcn/seed_105/strict_inductive_gcn_seeds-105_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_105/strict_inductive_gcn_seeds-105_epochs-300_summary.csv",
+      "new": "results/strict/runs/gcn/seed_105/strict_inductive_gcn_seeds-105_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_106/strict_inductive_gcn_seed-106_predictions.csv",
+      "new": "results/strict/runs/gcn/seed_106/strict_inductive_gcn_seed-106_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_106/strict_inductive_gcn_seeds-106_epochs-300.csv",
+      "new": "results/strict/runs/gcn/seed_106/strict_inductive_gcn_seeds-106_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_106/strict_inductive_gcn_seeds-106_epochs-300_summary.csv",
+      "new": "results/strict/runs/gcn/seed_106/strict_inductive_gcn_seeds-106_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_107/strict_inductive_gcn_seed-107_predictions.csv",
+      "new": "results/strict/runs/gcn/seed_107/strict_inductive_gcn_seed-107_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_107/strict_inductive_gcn_seeds-107_epochs-300.csv",
+      "new": "results/strict/runs/gcn/seed_107/strict_inductive_gcn_seeds-107_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_107/strict_inductive_gcn_seeds-107_epochs-300_summary.csv",
+      "new": "results/strict/runs/gcn/seed_107/strict_inductive_gcn_seeds-107_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_109/strict_inductive_gcn_seed-109_predictions.csv",
+      "new": "results/strict/runs/gcn/seed_109/strict_inductive_gcn_seed-109_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_109/strict_inductive_gcn_seeds-109_epochs-300.csv",
+      "new": "results/strict/runs/gcn/seed_109/strict_inductive_gcn_seeds-109_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/gcn/seed_109/strict_inductive_gcn_seeds-109_epochs-300_summary.csv",
+      "new": "results/strict/runs/gcn/seed_109/strict_inductive_gcn_seeds-109_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_100/strict_inductive_graphsage_seed-100_predictions.csv",
+      "new": "results/strict/runs/graphsage/seed_100/strict_inductive_graphsage_seed-100_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_100/strict_inductive_graphsage_seeds-100_epochs-300.csv",
+      "new": "results/strict/runs/graphsage/seed_100/strict_inductive_graphsage_seeds-100_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_100/strict_inductive_graphsage_seeds-100_epochs-300_summary.csv",
+      "new": "results/strict/runs/graphsage/seed_100/strict_inductive_graphsage_seeds-100_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_101/strict_inductive_graphsage_seed-101_predictions.csv",
+      "new": "results/strict/runs/graphsage/seed_101/strict_inductive_graphsage_seed-101_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_101/strict_inductive_graphsage_seeds-101_epochs-300.csv",
+      "new": "results/strict/runs/graphsage/seed_101/strict_inductive_graphsage_seeds-101_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_101/strict_inductive_graphsage_seeds-101_epochs-300_summary.csv",
+      "new": "results/strict/runs/graphsage/seed_101/strict_inductive_graphsage_seeds-101_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_102/strict_inductive_graphsage_seed-102_predictions.csv",
+      "new": "results/strict/runs/graphsage/seed_102/strict_inductive_graphsage_seed-102_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_102/strict_inductive_graphsage_seeds-102_epochs-300.csv",
+      "new": "results/strict/runs/graphsage/seed_102/strict_inductive_graphsage_seeds-102_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_102/strict_inductive_graphsage_seeds-102_epochs-300_summary.csv",
+      "new": "results/strict/runs/graphsage/seed_102/strict_inductive_graphsage_seeds-102_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_103/strict_inductive_graphsage_seed-103_predictions.csv",
+      "new": "results/strict/runs/graphsage/seed_103/strict_inductive_graphsage_seed-103_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_103/strict_inductive_graphsage_seeds-103_epochs-300.csv",
+      "new": "results/strict/runs/graphsage/seed_103/strict_inductive_graphsage_seeds-103_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_103/strict_inductive_graphsage_seeds-103_epochs-300_summary.csv",
+      "new": "results/strict/runs/graphsage/seed_103/strict_inductive_graphsage_seeds-103_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_104/strict_inductive_graphsage_seed-104_predictions.csv",
+      "new": "results/strict/runs/graphsage/seed_104/strict_inductive_graphsage_seed-104_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_104/strict_inductive_graphsage_seeds-104_epochs-300.csv",
+      "new": "results/strict/runs/graphsage/seed_104/strict_inductive_graphsage_seeds-104_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_104/strict_inductive_graphsage_seeds-104_epochs-300_summary.csv",
+      "new": "results/strict/runs/graphsage/seed_104/strict_inductive_graphsage_seeds-104_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_105/strict_inductive_graphsage_seed-105_predictions.csv",
+      "new": "results/strict/runs/graphsage/seed_105/strict_inductive_graphsage_seed-105_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_105/strict_inductive_graphsage_seeds-105_epochs-300.csv",
+      "new": "results/strict/runs/graphsage/seed_105/strict_inductive_graphsage_seeds-105_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_105/strict_inductive_graphsage_seeds-105_epochs-300_summary.csv",
+      "new": "results/strict/runs/graphsage/seed_105/strict_inductive_graphsage_seeds-105_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_106/strict_inductive_graphsage_seed-106_predictions.csv",
+      "new": "results/strict/runs/graphsage/seed_106/strict_inductive_graphsage_seed-106_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_106/strict_inductive_graphsage_seeds-106_epochs-300.csv",
+      "new": "results/strict/runs/graphsage/seed_106/strict_inductive_graphsage_seeds-106_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_106/strict_inductive_graphsage_seeds-106_epochs-300_summary.csv",
+      "new": "results/strict/runs/graphsage/seed_106/strict_inductive_graphsage_seeds-106_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_107/strict_inductive_graphsage_seed-107_predictions.csv",
+      "new": "results/strict/runs/graphsage/seed_107/strict_inductive_graphsage_seed-107_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_107/strict_inductive_graphsage_seeds-107_epochs-300.csv",
+      "new": "results/strict/runs/graphsage/seed_107/strict_inductive_graphsage_seeds-107_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_107/strict_inductive_graphsage_seeds-107_epochs-300_summary.csv",
+      "new": "results/strict/runs/graphsage/seed_107/strict_inductive_graphsage_seeds-107_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_108/strict_inductive_graphsage_seed-108_predictions.csv",
+      "new": "results/strict/runs/graphsage/seed_108/strict_inductive_graphsage_seed-108_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_108/strict_inductive_graphsage_seeds-108_epochs-300.csv",
+      "new": "results/strict/runs/graphsage/seed_108/strict_inductive_graphsage_seeds-108_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_108/strict_inductive_graphsage_seeds-108_epochs-300_summary.csv",
+      "new": "results/strict/runs/graphsage/seed_108/strict_inductive_graphsage_seeds-108_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_109/strict_inductive_graphsage_seed-109_predictions.csv",
+      "new": "results/strict/runs/graphsage/seed_109/strict_inductive_graphsage_seed-109_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_109/strict_inductive_graphsage_seeds-109_epochs-300.csv",
+      "new": "results/strict/runs/graphsage/seed_109/strict_inductive_graphsage_seeds-109_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/graphsage/seed_109/strict_inductive_graphsage_seeds-109_epochs-300_summary.csv",
+      "new": "results/strict/runs/graphsage/seed_109/strict_inductive_graphsage_seeds-109_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_100/strict_inductive_mlp_seed-100_predictions.csv",
+      "new": "results/strict/runs/mlp/seed_100/strict_inductive_mlp_seed-100_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_100/strict_inductive_mlp_seeds-100_epochs-300.csv",
+      "new": "results/strict/runs/mlp/seed_100/strict_inductive_mlp_seeds-100_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_100/strict_inductive_mlp_seeds-100_epochs-300_summary.csv",
+      "new": "results/strict/runs/mlp/seed_100/strict_inductive_mlp_seeds-100_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_101/strict_inductive_mlp_seed-101_predictions.csv",
+      "new": "results/strict/runs/mlp/seed_101/strict_inductive_mlp_seed-101_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_101/strict_inductive_mlp_seeds-101_epochs-300.csv",
+      "new": "results/strict/runs/mlp/seed_101/strict_inductive_mlp_seeds-101_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_101/strict_inductive_mlp_seeds-101_epochs-300_summary.csv",
+      "new": "results/strict/runs/mlp/seed_101/strict_inductive_mlp_seeds-101_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_102/strict_inductive_mlp_seed-102_predictions.csv",
+      "new": "results/strict/runs/mlp/seed_102/strict_inductive_mlp_seed-102_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_102/strict_inductive_mlp_seeds-102_epochs-300.csv",
+      "new": "results/strict/runs/mlp/seed_102/strict_inductive_mlp_seeds-102_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_102/strict_inductive_mlp_seeds-102_epochs-300_summary.csv",
+      "new": "results/strict/runs/mlp/seed_102/strict_inductive_mlp_seeds-102_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_103/strict_inductive_mlp_seed-103_predictions.csv",
+      "new": "results/strict/runs/mlp/seed_103/strict_inductive_mlp_seed-103_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_103/strict_inductive_mlp_seeds-103_epochs-300.csv",
+      "new": "results/strict/runs/mlp/seed_103/strict_inductive_mlp_seeds-103_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_103/strict_inductive_mlp_seeds-103_epochs-300_summary.csv",
+      "new": "results/strict/runs/mlp/seed_103/strict_inductive_mlp_seeds-103_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_104/strict_inductive_mlp_seed-104_predictions.csv",
+      "new": "results/strict/runs/mlp/seed_104/strict_inductive_mlp_seed-104_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_104/strict_inductive_mlp_seeds-104_epochs-300.csv",
+      "new": "results/strict/runs/mlp/seed_104/strict_inductive_mlp_seeds-104_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_104/strict_inductive_mlp_seeds-104_epochs-300_summary.csv",
+      "new": "results/strict/runs/mlp/seed_104/strict_inductive_mlp_seeds-104_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_105/strict_inductive_mlp_seed-105_predictions.csv",
+      "new": "results/strict/runs/mlp/seed_105/strict_inductive_mlp_seed-105_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_105/strict_inductive_mlp_seeds-105_epochs-300.csv",
+      "new": "results/strict/runs/mlp/seed_105/strict_inductive_mlp_seeds-105_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_105/strict_inductive_mlp_seeds-105_epochs-300_summary.csv",
+      "new": "results/strict/runs/mlp/seed_105/strict_inductive_mlp_seeds-105_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_106/strict_inductive_mlp_seed-106_predictions.csv",
+      "new": "results/strict/runs/mlp/seed_106/strict_inductive_mlp_seed-106_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_106/strict_inductive_mlp_seeds-106_epochs-300.csv",
+      "new": "results/strict/runs/mlp/seed_106/strict_inductive_mlp_seeds-106_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_106/strict_inductive_mlp_seeds-106_epochs-300_summary.csv",
+      "new": "results/strict/runs/mlp/seed_106/strict_inductive_mlp_seeds-106_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_107/strict_inductive_mlp_seed-107_predictions.csv",
+      "new": "results/strict/runs/mlp/seed_107/strict_inductive_mlp_seed-107_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_107/strict_inductive_mlp_seeds-107_epochs-300.csv",
+      "new": "results/strict/runs/mlp/seed_107/strict_inductive_mlp_seeds-107_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_107/strict_inductive_mlp_seeds-107_epochs-300_summary.csv",
+      "new": "results/strict/runs/mlp/seed_107/strict_inductive_mlp_seeds-107_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_108/strict_inductive_mlp_seed-108_predictions.csv",
+      "new": "results/strict/runs/mlp/seed_108/strict_inductive_mlp_seed-108_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_108/strict_inductive_mlp_seeds-108_epochs-300.csv",
+      "new": "results/strict/runs/mlp/seed_108/strict_inductive_mlp_seeds-108_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_108/strict_inductive_mlp_seeds-108_epochs-300_summary.csv",
+      "new": "results/strict/runs/mlp/seed_108/strict_inductive_mlp_seeds-108_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_109/strict_inductive_mlp_seed-109_predictions.csv",
+      "new": "results/strict/runs/mlp/seed_109/strict_inductive_mlp_seed-109_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_109/strict_inductive_mlp_seeds-109_epochs-300.csv",
+      "new": "results/strict/runs/mlp/seed_109/strict_inductive_mlp_seeds-109_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/mlp/seed_109/strict_inductive_mlp_seeds-109_epochs-300_summary.csv",
+      "new": "results/strict/runs/mlp/seed_109/strict_inductive_mlp_seeds-109_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_100/strict_inductive_x_moe_gnn_seed-100_predictions.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_100/strict_inductive_x_moe_gnn_seed-100_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_100/strict_inductive_x_moe_gnn_seeds-100_epochs-300.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_100/strict_inductive_x_moe_gnn_seeds-100_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_100/strict_inductive_x_moe_gnn_seeds-100_epochs-300_summary.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_100/strict_inductive_x_moe_gnn_seeds-100_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_101/strict_inductive_x_moe_gnn_seed-101_predictions.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_101/strict_inductive_x_moe_gnn_seed-101_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_101/strict_inductive_x_moe_gnn_seeds-101_epochs-300.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_101/strict_inductive_x_moe_gnn_seeds-101_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_101/strict_inductive_x_moe_gnn_seeds-101_epochs-300_summary.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_101/strict_inductive_x_moe_gnn_seeds-101_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_102/strict_inductive_x_moe_gnn_seed-102_predictions.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_102/strict_inductive_x_moe_gnn_seed-102_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_102/strict_inductive_x_moe_gnn_seeds-102_epochs-300.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_102/strict_inductive_x_moe_gnn_seeds-102_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_102/strict_inductive_x_moe_gnn_seeds-102_epochs-300_summary.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_102/strict_inductive_x_moe_gnn_seeds-102_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_103/strict_inductive_x_moe_gnn_seed-103_predictions.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_103/strict_inductive_x_moe_gnn_seed-103_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_103/strict_inductive_x_moe_gnn_seeds-103_epochs-300.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_103/strict_inductive_x_moe_gnn_seeds-103_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_103/strict_inductive_x_moe_gnn_seeds-103_epochs-300_summary.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_103/strict_inductive_x_moe_gnn_seeds-103_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_104/strict_inductive_x_moe_gnn_seed-104_predictions.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_104/strict_inductive_x_moe_gnn_seed-104_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_104/strict_inductive_x_moe_gnn_seeds-104_epochs-300.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_104/strict_inductive_x_moe_gnn_seeds-104_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_104/strict_inductive_x_moe_gnn_seeds-104_epochs-300_summary.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_104/strict_inductive_x_moe_gnn_seeds-104_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_105/strict_inductive_x_moe_gnn_seed-105_predictions.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_105/strict_inductive_x_moe_gnn_seed-105_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_105/strict_inductive_x_moe_gnn_seeds-105_epochs-300.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_105/strict_inductive_x_moe_gnn_seeds-105_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_105/strict_inductive_x_moe_gnn_seeds-105_epochs-300_summary.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_105/strict_inductive_x_moe_gnn_seeds-105_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_106/strict_inductive_x_moe_gnn_seed-106_predictions.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_106/strict_inductive_x_moe_gnn_seed-106_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_106/strict_inductive_x_moe_gnn_seeds-106_epochs-300.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_106/strict_inductive_x_moe_gnn_seeds-106_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_106/strict_inductive_x_moe_gnn_seeds-106_epochs-300_summary.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_106/strict_inductive_x_moe_gnn_seeds-106_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_107/strict_inductive_x_moe_gnn_seed-107_predictions.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_107/strict_inductive_x_moe_gnn_seed-107_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_107/strict_inductive_x_moe_gnn_seeds-107_epochs-300.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_107/strict_inductive_x_moe_gnn_seeds-107_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_107/strict_inductive_x_moe_gnn_seeds-107_epochs-300_summary.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_107/strict_inductive_x_moe_gnn_seeds-107_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_108/strict_inductive_x_moe_gnn_seed-108_predictions.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_108/strict_inductive_x_moe_gnn_seed-108_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_108/strict_inductive_x_moe_gnn_seeds-108_epochs-300.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_108/strict_inductive_x_moe_gnn_seeds-108_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_108/strict_inductive_x_moe_gnn_seeds-108_epochs-300_summary.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_108/strict_inductive_x_moe_gnn_seeds-108_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_109/strict_inductive_x_moe_gnn_seed-109_predictions.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_109/strict_inductive_x_moe_gnn_seed-109_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_109/strict_inductive_x_moe_gnn_seeds-109_epochs-300.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_109/strict_inductive_x_moe_gnn_seeds-109_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_10seed/x_moe_gnn/seed_109/strict_inductive_x_moe_gnn_seeds-109_epochs-300_summary.csv",
+      "new": "results/strict/runs/x_moe_gnn/seed_109/strict_inductive_x_moe_gnn_seeds-109_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/strict_reproduction_control_gcn108/strict_inductive_gcn_seed-108_predictions.csv",
+      "new": "results/checks/gcn_seed108/strict_inductive_gcn_seed-108_predictions.csv"
+    },
+    {
+      "old": "results/strict_reproduction_control_gcn108/strict_inductive_gcn_seeds-108_epochs-300.csv",
+      "new": "results/checks/gcn_seed108/strict_inductive_gcn_seeds-108_epochs-300.csv"
+    },
+    {
+      "old": "results/strict_reproduction_control_gcn108/strict_inductive_gcn_seeds-108_epochs-300_summary.csv",
+      "new": "results/checks/gcn_seed108/strict_inductive_gcn_seeds-108_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/demo_mlp_seed100_reproduction/clean_mlp_seed-100_checkpoint.pt",
+      "new": "results/inference_validation/mlp_seed100/clean_mlp_seed-100_checkpoint.pt"
+    },
+    {
+      "old": "results/demo_mlp_seed100_reproduction/clean_mlp_seed-100_predictions.csv",
+      "new": "results/inference_validation/mlp_seed100/clean_mlp_seed-100_predictions.csv"
+    },
+    {
+      "old": "results/demo_mlp_seed100_reproduction/clean_mlp_seeds-100.csv",
+      "new": "results/inference_validation/mlp_seed100/clean_mlp_seeds-100.csv"
+    },
+    {
+      "old": "results/demo_mlp_seed100_reproduction/clean_mlp_seeds-100_summary.csv",
+      "new": "results/inference_validation/mlp_seed100/clean_mlp_seeds-100_summary.csv"
+    },
+    {
+      "old": "results/lambda_sensitivity/summary.csv",
+      "new": "results/sensitivity/lambda/summary.csv"
+    },
+    {
+      "old": "src/reproduce.py",
+      "new": "src/runner.py"
+    },
+    {
+      "old": "experiments/summarize_five_model_results.py",
+      "new": "experiments/summarize_results.py"
+    },
+    {
+      "old": "REPRODUCTION_METADATA_CPU.txt",
+      "new": "ENVIRONMENT_CPU.txt"
+    },
+    {
+      "old": "REPRODUCTION_METADATA_GPU.txt",
+      "new": "ENVIRONMENT_GPU.txt"
+    },
+    {
+      "old": "docs/figures/architecture_comparison.png",
+      "new": "figures/architecture_comparison.png"
+    },
+    {
+      "old": "docs/figures/architecture_comparison_five_models.svg",
+      "new": "figures/architecture_comparison_five_models.svg"
+    },
+    {
+      "old": "docs/figures/clean_macro_f1_five_models.svg",
+      "new": "figures/clean_macro_f1_five_models.svg"
+    },
+    {
+      "old": "docs/figures/clean_vs_strict_five_models.svg",
+      "new": "figures/clean_vs_strict_five_models.svg"
+    }
+  ],
+  "original_csv_provenance_fields": "Preserved verbatim",
+  "subsequent_moves": [
+    {
+      "old": "requirements-cpu-tested.txt",
+      "new": "requirements-cpu.txt"
+    },
+    {
+      "old": "requirements-gpu-tested.txt",
+      "new": "requirements-gpu.txt"
+    },
+    {
+      "old": "results/strict/runs/strict_inductive_4models_10seed_reproduced.csv",
+      "new": "results/history/intermediate/strict_inductive_4models_10seed_reproduced.csv"
+    },
+    {
+      "old": "results/strict/runs/strict_inductive_mlp_10seed.csv",
+      "new": "results/history/intermediate/strict_inductive_mlp_10seed.csv"
+    },
+    {
+      "old": "results/cpu_gpu/CPU_REFERENCE_RESULTS.txt",
+      "new": "results/history/documentation/CPU_REFERENCE_RESULTS.txt"
+    },
+    {
+      "old": "results/checks/gcn_seed108/strict_inductive_gcn_seeds-108_epochs-300.csv",
+      "new": "results/strict/runs/gcn/seed_108/strict_inductive_gcn_seeds-108_epochs-300.csv"
+    },
+    {
+      "old": "results/checks/gcn_seed108/strict_inductive_gcn_seeds-108_epochs-300_summary.csv",
+      "new": "results/strict/runs/gcn/seed_108/strict_inductive_gcn_seeds-108_epochs-300_summary.csv"
+    },
+    {
+      "old": "results/checks/gcn_seed108/strict_inductive_gcn_seed-108_predictions.csv",
+      "new": "results/strict/runs/gcn/seed_108/strict_inductive_gcn_seed-108_predictions.csv"
+    }
+  ],
+  "gcn_seed108_note": "This is the canonical GCN seed-108 run used in strict_50_runs.csv, not a verified redundant control run. Historical CSV paths are unchanged.",
+  "local_only_archived_paths": [
+    "results/history/clean_baseline_statistics.csv",
+    "results/history/diagnostics/gcn_seed108/GCN_SEED108_CHECK_20261102-214647-120635.json",
+    "results/history/documentation/CPU_REFERENCE_RESULTS.txt",
+    "results/history/intermediate/strict_inductive_4models_10seed_reproduced.csv",
+    "results/history/intermediate/strict_inductive_mlp_10seed.csv",
+    "results/history/manuscript_clean_results.csv",
+    "results/history/mlp_original_10seed.csv",
+    "results/history/mlp_original_10seed_summary.csv",
+    "results/inference_validation/mlp_seed100/clean_mlp_seed-100_checkpoint.pt",
+    "results/inference_validation/mlp_seed100/clean_mlp_seed-100_predictions.csv",
+    "results/inference_validation/mlp_seed100/clean_mlp_seeds-100.csv",
+    "results/inference_validation/mlp_seed100/clean_mlp_seeds-100_summary.csv"
+  ],
+  "archive_note": "Listed archived paths are historical, not active repository files. Their bytes and archive manifest are retained outside the worktrees."
+}

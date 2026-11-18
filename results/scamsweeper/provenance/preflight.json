@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "experiment_lock_sha256": "dad688f5f740f02bb96cba74b8b7d2d596e3bddb4c881e77d9c6782fbbb9c026",
+  "seeds": [
+    {
+      "seed": 100,
+      "train_nodes": 3439,
+      "validation_nodes": 737,
+      "test_nodes": 737
+    },
+    {
+      "seed": 101,
+      "train_nodes": 3439,
+      "validation_nodes": 737,
+      "test_nodes": 737
+    },
+    {
+      "seed": 102,
+      "train_nodes": 3439,
+      "validation_nodes": 737,
+      "test_nodes": 737
+    },
+    {
+      "seed": 103,
+      "train_nodes": 3439,
+      "validation_nodes": 737,
+      "test_nodes": 737
+    },
+    {
+      "seed": 104,
+      "train_nodes": 3439,
+      "validation_nodes": 737,
+      "test_nodes": 737
+    },
+    {
+      "seed": 105,
+      "train_nodes": 3439,
+      "validation_nodes": 737,
+      "test_nodes": 737
+    },
+    {
+      "seed": 106,
+      "train_nodes": 3439,
+      "validation_nodes": 737,
+      "test_nodes": 737
+    },
+    {
+      "seed": 107,
+      "train_nodes": 3439,
+      "validation_nodes": 737,
+      "test_nodes": 737
+    },
+    {
+      "seed": 108,
+      "train_nodes": 3439,
+      "validation_nodes": 737,
+      "test_nodes": 737
+    },
+    {
+      "seed": 109,
+      "train_nodes": 3439,
+      "validation_nodes": 737,
+      "test_nodes": 737
+    }
+  ],
+  "training_performed": false
+}

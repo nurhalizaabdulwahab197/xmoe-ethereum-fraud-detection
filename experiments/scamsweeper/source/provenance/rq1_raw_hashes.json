@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "xlabel_normal.pickle",
+    "SHA256": "616edbf01a61f6db84158a279f471f7d98743ee8e0f1779189c77e2c8a516465"
+  },
+  {
+    "Name": "phish.pickle",
+    "SHA256": "49b16315c15392551e02f928d5adb6ca309985b46da0df81a116356ad74f2506"
+  },
+  {
+    "Name": "scams.pickle",
+    "SHA256": "1c4a9de26e10d4b87570e3a92f62a388b3b5b5d97bd3c933cc39cdd9a65c9839"
+  }
+]

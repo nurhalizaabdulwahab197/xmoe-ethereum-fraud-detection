@@ -1,0 +1,10 @@
+family,comparison,metric,test,raw_p,mean_difference,effect_size_dz,paired_bootstrap_ci_low,paired_bootstrap_ci_high,wins_out_of_10,seed_pairs,holm_adjusted_p
+clean_four_baselines,X-MoE vs mlp,macro_f1,conditional-exact signed-rank,0.001953125,0.2325880309153415,10.671058932057756,0.2206454340843235,0.2459270582530826,10,10,0.0078125
+clean_four_baselines,X-MoE vs gcn,macro_f1,conditional-exact signed-rank,0.001953125,0.1483919445937481,8.237377210577378,0.1379838466490207,0.1594098686523017,10,10,0.0078125
+clean_four_baselines,X-MoE vs gat,macro_f1,conditional-exact signed-rank,0.001953125,0.3135384735339872,11.573517832678906,0.2980109360171207,0.3297050157195684,10,10,0.0078125
+clean_four_baselines,X-MoE vs graphsage,macro_f1,conditional-exact signed-rank,0.00390625,0.0292620812697951,1.9968123578870165,0.020060875117172,0.0372903978267097,9,10,0.0078125
+clean_to_strict_five_models,mlp,macro_f1,conditional-exact signed-rank,1.0,0.0,,0.0,0.0,0,10,1.0
+clean_to_strict_five_models,gcn,macro_f1,conditional-exact signed-rank,0.001953125,-0.1053929722399033,-2.8709184208337866,-0.1259469924928081,-0.0830150231188119,0,10,0.009765625
+clean_to_strict_five_models,gat,macro_f1,conditional-exact signed-rank,0.048828125,-0.0389471642012179,-0.8610343060168862,-0.0641980382402014,-0.0110337396000269,1,10,0.09765625
+clean_to_strict_five_models,graphsage,macro_f1,conditional-exact signed-rank,0.001953125,-0.10920278616673,-6.434855287165231,-0.1184934692262062,-0.0986873276427182,0,10,0.009765625
+clean_to_strict_five_models,x_moe_gnn,macro_f1,conditional-exact signed-rank,0.001953125,-0.1081927479197906,-5.050666970405819,-0.1218940716600734,-0.0965552037954175,0,10,0.009765625

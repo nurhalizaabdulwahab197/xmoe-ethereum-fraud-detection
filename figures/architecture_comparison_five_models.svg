@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="470" viewBox="0 0 1100 470" role="img" aria-labelledby="title desc">
+<title id="title">Five-model BLTE architecture comparison</title>
+<desc id="desc">MLP uses node features only. GCN, GAT, GraphSAGE and X-MoE additionally use graph structure. All predict Normal, Phishing and Scamming.</desc>
+<rect width="1100" height="470" fill="#f5f8fc"/>
+<g font-family="Arial, sans-serif" fill="#173653"><text x="30" y="40" font-size="25" font-weight="bold">Five models · Same three-class BLTE task</text>
+<text x="30" y="68" font-size="15">Node inputs: 23 attributes · Outputs: Normal / Phishing / Scamming</text>
+<rect x="25" y="90" width="1050" height="59" rx="9" fill="white" stroke="#ccd9e9"/>
+<text x="43" y="125" font-size="19" font-weight="bold">MLP</text>
+<text x="205" y="125" font-size="15">23 node attributes</text>
+<text x="415" y="125" font-size="15">Two 64-unit feature layers; no graph edges</text>
+<rect x="25" y="160" width="1050" height="59" rx="9" fill="white" stroke="#ccd9e9"/>
+<text x="43" y="195" font-size="19" font-weight="bold">GCN</text>
+<text x="205" y="195" font-size="15">Attributes + graph</text>
+<text x="415" y="195" font-size="15">Two graph-convolution layers</text>
+<rect x="25" y="230" width="1050" height="59" rx="9" fill="white" stroke="#ccd9e9"/>
+<text x="43" y="265" font-size="19" font-weight="bold">GAT</text>
+<text x="205" y="265" font-size="15">Attributes + graph</text>
+<text x="415" y="265" font-size="15">Multi-head attention over neighbours</text>
+<rect x="25" y="300" width="1050" height="59" rx="9" fill="white" stroke="#ccd9e9"/>
+<text x="43" y="335" font-size="19" font-weight="bold">GraphSAGE</text>
+<text x="205" y="335" font-size="15">Attributes + graph</text>
+<text x="415" y="335" font-size="15">Two neighbourhood-aggregation layers</text>
+<rect x="25" y="370" width="1050" height="59" rx="9" fill="white" stroke="#ccd9e9"/>
+<text x="43" y="405" font-size="19" font-weight="bold">X-MoE</text>
+<text x="205" y="405" font-size="15">Attributes + graph</text>
+<text x="415" y="405" font-size="15">Conflict-aware and GraphSAGE experts; class-specific fusion</text>
+</g></svg>
