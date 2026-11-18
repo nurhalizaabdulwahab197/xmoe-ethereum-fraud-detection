@@ -35,10 +35,15 @@ RQ1.zip SHA-256:
 ## 2. Clone and freeze the code revision
 
 ```bash
-git clone https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git
+git clone --branch rq1-reproduction \
+  https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git
 cd xmoe-ethereum-fraud-detection
+git branch --show-current
 git rev-parse HEAD
 ```
+
+Until this branch is merged into `main`, the branch name must be specified.
+Expected branch: `rq1-reproduction`.
 
 The commit used for a publication must contain these files:
 
@@ -267,6 +272,8 @@ continuation with a backtick. Required result:
 ```text
 structural_counts_status: pass
 source_marker_status: unresolved
+degree_statistics_status: pass
+overall_status: table_i_reproduction_complete_with_documented_source_count_discrepancy
 ```
 
 `unresolved` is expected, not a failed run: Table I reports 4,905 phishing
@@ -306,7 +313,39 @@ The three total-degree population SD values must round to 3555.35, 1285.25 and
 541.10. For Phishing, the SD denominator is the 10,159,176 serialized adjacency
 source records, not all 10,159,847 node records.
 
-## 14. Preserve a reproducibility bundle
+## 14. Record the environment and output hashes
+
+Linux:
+
+```bash
+{
+  echo "DATE_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  echo "HOST=$(hostname)"
+  echo "OS=$(uname -a)"
+  echo "PYTHON=$(python --version 2>&1)"
+  echo "NODE=$(node --version)"
+  echo "GIT_BRANCH=$(git branch --show-current)"
+  echo "GIT_COMMIT=$(git rev-parse HEAD)"
+  echo "RQ1_ZIP_SHA256=$(sha256sum external_data/RQ1.zip | awk '{print $1}')"
+} | tee scamsweeper_reproduction/results/rq1_environment_run01.txt
+
+sha256sum \
+  data/raw/RQ1/unpacked/manifest.json \
+  scamsweeper_reproduction/results/rq1_node_scan.json \
+  scamsweeper_reproduction/results/rq1_degree_run01/summary.json \
+  scamsweeper_reproduction/results/rq1_degree_run01/*_degree_report.json \
+  scamsweeper_reproduction/results/rq1_degree_run01/*_degree_frequency.csv \
+  scamsweeper_reproduction/results/rq1_table1_run01.json \
+  scamsweeper_reproduction/results/rq1_figure6_run01.png \
+  scamsweeper_reproduction/results/rq1_reproduction_run01.json \
+  scamsweeper_reproduction/results/rq1_environment_run01.txt \
+  > scamsweeper_reproduction/results/rq1_output_sha256_run01.txt
+```
+
+If the archive is stored elsewhere, replace `external_data/RQ1.zip` with its
+actual path.
+
+## 15. Preserve a reproducibility bundle
 
 Publish the small outputs, not the raw pickles:
 
@@ -319,6 +358,8 @@ rq1_degree_run01/*_degree_frequency.csv
 rq1_table1_run01.json
 rq1_figure6_run01.png
 rq1_reproduction_run01.json
+rq1_environment_run01.txt
+rq1_output_sha256_run01.txt
 ```
 
 Also record `git rev-parse HEAD`, `python --version`, `node --version`, OS, CPU,
@@ -336,6 +377,12 @@ from the authors' released artifacts.
 - Archive hash mismatch: do not bypass the check. Record the new archive as a
   separate dataset version and investigate its provenance.
 - Missing `tools/rq1_pickle_primitives.mjs`: the Git commit is incomplete.
+- `matplotlib==3.11.x` rejects Python 3.10: pull the current requirements file,
+  which pins Python-3.10-compatible Matplotlib 3.10.8.
+- `python3.12`, `conda`, or `module` is not found: use an available Python
+  3.10-3.12 executable and the documented local Node binary installation.
+- `cat ...rq1_output_sha256_run01.txt` reports no such file: run the preceding
+  `sha256sum ... >` command first; `cat` only displays an existing file.
 - GPU utilization remains zero: this is correct because RQ1 is a static graph
   statistics experiment.
 
