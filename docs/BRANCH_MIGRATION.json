@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-18",
+  "target_branches": [
+    "main",
+    "reproduction",
+    "benchmark"
+  ],
+  "ref_cleanup_status": "pending",
+  "original_branches": [
+    {
+      "name": "main",
+      "commit": "2982e152c439f46bbc9afd363573481f7327c63f"
+    },
+    {
+      "name": "reproduction",
+      "commit": "899f3dcc3581b11a61aaf5061221890f8e6e0455"
+    },
+    {
+      "name": "study/blte-reconstruction",
+      "commit": "899f3dcc3581b11a61aaf5061221890f8e6e0455"
+    },
+    {
+      "name": "study/matched-two-dataset-cpu",
+      "commit": "4b4cb987b079d99fcac01a3c34c57640b50df445"
+    },
+    {
+      "name": "two-dataset-comparison",
+      "commit": "4b4cb987b079d99fcac01a3c34c57640b50df445"
+    }
+  ],
+  "preserved_studies": [
+    {
+      "original_branch": "main",
+      "commit": "2982e152c439f46bbc9afd363573481f7327c63f",
+      "tree": "22360d6333ee018d3ea3f3f898dbbf3df939025f",
+      "destination": "benchmark root; original commit retained as parent"
+    },
+    {
+      "original_branch": "reproduction",
+      "commit": "899f3dcc3581b11a61aaf5061221890f8e6e0455",
+      "tree": "8c3ead2369174da729dcec49c1a8eb99c2596a69",
+      "destination": "reproduction/blte (exact original Git tree)"
+    },
+    {
+      "original_branch": "two-dataset-comparison",
+      "commit": "4b4cb987b079d99fcac01a3c34c57640b50df445",
+      "tree": "f648adfcdad49b6578f3687edd55a386251bfe80",
+      "destination": "benchmark/studies/matched_two_dataset_cpu (exact original Git tree; original commit retained as additional parent)"
+    }
+  ],
+  "retire_after_verification": [
+    "study/blte-reconstruction",
+    "study/matched-two-dataset-cpu",
+    "two-dataset-comparison"
+  ],
+  "owner_status": {
+    "blte_reproduction": "completed archived evidence; existing public-wrapper caveats retained",
+    "sweeper_reproduction": "in_progress",
+    "bert4eth_reproduction": "completed per owner; import_and_repository_verification_pending"
+  },
+  "note": "No original scientific training source or numerical evidence changed. Prior study/* refs duplicate the recorded original study commits."
+}

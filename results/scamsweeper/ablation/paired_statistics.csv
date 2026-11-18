@@ -1,8 +1,0 @@
-family,comparison,metric,test,raw_p,mean_difference,effect_size_dz,paired_bootstrap_ci_low,paired_bootstrap_ci_high,wins_out_of_10,seed_pairs,holm_adjusted_p
-ablation_seven_variants,A0 vs a1_conflict_only,macro_f1,exact sign-flip,0.484375,0.0024023306728368,0.2231543460634869,-0.0039315384718797,0.0087051780235739,5,10,1.0
-ablation_seven_variants,A0 vs a2_graphsage_only,macro_f1,exact sign-flip,0.001953125,0.0471904547979507,2.9600088438992387,0.0377371750585715,0.0563853032323041,10,10,0.013671875
-ablation_seven_variants,A0 vs a3_global_routing,macro_f1,exact sign-flip,0.763671875,-0.0008709791143484,-0.0963560482996646,-0.0062983098190202,0.0042850647633181,5,10,1.0
-ablation_seven_variants,A0 vs a4_no_isolate_mask,macro_f1,exact sign-flip,1.0,0.0,,0.0,0.0,0,10,1.0
-ablation_seven_variants,A0 vs a5_no_scam_specialist,macro_f1,exact sign-flip,0.75390625,0.0009453014351796,0.1093676140677473,-0.0041361377237806,0.0059111604001725,5,10,1.0
-ablation_seven_variants,A0 vs a6_no_normal_phishing_penalty,macro_f1,exact sign-flip,0.69140625,-0.0010017686314284,-0.1308480323623302,-0.0058100276496164,0.0031273557464652,6,10,1.0
-ablation_seven_variants,A0 vs a7_fixed_50,macro_f1,exact sign-flip,0.927734375,-0.0001627584377656,-0.0322165312325057,-0.0030984195416028,0.0028969998202869,5,10,1.0

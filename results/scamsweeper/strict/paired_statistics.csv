@@ -1,9 +1,0 @@
-family,comparison,metric,test,raw_p,mean_difference,effect_size_dz,paired_bootstrap_ci_low,paired_bootstrap_ci_high,wins_out_of_10,seed_pairs,holm_adjusted_p
-strict_four_baselines,X-MoE vs mlp,macro_f1,conditional-exact signed-rank,0.001953125,0.1243952829955509,7.459145318935247,0.1149793096185573,0.1343709085626533,10,10,0.0078125
-strict_four_baselines,X-MoE vs gcn,macro_f1,conditional-exact signed-rank,0.001953125,0.1455921689138608,5.835609643320518,0.1315830736155694,0.1606479198600364,10,10,0.0078125
-strict_four_baselines,X-MoE vs gat,macro_f1,conditional-exact signed-rank,0.001953125,0.2442928898154145,4.628914058662466,0.2129871226292542,0.2753300635913719,10,10,0.0078125
-strict_four_baselines,X-MoE vs graphsage,macro_f1,conditional-exact signed-rank,0.001953125,0.0302721195167345,1.9060629797736235,0.0206405041716193,0.0392351374225133,10,10,0.0078125
-strict_minority_four_metrics,X-MoE vs GraphSAGE,phishing_f1,conditional-exact signed-rank,0.001953125,0.0496027907606358,2.304320014032676,0.0385038121437101,0.0639577093025693,10,10,0.0078125
-strict_minority_four_metrics,X-MoE vs GraphSAGE,phishing_ap,conditional-exact signed-rank,0.001953125,0.0440991214605027,2.155795690558416,0.0317939200826192,0.0556715327910246,10,10,0.0078125
-strict_minority_four_metrics,X-MoE vs GraphSAGE,scamming_f1,conditional-exact signed-rank,0.130859375,-0.0132386183561195,-0.6361371453993677,-0.0262681723029382,-0.001717499421109,4,10,0.130859375
-strict_minority_four_metrics,X-MoE vs GraphSAGE,scamming_ap,conditional-exact signed-rank,0.001953125,0.0145503691977951,2.2747564240284115,0.0114840605224966,0.0188016593688433,10,10,0.0078125
