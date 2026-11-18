@@ -2,6 +2,14 @@
 
 This repository provides a reproducible implementation for multi-class Ethereum address fraud detection under severe class imbalance and sparse graph connectivity. It includes conventional graph baselines, a feature-only MLP baseline, the proposed X-MoE framework, manuscript-aligned ablation and sensitivity experiments, strict node-inductive evaluation, reference result summaries, and metric-audit utilities.
 
+## ScamSweeper RQ1 artifact reproduction
+
+To reproduce the released RQ1 graph statistics from a clean Windows or Linux
+machine, follow the dedicated [RQ1 from-scratch guide](scamsweeper_reproduction/RQ1_FROM_SCRATCH.md).
+The guide includes environment detection, a no-root Node.js setup, audited
+dataset hashes, complete node/edge scans, Table I verification, and figure
+generation. RQ1 is CPU/RAM/storage-bound and does not require a GPU.
+
 
 ## Dataset Navigation — BLTE and ScamSweeper
 
