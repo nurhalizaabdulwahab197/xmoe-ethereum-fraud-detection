@@ -14,6 +14,20 @@ This README retains the original complete BLTE instructions and adds a separate,
 
 Part I preserves the BLTE guide, commands, architecture descriptions and result tables. Its historical statements about a BLTE-only main branch refer to the pre-integration snapshot; main now also contains the separate ScamSweeper suite in Part II. The environments, dataset features and ablation conclusions must be read within their own dataset sections.
 
+## Which Branch Should I Use?
+
+**Use `main` for the complete BLTE and ScamSweeper clean/strict/A0–A7/sensitivity studies in this README.** ScamSweeper on main includes full five-model reproduction, not only ablation.
+
+| Branch | Scientific scope | Use it for |
+|---|---|---|
+| `main` | BLTE original main-study evidence plus the locked ScamSweeper/RQ1 230-run CUDA suite | Reproduce both datasets and read all clean, strict, A0–A7 and sensitivity guides below |
+| `study/blte-reconstruction` | BLTE reconstruction of paper-described/released-code settings, CE controls and PCGrad ON/OFF | Study the separate 120-run reconstruction and 40-run PCGrad evidence |
+| `study/matched-two-dataset-cpu` | Earlier matched CPU study: BLTE 50 + RQ1 50 clean runs, plus separately attributed verification | Reproduce both datasets in that shared historical CPU protocol |
+
+`reproduction` and `two-dataset-comparison` remain unchanged compatibility names for the two study branches. The new descriptive names initially point to those same study commits. They do not represent new results or extra experiments. No branch/history is deleted or force-replaced.
+
+[Branch guide and exact study boundaries](docs/BRANCH_GUIDE.md) • [All experiment counts](docs/EXPERIMENT_INVENTORY.md).
+
 # Part I — BLTE: Original Detailed Guide
 
 ## Audited Accuracy, Precision, Recall, F1 and ROC-AUC
@@ -79,8 +93,7 @@ seeds 100–109, with 300 epochs per run. The values are experimental aggregates
 individual checkpoint predictions do not replace these estimates.
 
 The active MLP ten-seed evidence is in `results/clean/reference/mlp_10seed.csv`.
-This `main` release covers BLTE. The `two-dataset-comparison` branch is a separate
-workstream; its experiments are outside the reproduction commands in this guide.
+Part I covers the BLTE main-study protocol. Part II on this same `main` branch contains full ScamSweeper/RQ1 clean, strict, A0–A7 and sensitivity reproduction. The separate `study/matched-two-dataset-cpu` branch preserves the earlier shared CPU study; its results and environment are not substituted for the locked CUDA suite.
 
 ## Dataset Summary
 
@@ -412,13 +425,7 @@ The CPU experiments were reproduced using:
 | `RESULT_SOURCE_HASHES.json` | Evidence hashes |
 | `FILE_RELOCATION_MAP.json` | Historical-to-current path mapping |
 
-At the documentation audit on 16 November 2026, the repository has three branches:
-
-| Branch | Scope |
-|---|---|
-| `main` | BLTE experiment code, reference results, metric audits, tables and figures documented here |
-| `reproduction` | Separate reconstructed BLTE reproduction and PCGrad ablation workstream |
-| `two-dataset-comparison` | Separate dataset-comparison workstream |
+The current branch organization is documented in [Which branch should I use?](#which-branch-should-i-use) and [the branch guide](docs/BRANCH_GUIDE.md). Both datasets' principal clean/strict/ablation/sensitivity code and result records are on main; separate branches preserve distinct reconstruction and historical matched-CPU protocols.
 
 `main` contains no Streamlit application source or packaged inference checkpoints.
 The paper's LaTeX is maintained separately.
@@ -573,7 +580,7 @@ python .\src\runner.py `
   --epochs 10 `
   --device cpu `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\cpu\smoke\mlp `
+  --output-dir .\results\new_runs\blte\cpu\smoke\mlp `
   --no-save-checkpoints `
   --no-save-predictions
 ```
@@ -588,7 +595,7 @@ python .\src\runner.py `
   --epochs 10 `
   --device cpu `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\cpu\smoke\gcn `
+  --output-dir .\results\new_runs\blte\cpu\smoke\gcn `
   --no-save-checkpoints `
   --no-save-predictions
 ```
@@ -603,7 +610,7 @@ python .\src\runner.py `
   --epochs 10 `
   --device cpu `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\cpu\smoke\gat `
+  --output-dir .\results\new_runs\blte\cpu\smoke\gat `
   --no-save-checkpoints `
   --no-save-predictions
 ```
@@ -618,7 +625,7 @@ python .\src\runner.py `
   --epochs 10 `
   --device cpu `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\cpu\smoke\graphsage `
+  --output-dir .\results\new_runs\blte\cpu\smoke\graphsage `
   --no-save-checkpoints `
   --no-save-predictions
 ```
@@ -634,7 +641,7 @@ python .\src\runner.py `
   --device cpu `
   --upstream .\upstream-paper `
   --x-moe-normal-phishing-penalty 0.30 `
-  --output-dir .\results\new_runs\cpu\smoke\xmoe `
+  --output-dir .\results\new_runs\blte\cpu\smoke\xmoe `
   --no-save-checkpoints `
   --no-save-predictions
 ```
@@ -664,6 +671,30 @@ device = cpu
 deterministic = enabled
 ```
 
+### Full five-model BLTE reference table
+
+These are the recorded clean CPU results, **mean ± sample SD over seeds 100–109, 300 epochs**. Values below use the 0–1 scale. The table covers every model; GraphSAGE remains the primary conventional-GNN comparator for X-MoE.
+
+| Model | Accuracy | Macro-F1 |
+|---|---:|---:|
+| MLP | 0.967175 ± 0.008147 | 0.371498 ± 0.008483 |
+| GCN | 0.881123 ± 0.032853 | 0.363689 ± 0.020485 |
+| GAT | 0.591693 ± 0.033604 | 0.266492 ± 0.017115 |
+| GraphSAGE | 0.988188 ± 0.002071 | 0.491619 ± 0.033561 |
+| X-MoE | 0.996942 ± 0.001153 | 0.657494 ± 0.071187 |
+
+Reference: [five-model clean table](results/blte/tables/clean_baseline_10seed.csv). Overall and per-class precision, recall, F1, AP and ROC-AUC are available in the [completed metric audit](docs/COMPLETED_METRICS.md); the aggregate reference tables have their original recorded rounding.
+
+**Primary comparison:** X-MoE minus GraphSAGE = 0.165875 Macro-F1, or **16.59 percentage points**, approximately **33.74% relative improvement**. This highlights the strongest conventional GNN baseline without omitting the other models.
+
+Run the five commands below one at a time. To inspect all new full-run metrics afterward:
+
+```powershell
+python .\scripts\inspect_blte_outputs.py `
+  --root .\results\new_runs\blte\cpu\clean `
+  --family clean
+```
+
 ### MLP
 
 ```powershell
@@ -675,7 +706,7 @@ python .\src\runner.py `
   --device cpu `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\cpu\clean\mlp `
+  --output-dir .\results\new_runs\blte\cpu\clean\mlp `
   --save-checkpoints `
   --save-predictions
 ```
@@ -698,7 +729,7 @@ python .\src\runner.py `
   --device cpu `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\cpu\clean\gcn `
+  --output-dir .\results\new_runs\blte\cpu\clean\gcn `
   --save-checkpoints `
   --save-predictions
 ```
@@ -721,7 +752,7 @@ python .\src\runner.py `
   --device cpu `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\cpu\clean\gat `
+  --output-dir .\results\new_runs\blte\cpu\clean\gat `
   --save-checkpoints `
   --save-predictions
 ```
@@ -744,7 +775,7 @@ python .\src\runner.py `
   --device cpu `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\cpu\clean\graphsage `
+  --output-dir .\results\new_runs\blte\cpu\clean\graphsage `
   --save-checkpoints `
   --save-predictions
 ```
@@ -768,7 +799,7 @@ python .\src\runner.py `
   --deterministic `
   --upstream .\upstream-paper `
   --x-moe-normal-phishing-penalty 0.30 `
-  --output-dir .\results\new_runs\cpu\clean\xmoe `
+  --output-dir .\results\new_runs\blte\cpu\clean\xmoe `
   --save-checkpoints `
   --save-predictions
 ```
@@ -829,7 +860,7 @@ The reference Normal–Phishing coefficient λ_NP = 0.30 is a manuscript referen
 
 ## 11. Ablation Study: A0–A7
 
-The A0–A7 ablation below uses the main study protocol. The `reproduction` branch reports a separate PCGrad ON/OFF ablation under two reconstructed BLTE configurations. [PCGrad ablation results](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/blob/reproduction/README.md#pcgrad-ablation)
+The A0–A7 ablation below uses the main study protocol. The `reproduction` branch reports a separate PCGrad ON/OFF ablation under two reconstructed BLTE configurations. [PCGrad ablation results](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/blob/study/blte-reconstruction/README.md#pcgrad-ablation)
 
 Runner:
 
@@ -858,13 +889,52 @@ Reference results:
 
 A0 is the reference architecture, not the numerically best ablation. A3, A4, and A7 obtain higher mean Macro-F1 than A0. Only A6 shows a family-wise significant overall degradation after Holm correction, indicating that removing the Normal–Phishing objective has the clearest adverse effect in this experiment.
 
-### Run the full eight-variant ablation study
+### 11.1 Prepare the BLTE ablation environment and inputs
+
+The full command is the training step, not the whole setup. First complete BLTE Sections 1–5 above: clone main, activate the recorded CPU environment, install dependencies and verify both upstream artifact hashes. Run from the repository root.
+
+```powershell
+.\.venv-cpu\Scripts\Activate.ps1
+python --version
+python -m pip check
+Test-Path .\upstream-paper\BLTE_multiclass_graph.pt
+Test-Path .\upstream-paper\BLTE_multiclass_v2.csv
+python .\experiments\blte\ablation.py --help
+```
+
+Both Test-Path results must be True. Compare SHA256 with Section 4; a filename alone does not establish matching data. The dataset-labelled entry delegates to the unchanged BLTE implementation.
+
+### 11.2 Smoke-test all eight variants before full training
+
+```powershell
+python .\experiments\blte\ablation.py `
+  --variant all `
+  --protocol clean `
+  --seeds 100 `
+  --epochs 2 `
+  --device cpu `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --expert-loss-weight 0.25 `
+  --scam-specialist-loss-weight 0.50 `
+  --expert-task-loss-weight 1.00 `
+  --normal-phishing-penalty 0.30 `
+  --output-dir .\results\new_runs\blte\cpu\smoke\ablation
+```
+
+Wait for successful completion and the printed Saved paths. These eight short runs are smoke checks, not paper results. Keep their folder separate from full 300-epoch results.
+
+### 11.3 Choose one full-training method
+
+**Option A:** the all-variant command below runs A0 through A7 sequentially, ten seeds each (80 runs). **Option B:** use the eight individual commands in Section 11.4. Both specify the same scientific configurations. Do not execute both into the same reporting root; that would duplicate seed records.
+
+### Option A — Run the full eight-variant ablation study
 
 This command requests eight variants across ten seeds: 80 training runs.
 Use the explicit 300 epochs below; the script default is a shorter test run.
 
 ```powershell
-python .\experiments\ablation.py `
+python .\experiments\blte\ablation.py `
   --variant all `
   --protocol clean `
   --seeds 100,101,102,103,104,105,106,107,108,109 `
@@ -876,13 +946,175 @@ python .\experiments\ablation.py `
   --scam-specialist-loss-weight 0.50 `
   --expert-task-loss-weight 1.00 `
   --normal-phishing-penalty 0.30 `
-  --output-dir .\results\new_runs\cpu\ablation
+  --output-dir .\results\new_runs\blte\cpu\ablation\all
 ```
 
 To rerun one variant, replace `--variant all` with, for example,
 `--variant a6_no_normal_phishing_penalty` and use a new output directory.
 For a pipeline test use `--seeds 100 --epochs 2`; do not compare a two-epoch
 smoke test with the reported 300-epoch ablation scores.
+
+### 11.4 Option B — Run A0–A7 one variant at a time
+
+Each command below performs ten 300-epoch runs. Run the next command only after the previous one completes successfully. Use this option instead of Option A; there is no need to retrain locked results merely to read them.
+
+#### A0 — Full X-MoE
+
+```powershell
+python .\experiments\blte\ablation.py `
+  --variant a0_full `
+  --protocol clean `
+  --seeds 100,101,102,103,104,105,106,107,108,109 `
+  --epochs 300 `
+  --device cpu `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --expert-loss-weight 0.25 `
+  --scam-specialist-loss-weight 0.50 `
+  --expert-task-loss-weight 1.00 `
+  --normal-phishing-penalty 0.30 `
+  --output-dir .\results\new_runs\blte\cpu\ablation\a0_full
+```
+
+#### A1 — Conflict-aware expert only
+
+```powershell
+python .\experiments\blte\ablation.py `
+  --variant a1_conflict_only `
+  --protocol clean `
+  --seeds 100,101,102,103,104,105,106,107,108,109 `
+  --epochs 300 `
+  --device cpu `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --expert-loss-weight 0.25 `
+  --scam-specialist-loss-weight 0.50 `
+  --expert-task-loss-weight 1.00 `
+  --normal-phishing-penalty 0.30 `
+  --output-dir .\results\new_runs\blte\cpu\ablation\a1_conflict_only
+```
+
+#### A2 — GraphSAGE-expert configuration
+
+```powershell
+python .\experiments\blte\ablation.py `
+  --variant a2_graphsage_only `
+  --protocol clean `
+  --seeds 100,101,102,103,104,105,106,107,108,109 `
+  --epochs 300 `
+  --device cpu `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --expert-loss-weight 0.25 `
+  --scam-specialist-loss-weight 0.50 `
+  --expert-task-loss-weight 1.00 `
+  --normal-phishing-penalty 0.30 `
+  --output-dir .\results\new_runs\blte\cpu\ablation\a2_graphsage_only
+```
+
+#### A3 — Shared inner and outer routing
+
+```powershell
+python .\experiments\blte\ablation.py `
+  --variant a3_global_routing `
+  --protocol clean `
+  --seeds 100,101,102,103,104,105,106,107,108,109 `
+  --epochs 300 `
+  --device cpu `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --expert-loss-weight 0.25 `
+  --scam-specialist-loss-weight 0.50 `
+  --expert-task-loss-weight 1.00 `
+  --normal-phishing-penalty 0.30 `
+  --output-dir .\results\new_runs\blte\cpu\ablation\a3_global_routing
+```
+
+#### A4 — No isolate masking
+
+```powershell
+python .\experiments\blte\ablation.py `
+  --variant a4_no_isolate_mask `
+  --protocol clean `
+  --seeds 100,101,102,103,104,105,106,107,108,109 `
+  --epochs 300 `
+  --device cpu `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --expert-loss-weight 0.25 `
+  --scam-specialist-loss-weight 0.50 `
+  --expert-task-loss-weight 1.00 `
+  --normal-phishing-penalty 0.30 `
+  --output-dir .\results\new_runs\blte\cpu\ablation\a4_no_isolate_mask
+```
+
+#### A5 — No Scamming-specialist loss
+
+```powershell
+python .\experiments\blte\ablation.py `
+  --variant a5_no_scam_specialist `
+  --protocol clean `
+  --seeds 100,101,102,103,104,105,106,107,108,109 `
+  --epochs 300 `
+  --device cpu `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --expert-loss-weight 0.25 `
+  --scam-specialist-loss-weight 0.50 `
+  --expert-task-loss-weight 1.00 `
+  --normal-phishing-penalty 0.30 `
+  --output-dir .\results\new_runs\blte\cpu\ablation\a5_no_scam_specialist
+```
+
+#### A6 — No Normal–Phishing penalty
+
+```powershell
+python .\experiments\blte\ablation.py `
+  --variant a6_no_normal_phishing_penalty `
+  --protocol clean `
+  --seeds 100,101,102,103,104,105,106,107,108,109 `
+  --epochs 300 `
+  --device cpu `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --expert-loss-weight 0.25 `
+  --scam-specialist-loss-weight 0.50 `
+  --expert-task-loss-weight 1.00 `
+  --normal-phishing-penalty 0.30 `
+  --output-dir .\results\new_runs\blte\cpu\ablation\a6_no_normal_phishing_penalty
+```
+
+#### A7 — Fixed 50:50 outer mixture
+
+```powershell
+python .\experiments\blte\ablation.py `
+  --variant a7_fixed_50 `
+  --protocol clean `
+  --seeds 100,101,102,103,104,105,106,107,108,109 `
+  --epochs 300 `
+  --device cpu `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --expert-loss-weight 0.25 `
+  --scam-specialist-loss-weight 0.50 `
+  --expert-task-loss-weight 1.00 `
+  --normal-phishing-penalty 0.30 `
+  --output-dir .\results\new_runs\blte\cpu\ablation\a7_fixed_50
+```
+
+### 11.5 Inspect ablation outputs without retraining
+
+```powershell
+Get-ChildItem .\results\new_runs\blte\cpu\ablation -Recurse -Filter *.csv
+
+python .\scripts\inspect_blte_outputs.py `
+  --root .\results\new_runs\blte\cpu\ablation `
+  --family ablation
+```
+
+The original runner prints a raw metrics CSV and a summary CSV after the requested batch finishes. In an all-variant batch, these CSVs are written after all requested variants/seeds finish, so a missing final CSV during training is not proof the process stopped. This ablation CLI does not expose checkpoint/prediction-saving flags; do not add unsupported flags from the clean runner.
+
+The inspector reads existing CSVs only and reports per-group seed coverage. It refuses duplicate group/seed rows and non-300-epoch records. It does not overwrite published tables or create significance claims from incomplete runs.
 
 ## 12. Connectivity-Stratified Analysis
 
@@ -896,6 +1128,30 @@ The ablation runner also reports connected/isolated subgroup behaviour. No separ
 | Isolated Normal FPR | 0.000000 | 0.000307 |
 
 Removing isolate masking improves connected-node discrimination but introduces a small false-positive cost among isolated Normal addresses. All fraud test nodes in this analysis are connected, so the isolated subgroup contains only Normal nodes. The result is therefore interpreted as a performance–safety trade-off rather than simple superiority of either configuration.
+
+### 12.1 Connectivity metrics are produced by Section 11
+
+No new training command is needed after ablation. The ablation runner already evaluates connected and isolated test nodes for each run. Those fields are stored in the **raw run CSV**. Its standard `_summary.csv` summarizes selected primary metrics and does not automatically aggregate every connectivity column.
+
+### 12.2 Read connectivity results from your completed ablation runs
+
+```powershell
+python .\scripts\inspect_blte_outputs.py `
+  --root .\results\new_runs\blte\cpu\ablation `
+  --family ablation `
+  --view connectivity
+```
+
+This read-only command groups raw records by variant/device, displays available connected/isolated metrics and counts, and reports mean ± sample SD. It derives isolated-Normal FPR from 1 − isolated-Normal recall only when the isolated test stratum contains Normal nodes exclusively. Undefined/absent strata are not filled with zero scores.
+
+### 12.3 Read the frozen published connectivity table
+
+```powershell
+Import-Csv .\results\blte\tables\connectivity_analysis.csv |
+    Format-Table -AutoSize
+```
+
+This displays the historical reference table; it does not rebuild it from your new outputs. Compare matching protocol/seeds before drawing conclusions. ScamSweeper connectivity is recorded in its separate 230-run suite and has no isolated nodes in the clean graph.
 
 ## 13. Normal–Phishing Coefficient Sensitivity
 
@@ -923,7 +1179,29 @@ Machine-readable summary:
 results/sensitivity/lambda/summary.csv
 ```
 
-### Commands for each sensitivity coefficient
+### 13.1 Prepare, smoke-test and choose the coefficient
+
+Sensitivity reuses the clean X-MoE implementation, not the A0–A7 CLI. Changing `--x-moe-normal-phishing-penalty` changes one loss coefficient while keeping the other settings fixed. Use an independent output directory for every coefficient. It is not a class-label change or a new dataset.
+
+After completing the CPU environment/input checks above, smoke-test one coefficient:
+
+```powershell
+python .\src\runner.py `
+  --model x_moe_gnn `
+  --protocol clean `
+  --seeds 100 `
+  --epochs 2 `
+  --device cpu `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --x-moe-normal-phishing-penalty 0.30 `
+  --output-dir .\results\new_runs\blte\cpu\smoke\sensitivity\lambda_0.30 `
+  --save-predictions
+```
+
+Then run the five full coefficient commands below one at a time. Their .30 reference and other settings match the documented clean protocol. Smoke scores are excluded from reporting.
+
+### 13.2 Full commands for each sensitivity coefficient
 
 Each block runs X-MoE for ten seeds. Together the five blocks request 50 runs.
 All other settings are held fixed. Activate `.venv-cpu` before running them.
@@ -942,7 +1220,7 @@ python .\src\runner.py `
   --deterministic `
   --upstream .\upstream-paper `
   --x-moe-normal-phishing-penalty 0.00 `
-  --output-dir .\results\new_runs\cpu\sensitivity\lambda_0.00 `
+  --output-dir .\results\new_runs\blte\cpu\sensitivity\lambda_0.00 `
   --save-checkpoints `
   --save-predictions
 ```
@@ -959,7 +1237,7 @@ python .\src\runner.py `
   --deterministic `
   --upstream .\upstream-paper `
   --x-moe-normal-phishing-penalty 0.10 `
-  --output-dir .\results\new_runs\cpu\sensitivity\lambda_0.10 `
+  --output-dir .\results\new_runs\blte\cpu\sensitivity\lambda_0.10 `
   --save-checkpoints `
   --save-predictions
 ```
@@ -976,7 +1254,7 @@ python .\src\runner.py `
   --deterministic `
   --upstream .\upstream-paper `
   --x-moe-normal-phishing-penalty 0.30 `
-  --output-dir .\results\new_runs\cpu\sensitivity\lambda_0.30 `
+  --output-dir .\results\new_runs\blte\cpu\sensitivity\lambda_0.30 `
   --save-checkpoints `
   --save-predictions
 ```
@@ -993,7 +1271,7 @@ python .\src\runner.py `
   --deterministic `
   --upstream .\upstream-paper `
   --x-moe-normal-phishing-penalty 0.50 `
-  --output-dir .\results\new_runs\cpu\sensitivity\lambda_0.50 `
+  --output-dir .\results\new_runs\blte\cpu\sensitivity\lambda_0.50 `
   --save-checkpoints `
   --save-predictions
 ```
@@ -1010,10 +1288,20 @@ python .\src\runner.py `
   --deterministic `
   --upstream .\upstream-paper `
   --x-moe-normal-phishing-penalty 1.00 `
-  --output-dir .\results\new_runs\cpu\sensitivity\lambda_1.00 `
+  --output-dir .\results\new_runs\blte\cpu\sensitivity\lambda_1.00 `
   --save-checkpoints `
   --save-predictions
 ```
+
+### 13.3 Inspect sensitivity outputs without retraining
+
+```powershell
+python .\scripts\inspect_blte_outputs.py `
+  --root .\results\new_runs\blte\cpu\sensitivity `
+  --family sensitivity
+```
+
+The inspector reads the coefficient actually recorded in each raw CSV and groups by coefficient/model/device. Each full coefficient should have seeds 100–109. The public BLTE metric-completion series attributes 20 reused A0/A6 rows and 30 fresh runs; the five commands above instead request 50 new executions. Do not count reused reporting rows as additional independent training runs.
 
 ## 14. STRICT-INDUCTIVE Evaluation
 
@@ -1079,7 +1367,40 @@ respectively.
 
 STRICT-INDUCTIVE is a topology-visibility sensitivity analysis. It is not evidence of temporal, cross-chain, or cross-dataset generalisation, and the clean-to-strict change should not be presented as proof of leakage.
 
-### Run all five strict CPU experiments, one model at a time
+### 14.1 Prepare the BLTE strict environment and inputs
+
+Strict is a separate training/evaluation protocol. It is not obtained merely by reformatting clean results. Complete the same BLTE CPU setup and hash checks from Sections 1–5, then confirm:
+
+```powershell
+.\.venv-cpu\Scripts\Activate.ps1
+python -m pip check
+Test-Path .\upstream-paper\BLTE_multiclass_graph.pt
+Test-Path .\upstream-paper\BLTE_multiclass_v2.csv
+python .\experiments\blte\strict.py --help
+```
+
+The strict CLI sets its protocol internally; do not add `--protocol clean` or `--protocol strict`.
+
+### 14.2 Smoke-test strict X-MoE
+
+```powershell
+python .\experiments\blte\strict.py `
+  --model x_moe_gnn `
+  --seeds 100 `
+  --epochs 2 `
+  --device cpu `
+  --deterministic `
+  --upstream .\upstream-paper `
+  --x-moe-normal-phishing-penalty 0.30 `
+  --output-dir .\results\new_runs\blte\cpu\smoke\strict\x_moe_gnn `
+  --save-predictions
+```
+
+If it fails, inspect the error before full training. The smoke test is not a scientific result.
+
+### 14.3 Run the five full strict model commands
+
+#### Full strict CPU experiments, one model at a time
 
 Activate `.venv-cpu` and run these commands from the `main` repository root.
 The script selects the strict protocol internally; it has no `--protocol` flag.
@@ -1095,7 +1416,7 @@ python .\experiments\strict_inductive.py `
   --device cpu `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\cpu\strict\mlp `
+  --output-dir .\results\new_runs\blte\cpu\strict\mlp `
   --save-predictions
 ```
 
@@ -1109,7 +1430,7 @@ python .\experiments\strict_inductive.py `
   --device cpu `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\cpu\strict\gcn `
+  --output-dir .\results\new_runs\blte\cpu\strict\gcn `
   --save-predictions
 ```
 
@@ -1123,7 +1444,7 @@ python .\experiments\strict_inductive.py `
   --device cpu `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\cpu\strict\gat `
+  --output-dir .\results\new_runs\blte\cpu\strict\gat `
   --save-predictions
 ```
 
@@ -1137,7 +1458,7 @@ python .\experiments\strict_inductive.py `
   --device cpu `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\cpu\strict\graphsage `
+  --output-dir .\results\new_runs\blte\cpu\strict\graphsage `
   --save-predictions
 ```
 
@@ -1152,12 +1473,24 @@ python .\experiments\strict_inductive.py `
   --deterministic `
   --upstream .\upstream-paper `
   --x-moe-normal-phishing-penalty 0.30 `
-  --output-dir .\results\new_runs\cpu\strict\x_moe_gnn `
+  --output-dir .\results\new_runs\blte\cpu\strict\x_moe_gnn `
   --save-predictions
 ```
 
 The published strict reference is `results/strict/reference/strict_50_runs.csv`.
 New runs are kept separately and do not automatically replace that reference.
+
+### 14.4 Inspect all strict outputs and seed coverage
+
+```powershell
+Get-ChildItem .\results\new_runs\blte\cpu\strict -Recurse -Filter *_summary.csv
+
+python .\scripts\inspect_blte_outputs.py `
+  --root .\results\new_runs\blte\cpu\strict `
+  --family strict
+```
+
+Each model should contain ten seeds at 300 epochs. Read new-output summaries separately from the frozen strict reference. `experiments/summarize_results.py` reads historical published reference inputs; it does not automatically ingest or approve your new strict run directory.
 
 ## 15. Reproducibility Scope
 
@@ -1317,7 +1650,7 @@ python .\src\runner.py `
   --device cuda `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\gpu\clean\gcn `
+  --output-dir .\results\new_runs\blte\gpu\clean\gcn `
   --save-checkpoints `
   --save-predictions
 ```
@@ -1333,7 +1666,7 @@ python .\src\runner.py `
   --device cuda `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\gpu\clean\gat `
+  --output-dir .\results\new_runs\blte\gpu\clean\gat `
   --save-checkpoints `
   --save-predictions
 ```
@@ -1349,7 +1682,7 @@ python .\src\runner.py `
   --device cuda `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\gpu\clean\graphsage `
+  --output-dir .\results\new_runs\blte\gpu\clean\graphsage `
   --save-checkpoints `
   --save-predictions
 ```
@@ -1366,7 +1699,7 @@ python .\src\runner.py `
   --deterministic `
   --upstream .\upstream-paper `
   --x-moe-normal-phishing-penalty 0.30 `
-  --output-dir .\results\new_runs\gpu\clean\xmoe `
+  --output-dir .\results\new_runs\blte\gpu\clean\xmoe `
   --save-checkpoints `
   --save-predictions
 ```
@@ -1385,7 +1718,7 @@ python .\src\runner.py `
   --device cuda `
   --deterministic `
   --upstream .\upstream-paper `
-  --output-dir .\results\new_runs\gpu\clean\mlp `
+  --output-dir .\results\new_runs\blte\gpu\clean\mlp `
   --save-checkpoints `
   --save-predictions
 ```
@@ -1418,8 +1751,8 @@ A checkpoint is validation-selected; do not select runs by test performance.
 For example, after the GCN CPU run:
 
 ```powershell
-Get-ChildItem .\results\new_runs\cpu\clean\gcn
-Get-ChildItem .\results\new_runs\cpu\clean\gcn\*_summary.csv |
+Get-ChildItem .\results\new_runs\blte\cpu\clean\gcn
+Get-ChildItem .\results\new_runs\blte\cpu\clean\gcn\*_summary.csv |
     ForEach-Object { Get-Content -LiteralPath $_.FullName }
 ```
 
@@ -1500,6 +1833,19 @@ This repository claims authorship only for the code and methodology developed he
 # Part II — ScamSweeper / RQ1: Complete GPU Reproduction Guide
 
 **Dataset scope:** every command, table and A0–A7 result in Part II refers to **ScamSweeper/RQ1**, not BLTE. Part I above retains the original detailed BLTE guide. The captured code uses the internal key `rq1`; the repository directory name is `scamsweeper`. This is the prepared cohort-incident graph, not the separate window5/session graph preprocessing artifact.
+
+## S0. Full Reproduction Is Included, Not Only Ablation
+
+| Stage | Code on main | Full experiment coverage |
+|---|---|---|
+| Input/split/scaler verification | `experiments/scamsweeper/run.py --stage preflight` | Original prepared inputs and all ten seeds; no training |
+| Smoke verification | Same launcher, `--stage smoke` | 23 configurations × one epoch, seed 100 |
+| Full reproduction | Same launcher, `--stage full` | 50 clean + 50 strict + 80 A0–A7 + 50 sensitivity runs |
+| Result verification | Same launcher, `--stage summarize` | Audit completed records and paired summaries; no training |
+
+BLTE uses separate clean/strict/ablation entry points; the captured Sweeper runner schedules all four families together. This difference in CLI organization does not mean Sweeper lacks model reproduction. Its full five-model clean reference is shown in Section S17 below. Follow S4–S15 to reproduce it, then S16–S20 to inspect its outputs.
+
+For the **earlier shared CPU reproduction of both datasets**, use the separate [study/matched-two-dataset-cpu branch](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/tree/study/matched-two-dataset-cpu). That documented 100-run study has BLTE 50 + Sweeper 50 clean runs and its own environment; it is not replaced by the 230-run CUDA extension.
 
 ## S1. What Has Been Completed on ScamSweeper?
 
@@ -2034,3 +2380,4 @@ The canonical external dataset citation/access and redistribution statement must
 BLTE sensitivity metric-completion evidence includes 30 fresh runs plus 20 attributed reused A0/A6 rows. Sweeper executes its own 50 sensitivity runs. Do not add reused rows, supplementary metric reruns or analyses together as if they were all independent experiments.
 
 Historical root paths such as `results/ablation`, `results/clean`, `results/strict` and `results/sensitivity` remain **BLTE compatibility paths**. New dataset-labelled views are `results/blte` and `results/scamsweeper`. See [the path map](docs/DATASET_PATH_MAP.json) for exact correspondence. Numerical results and original scientific implementations are preserved.
+

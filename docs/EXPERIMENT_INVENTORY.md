@@ -37,3 +37,8 @@ Separate reconstruction/PCGrad branch: [reproduction](https://github.com/nurhali
 A0 full; A1 conflict-aware expert only; A2 GraphSAGE-expert configuration with applicable objectives; A3 shared routing in inner and outer mixtures; A4 removes both connectivity masks; A5 removes Scamming-specialist auxiliary loss; A6 removes Normal–Phishing penalty; A7 fixed 50:50 outer mixture on connected nodes, retaining isolate masking.
 
 Definitions align; empirical conclusions differ. BLTE ablation and Sweeper ablation must have separate tables. A2 is not the standalone GraphSAGE baseline. PCGrad ON/OFF is not A0–A7.
+
+
+## Descriptive study branches
+
+Main includes full BLTE AND ScamSweeper reproduction, not just Sweeper ablation. See [branch guide](BRANCH_GUIDE.md). `study/blte-reconstruction` preserves the original reproduction study; `study/matched-two-dataset-cpu` preserves the completed earlier 100-run matched clean CPU study and its separately attributed ten-run seed-100 verification. Original branch names remain compatibility references. Dataset-specific training interfaces differ, but clean/strict/A0–A7/sensitivity coverage exists for both datasets on main.
