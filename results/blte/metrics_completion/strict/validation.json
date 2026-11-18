@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "original_runs_verified": 50,
+  "original_prediction_files_evaluated": 50,
+  "prediction_rows_checked": 547750,
+  "scores_reconciled": true,
+  "training_or_inference_performed": false,
+  "source_commit": "dd4c988df124f8f27bf71f7741d8103323c315d1"
+}

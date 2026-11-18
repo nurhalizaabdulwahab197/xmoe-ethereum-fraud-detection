@@ -1,0 +1,7 @@
+metric,A0_full_xmoe,A4_no_isolate_masking,difference
+connected_macro_f1,0.652418,0.727279,0.074861
+connected_phishing_f1,0.537393,0.557556,0.020163
+connected_phishing_ap,0.510713,0.514870,0.004157
+connected_scamming_f1,0.436301,0.630115,0.193814
+connected_scamming_ap,0.507041,0.586165,0.079124
+isolated_normal_fpr,0.000000,0.000307,0.000307

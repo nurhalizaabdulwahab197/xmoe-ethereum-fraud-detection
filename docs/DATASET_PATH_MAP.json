@@ -1,0 +1,997 @@
+{
+  "base_commit": "74c0c7aaeba5d63118e285f149db7d254ea20ee6",
+  "policy": "Dataset-labelled BLTE views retain original Git blob SHAs; legacy paths remain for compatibility. Sweeper is separate, retaining internal rq1 identity.",
+  "blte": [
+    {
+      "legacy": "results/ablation/reference/clean_all_seeds-100-101-102-103-104-105-106-107-108-109_epochs-300.csv",
+      "dataset_path": "results/blte/ablation/reference/clean_all_seeds-100-101-102-103-104-105-106-107-108-109_epochs-300.csv",
+      "git_blob_sha": "9521777d4d58e5d5f02926a840824a9bb2a033bb"
+    },
+    {
+      "legacy": "results/ablation/reference/paired_macro_f1_report.txt",
+      "dataset_path": "results/blte/ablation/reference/paired_macro_f1_report.txt",
+      "git_blob_sha": "3eefd6351b7c8a7621d66b60d2f1568871b40e12"
+    },
+    {
+      "legacy": "results/ablation/reference/paired_macro_f1_statistics.csv",
+      "dataset_path": "results/blte/ablation/reference/paired_macro_f1_statistics.csv",
+      "git_blob_sha": "b74b4f8658fe6a6686d149e3f62b343fec9411ee"
+    },
+    {
+      "legacy": "results/clean/reference/gat_10seed.csv",
+      "dataset_path": "results/blte/clean/reference/gat_10seed.csv",
+      "git_blob_sha": "1ed28c5d31d83c5def772076b436af33f65ea763"
+    },
+    {
+      "legacy": "results/clean/reference/gcn_10seed.csv",
+      "dataset_path": "results/blte/clean/reference/gcn_10seed.csv",
+      "git_blob_sha": "a99058e6b36341598637a2578c229e9f05bc7cf1"
+    },
+    {
+      "legacy": "results/clean/reference/graphsage_10seed.csv",
+      "dataset_path": "results/blte/clean/reference/graphsage_10seed.csv",
+      "git_blob_sha": "29e420983d7c422bb52440cfb2fc42e521e93d34"
+    },
+    {
+      "legacy": "results/clean/reference/mlp_10seed.csv",
+      "dataset_path": "results/blte/clean/reference/mlp_10seed.csv",
+      "git_blob_sha": "2c617a6a2fe4da4cf353719a4698ff485405a3b2"
+    },
+    {
+      "legacy": "results/clean/reference/x_moe_gnn_10seed.csv",
+      "dataset_path": "results/blte/clean/reference/x_moe_gnn_10seed.csv",
+      "git_blob_sha": "50ebe9de9671726f54d5c11525f5e7481ae83e83"
+    },
+    {
+      "legacy": "results/cpu_gpu/cpu_10seed_summary.csv",
+      "dataset_path": "results/blte/cpu_gpu/cpu_10seed_summary.csv",
+      "git_blob_sha": "a6180c389d620b4a62e7b5412163c8511f17206d"
+    },
+    {
+      "legacy": "results/cpu_gpu/gpu_10seed_summary.csv",
+      "dataset_path": "results/blte/cpu_gpu/gpu_10seed_summary.csv",
+      "git_blob_sha": "4980da6f0b7302b9e0fac1e71c0fb83714af126a"
+    },
+    {
+      "legacy": "results/metrics_completion/AUDIT_PROVENANCE.json",
+      "dataset_path": "results/blte/metrics_completion/AUDIT_PROVENANCE.json",
+      "git_blob_sha": "51c68ade46efe1333c82f3485bcf3c69b5e9aa42"
+    },
+    {
+      "legacy": "results/metrics_completion/MANIFEST.json",
+      "dataset_path": "results/blte/metrics_completion/MANIFEST.json",
+      "git_blob_sha": "2bd664356532dc8ea8a2073c0980b044db7d2c32"
+    },
+    {
+      "legacy": "results/metrics_completion/ablation/original_comparison.csv",
+      "dataset_path": "results/blte/metrics_completion/ablation/original_comparison.csv",
+      "git_blob_sha": "c9c6641feffcf78c825ad8f4329e515d5ece8c8e"
+    },
+    {
+      "legacy": "results/metrics_completion/ablation/per_seed.csv",
+      "dataset_path": "results/blte/metrics_completion/ablation/per_seed.csv",
+      "git_blob_sha": "2746c9f731a60efb2e6a414e331dd882053dd5e3"
+    },
+    {
+      "legacy": "results/metrics_completion/ablation/summary.csv",
+      "dataset_path": "results/blte/metrics_completion/ablation/summary.csv",
+      "git_blob_sha": "d74ba3fd5606fe120e4f473cb2b9fba33d093bae"
+    },
+    {
+      "legacy": "results/metrics_completion/ablation/validation.json",
+      "dataset_path": "results/blte/metrics_completion/ablation/validation.json",
+      "git_blob_sha": "56552ce041275c2059c26f6a1360c293c8701aa7"
+    },
+    {
+      "legacy": "results/metrics_completion/clean/per_seed.csv",
+      "dataset_path": "results/blte/metrics_completion/clean/per_seed.csv",
+      "git_blob_sha": "0e7c3adbc624086e8438fbfe1387109730edf74f"
+    },
+    {
+      "legacy": "results/metrics_completion/clean/summary.csv",
+      "dataset_path": "results/blte/metrics_completion/clean/summary.csv",
+      "git_blob_sha": "a4a28c4a72c57fc37c8b598461b2d6adefafc523"
+    },
+    {
+      "legacy": "results/metrics_completion/clean/validation.json",
+      "dataset_path": "results/blte/metrics_completion/clean/validation.json",
+      "git_blob_sha": "0680397fa2f974ed695b47e23229825fff371b15"
+    },
+    {
+      "legacy": "results/metrics_completion/cpu_gpu_summary.csv",
+      "dataset_path": "results/blte/metrics_completion/cpu_gpu_summary.csv",
+      "git_blob_sha": "50c9c89747072f5d6199374ac1f7a3f41318d704"
+    },
+    {
+      "legacy": "results/metrics_completion/historical_gpu/original_comparison.csv",
+      "dataset_path": "results/blte/metrics_completion/historical_gpu/original_comparison.csv",
+      "git_blob_sha": "3dae4f60fad55dc1db8c0572677c09752a434648"
+    },
+    {
+      "legacy": "results/metrics_completion/historical_gpu/per_seed.csv",
+      "dataset_path": "results/blte/metrics_completion/historical_gpu/per_seed.csv",
+      "git_blob_sha": "a1b62d51325f960e18675a6b457694ee4a120e03"
+    },
+    {
+      "legacy": "results/metrics_completion/historical_gpu/summary.csv",
+      "dataset_path": "results/blte/metrics_completion/historical_gpu/summary.csv",
+      "git_blob_sha": "9bd907bba085ea3f8cef74de3f417dd45cfba25f"
+    },
+    {
+      "legacy": "results/metrics_completion/historical_gpu/validation.json",
+      "dataset_path": "results/blte/metrics_completion/historical_gpu/validation.json",
+      "git_blob_sha": "2f3c44dad7199506453c18f9cfc22463c8160a38"
+    },
+    {
+      "legacy": "results/metrics_completion/historical_gpu/xmoe_original_validation.json",
+      "dataset_path": "results/blte/metrics_completion/historical_gpu/xmoe_original_validation.json",
+      "git_blob_sha": "e4bc833afc0d212a804eccb433822a76fc6dc4d9"
+    },
+    {
+      "legacy": "results/metrics_completion/sensitivity/original_comparison.csv",
+      "dataset_path": "results/blte/metrics_completion/sensitivity/original_comparison.csv",
+      "git_blob_sha": "75d3810cf9f09f51b5cc884dfc589f94bcc12b9c"
+    },
+    {
+      "legacy": "results/metrics_completion/sensitivity/per_seed.csv",
+      "dataset_path": "results/blte/metrics_completion/sensitivity/per_seed.csv",
+      "git_blob_sha": "28cb83443418a9d32229368cc5428c8ae9245257"
+    },
+    {
+      "legacy": "results/metrics_completion/sensitivity/summary.csv",
+      "dataset_path": "results/blte/metrics_completion/sensitivity/summary.csv",
+      "git_blob_sha": "8475c1940a40107964efa5fd779b517491ed4bc1"
+    },
+    {
+      "legacy": "results/metrics_completion/sensitivity/validation.json",
+      "dataset_path": "results/blte/metrics_completion/sensitivity/validation.json",
+      "git_blob_sha": "5335e69c00a29ae95d36f15e65ae697a18506ff0"
+    },
+    {
+      "legacy": "results/metrics_completion/strict/per_seed.csv",
+      "dataset_path": "results/blte/metrics_completion/strict/per_seed.csv",
+      "git_blob_sha": "1f7479cdf228222e99080c3a5f4b34038b54df27"
+    },
+    {
+      "legacy": "results/metrics_completion/strict/summary.csv",
+      "dataset_path": "results/blte/metrics_completion/strict/summary.csv",
+      "git_blob_sha": "be49dcb81b5a4b2a290d88644e1689ef87706226"
+    },
+    {
+      "legacy": "results/metrics_completion/strict/validation.json",
+      "dataset_path": "results/blte/metrics_completion/strict/validation.json",
+      "git_blob_sha": "a617c822f3e411bf7bc90439cfd5c5eac0332d6a"
+    },
+    {
+      "legacy": "results/sensitivity/lambda/summary.csv",
+      "dataset_path": "results/blte/sensitivity/lambda/summary.csv",
+      "git_blob_sha": "e5fc2aac7767f855c1b95b9a2df9538cc97085eb"
+    },
+    {
+      "legacy": "results/sensitivity/lambda_np_sensitivity.csv",
+      "dataset_path": "results/blte/sensitivity/lambda_np_sensitivity.csv",
+      "git_blob_sha": "2738905e2355fa01952ad8c1470ead4e072a9d3b"
+    },
+    {
+      "legacy": "results/strict/reference/clean_to_strict_holm5.csv",
+      "dataset_path": "results/blte/strict/reference/clean_to_strict_holm5.csv",
+      "git_blob_sha": "4e1ad2e359c5595f6ec2996ea3c253af1d205ef9"
+    },
+    {
+      "legacy": "results/strict/reference/strict_50_runs.csv",
+      "dataset_path": "results/blte/strict/reference/strict_50_runs.csv",
+      "git_blob_sha": "6cb7548298c12a0eb29508107f1e2336fe723289"
+    },
+    {
+      "legacy": "results/strict/reference/strict_paired_holm4.csv",
+      "dataset_path": "results/blte/strict/reference/strict_paired_holm4.csv",
+      "git_blob_sha": "51aebe894d4d7f71a56163e18cb446893ab4e924"
+    },
+    {
+      "legacy": "results/strict/reference/strict_summary.csv",
+      "dataset_path": "results/blte/strict/reference/strict_summary.csv",
+      "git_blob_sha": "ea545791b5425282ef0653bd0c0f7044698056a6"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_100/strict_inductive_gat_seed-100_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_100/strict_inductive_gat_seed-100_predictions.csv",
+      "git_blob_sha": "e1a1cff523b26185d197bd26e4c8da4afdc9de50"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_100/strict_inductive_gat_seeds-100_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_100/strict_inductive_gat_seeds-100_epochs-300.csv",
+      "git_blob_sha": "5c091b678b73e6dbfa7c37b06b1e7e00a53943d5"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_100/strict_inductive_gat_seeds-100_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_100/strict_inductive_gat_seeds-100_epochs-300_summary.csv",
+      "git_blob_sha": "519222bc2a36feda82a7956f2019ee5c304fec66"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_101/strict_inductive_gat_seed-101_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_101/strict_inductive_gat_seed-101_predictions.csv",
+      "git_blob_sha": "b9ba9bfad64d0a63f37b0f47628a91c322730b1b"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_101/strict_inductive_gat_seeds-101_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_101/strict_inductive_gat_seeds-101_epochs-300.csv",
+      "git_blob_sha": "11fecb713991d0cb56aa47c17b2a4a6e9959b8b4"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_101/strict_inductive_gat_seeds-101_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_101/strict_inductive_gat_seeds-101_epochs-300_summary.csv",
+      "git_blob_sha": "bdc6f1d568e16ca1f6875e0bb100a97cc29542d9"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_102/strict_inductive_gat_seed-102_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_102/strict_inductive_gat_seed-102_predictions.csv",
+      "git_blob_sha": "ce2574e4457a928f55e063a33d18367858f847ee"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_102/strict_inductive_gat_seeds-102_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_102/strict_inductive_gat_seeds-102_epochs-300.csv",
+      "git_blob_sha": "72e09860384fb13f257754ba2e56393364a91271"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_102/strict_inductive_gat_seeds-102_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_102/strict_inductive_gat_seeds-102_epochs-300_summary.csv",
+      "git_blob_sha": "121c1c95eeeca95323d63632db9209252f46d8da"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_103/strict_inductive_gat_seed-103_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_103/strict_inductive_gat_seed-103_predictions.csv",
+      "git_blob_sha": "63f518059ff328ffb8858f599837bb3e1bf70ac3"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_103/strict_inductive_gat_seeds-103_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_103/strict_inductive_gat_seeds-103_epochs-300.csv",
+      "git_blob_sha": "e2d83a774a643e28b0d103b0f1b50ef9ee1e18ce"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_103/strict_inductive_gat_seeds-103_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_103/strict_inductive_gat_seeds-103_epochs-300_summary.csv",
+      "git_blob_sha": "69f9f402ef13f8ee4c55c5bcf9f347f89c8670be"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_104/strict_inductive_gat_seed-104_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_104/strict_inductive_gat_seed-104_predictions.csv",
+      "git_blob_sha": "046dcb62dc05a80dc967c783083fe9249e5ca3bc"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_104/strict_inductive_gat_seeds-104_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_104/strict_inductive_gat_seeds-104_epochs-300.csv",
+      "git_blob_sha": "cffa9faf8391493b8e2ec15afe2fd954d8fe5878"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_104/strict_inductive_gat_seeds-104_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_104/strict_inductive_gat_seeds-104_epochs-300_summary.csv",
+      "git_blob_sha": "05d42aaa8f0bfc9069ae3fcec60bfdc0ae85d6e3"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_105/strict_inductive_gat_seed-105_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_105/strict_inductive_gat_seed-105_predictions.csv",
+      "git_blob_sha": "36369029c4cc46f13b4075b895eb3abd15aa2ed5"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_105/strict_inductive_gat_seeds-105_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_105/strict_inductive_gat_seeds-105_epochs-300.csv",
+      "git_blob_sha": "8e87ae651af69c7c6f890f8da8ef02b306be09d0"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_105/strict_inductive_gat_seeds-105_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_105/strict_inductive_gat_seeds-105_epochs-300_summary.csv",
+      "git_blob_sha": "3e5015de3fd6532b43051699001b21a51438757a"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_106/strict_inductive_gat_seed-106_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_106/strict_inductive_gat_seed-106_predictions.csv",
+      "git_blob_sha": "33df592c849c6e0ba31e79558fde219d5c0bcb25"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_106/strict_inductive_gat_seeds-106_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_106/strict_inductive_gat_seeds-106_epochs-300.csv",
+      "git_blob_sha": "93f94f0fd09fc22bbd7a85c16e2e3e4665941675"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_106/strict_inductive_gat_seeds-106_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_106/strict_inductive_gat_seeds-106_epochs-300_summary.csv",
+      "git_blob_sha": "8014a783c03243dbd96b80e52b49072799a4fb88"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_107/strict_inductive_gat_seed-107_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_107/strict_inductive_gat_seed-107_predictions.csv",
+      "git_blob_sha": "3a9ed2657bfd0bdbaf84418f5bdf611be627ab11"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_107/strict_inductive_gat_seeds-107_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_107/strict_inductive_gat_seeds-107_epochs-300.csv",
+      "git_blob_sha": "b411d9b1dff849033578b779742931c32627ea94"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_107/strict_inductive_gat_seeds-107_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_107/strict_inductive_gat_seeds-107_epochs-300_summary.csv",
+      "git_blob_sha": "f1c7b9136172d254c21d3955d85a83bc248225dc"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_108/strict_inductive_gat_seed-108_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_108/strict_inductive_gat_seed-108_predictions.csv",
+      "git_blob_sha": "8faa3b9b63635d487efd2d6e2a1ee2bfafe85062"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_108/strict_inductive_gat_seeds-108_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_108/strict_inductive_gat_seeds-108_epochs-300.csv",
+      "git_blob_sha": "ae1aae600be421a8a4d310b3e5b6e1862372219b"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_108/strict_inductive_gat_seeds-108_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_108/strict_inductive_gat_seeds-108_epochs-300_summary.csv",
+      "git_blob_sha": "261a135b6021f1c22e5992b06b1cefa58ffbdaa5"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_109/strict_inductive_gat_seed-109_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_109/strict_inductive_gat_seed-109_predictions.csv",
+      "git_blob_sha": "6388497388591d78aa9f703be6f0f779cd7cf13b"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_109/strict_inductive_gat_seeds-109_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_109/strict_inductive_gat_seeds-109_epochs-300.csv",
+      "git_blob_sha": "df7fe7a91d4980d7f66c729762c540afe64158be"
+    },
+    {
+      "legacy": "results/strict/runs/gat/seed_109/strict_inductive_gat_seeds-109_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gat/seed_109/strict_inductive_gat_seeds-109_epochs-300_summary.csv",
+      "git_blob_sha": "4b59b4ec2767f1383ebbd1e4f8c6a5e71bfcaeec"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_100/strict_inductive_gcn_seed-100_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_100/strict_inductive_gcn_seed-100_predictions.csv",
+      "git_blob_sha": "853b162fefa2d036f5b13ba2dc58889a6d193889"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_100/strict_inductive_gcn_seeds-100_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_100/strict_inductive_gcn_seeds-100_epochs-300.csv",
+      "git_blob_sha": "cd5856899a8803faa951ccfe571de92d5ed419e9"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_100/strict_inductive_gcn_seeds-100_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_100/strict_inductive_gcn_seeds-100_epochs-300_summary.csv",
+      "git_blob_sha": "3c52a9bc166683b0dfa8fc2c250ad6a75760f814"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_101/strict_inductive_gcn_seed-101_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_101/strict_inductive_gcn_seed-101_predictions.csv",
+      "git_blob_sha": "959c757472bc72603afef7e2c5d8b678d2512010"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_101/strict_inductive_gcn_seeds-101_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_101/strict_inductive_gcn_seeds-101_epochs-300.csv",
+      "git_blob_sha": "37da2fbda67d1ec32446f25c398c6ffe13a92fbf"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_101/strict_inductive_gcn_seeds-101_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_101/strict_inductive_gcn_seeds-101_epochs-300_summary.csv",
+      "git_blob_sha": "b2e24b9b3ea82acd2bdef69086ff73323904d974"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_102/strict_inductive_gcn_seed-102_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_102/strict_inductive_gcn_seed-102_predictions.csv",
+      "git_blob_sha": "433bd915ce8c0f03162266d2cfe20c7ea4e4497b"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_102/strict_inductive_gcn_seeds-102_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_102/strict_inductive_gcn_seeds-102_epochs-300.csv",
+      "git_blob_sha": "9b4ced5491e960b993d070270093950fd159d332"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_102/strict_inductive_gcn_seeds-102_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_102/strict_inductive_gcn_seeds-102_epochs-300_summary.csv",
+      "git_blob_sha": "95a4386a9a803ee8bda84b06ec528f64bb66a067"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_103/strict_inductive_gcn_seed-103_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_103/strict_inductive_gcn_seed-103_predictions.csv",
+      "git_blob_sha": "563e9156e6cea10564066d024b58e4d3542fbf70"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_103/strict_inductive_gcn_seeds-103_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_103/strict_inductive_gcn_seeds-103_epochs-300.csv",
+      "git_blob_sha": "5a285d4ceaa1f63812143d3d4940dcf4e90e5f9f"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_103/strict_inductive_gcn_seeds-103_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_103/strict_inductive_gcn_seeds-103_epochs-300_summary.csv",
+      "git_blob_sha": "5173ebb870ff8bc2a60af5be8ea305dc932a6c1f"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_104/strict_inductive_gcn_seed-104_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_104/strict_inductive_gcn_seed-104_predictions.csv",
+      "git_blob_sha": "7e69ec1dc0099a4c48c7a787e08e6caf150da528"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_104/strict_inductive_gcn_seeds-104_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_104/strict_inductive_gcn_seeds-104_epochs-300.csv",
+      "git_blob_sha": "2182849a2453c0c607c8bd8721e508a4099b84c5"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_104/strict_inductive_gcn_seeds-104_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_104/strict_inductive_gcn_seeds-104_epochs-300_summary.csv",
+      "git_blob_sha": "ec0b4eee992ebeade1fe4c44fd28dad73130af51"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_105/strict_inductive_gcn_seed-105_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_105/strict_inductive_gcn_seed-105_predictions.csv",
+      "git_blob_sha": "d5ef29b9e3f42b02069580f2c734b83ad215f578"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_105/strict_inductive_gcn_seeds-105_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_105/strict_inductive_gcn_seeds-105_epochs-300.csv",
+      "git_blob_sha": "a5efbdf535a2ecddfa5f737d984ae3100c9e3466"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_105/strict_inductive_gcn_seeds-105_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_105/strict_inductive_gcn_seeds-105_epochs-300_summary.csv",
+      "git_blob_sha": "fee3ab1f7d82841e949b1b9c249e21b1dac13117"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_106/strict_inductive_gcn_seed-106_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_106/strict_inductive_gcn_seed-106_predictions.csv",
+      "git_blob_sha": "c78dacff451d2bc002b355fbb30d5d2388cc963e"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_106/strict_inductive_gcn_seeds-106_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_106/strict_inductive_gcn_seeds-106_epochs-300.csv",
+      "git_blob_sha": "1d2fe866ddec21248b0dd6544b67da10b4da5f4d"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_106/strict_inductive_gcn_seeds-106_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_106/strict_inductive_gcn_seeds-106_epochs-300_summary.csv",
+      "git_blob_sha": "a96e540186b543a7f36460bcce7c54dabd7e8a11"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_107/strict_inductive_gcn_seed-107_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_107/strict_inductive_gcn_seed-107_predictions.csv",
+      "git_blob_sha": "91f4c686894b4a8078a81b48da80da3b7c21afee"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_107/strict_inductive_gcn_seeds-107_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_107/strict_inductive_gcn_seeds-107_epochs-300.csv",
+      "git_blob_sha": "ae6ec9c7c53ee910552765e5da2d0c91a3ed62ab"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_107/strict_inductive_gcn_seeds-107_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_107/strict_inductive_gcn_seeds-107_epochs-300_summary.csv",
+      "git_blob_sha": "deb57f4aa81995244887903061c0e09e9f3a4747"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_108/strict_inductive_gcn_seed-108_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_108/strict_inductive_gcn_seed-108_predictions.csv",
+      "git_blob_sha": "4e2704ca4c22aaa6382453081391caebaf35a4fb"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_108/strict_inductive_gcn_seeds-108_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_108/strict_inductive_gcn_seeds-108_epochs-300.csv",
+      "git_blob_sha": "8ff93c79ca44caa5c92f17d4ffab6049d2c02824"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_108/strict_inductive_gcn_seeds-108_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_108/strict_inductive_gcn_seeds-108_epochs-300_summary.csv",
+      "git_blob_sha": "ec97414223148ebc6e6946451f8c6b703d9e6ab4"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_109/strict_inductive_gcn_seed-109_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_109/strict_inductive_gcn_seed-109_predictions.csv",
+      "git_blob_sha": "d94d2a4628088c14459ada1030a0c19000576fab"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_109/strict_inductive_gcn_seeds-109_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_109/strict_inductive_gcn_seeds-109_epochs-300.csv",
+      "git_blob_sha": "801d7a55a5a795f903e194c4c0fa5abe8b43abfb"
+    },
+    {
+      "legacy": "results/strict/runs/gcn/seed_109/strict_inductive_gcn_seeds-109_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/gcn/seed_109/strict_inductive_gcn_seeds-109_epochs-300_summary.csv",
+      "git_blob_sha": "86521c470d8c2e100b4a275309ce7c828e94c487"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_100/strict_inductive_graphsage_seed-100_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_100/strict_inductive_graphsage_seed-100_predictions.csv",
+      "git_blob_sha": "43c87b489723db87bec9de95d3a19195e01ed6ba"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_100/strict_inductive_graphsage_seeds-100_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_100/strict_inductive_graphsage_seeds-100_epochs-300.csv",
+      "git_blob_sha": "a4d87016841814d54d1b415f281d68208c6624d6"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_100/strict_inductive_graphsage_seeds-100_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_100/strict_inductive_graphsage_seeds-100_epochs-300_summary.csv",
+      "git_blob_sha": "e4b9d55cbc8d635820918aae45dd3848fe965f11"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_101/strict_inductive_graphsage_seed-101_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_101/strict_inductive_graphsage_seed-101_predictions.csv",
+      "git_blob_sha": "f5186e0e1c59ed3210328be8963e5b49429c385d"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_101/strict_inductive_graphsage_seeds-101_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_101/strict_inductive_graphsage_seeds-101_epochs-300.csv",
+      "git_blob_sha": "c87b8eec2bbc7a1fcb4ccba4e94c252f154e4dc8"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_101/strict_inductive_graphsage_seeds-101_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_101/strict_inductive_graphsage_seeds-101_epochs-300_summary.csv",
+      "git_blob_sha": "91e27eed311603c563b9edbfb06009ac7eeb3213"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_102/strict_inductive_graphsage_seed-102_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_102/strict_inductive_graphsage_seed-102_predictions.csv",
+      "git_blob_sha": "fa345e442bc7268c4e6e8120903a91cba053b5c8"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_102/strict_inductive_graphsage_seeds-102_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_102/strict_inductive_graphsage_seeds-102_epochs-300.csv",
+      "git_blob_sha": "eb57977890bbbced807a84e680bd1d1d56febf45"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_102/strict_inductive_graphsage_seeds-102_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_102/strict_inductive_graphsage_seeds-102_epochs-300_summary.csv",
+      "git_blob_sha": "9299a1ef7ef5837cd798f825a0787828143cae72"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_103/strict_inductive_graphsage_seed-103_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_103/strict_inductive_graphsage_seed-103_predictions.csv",
+      "git_blob_sha": "95914e5175e66ed8752c85257b590e5501988053"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_103/strict_inductive_graphsage_seeds-103_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_103/strict_inductive_graphsage_seeds-103_epochs-300.csv",
+      "git_blob_sha": "df2453b261d53284410eb4caacf3bac19b9d4d29"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_103/strict_inductive_graphsage_seeds-103_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_103/strict_inductive_graphsage_seeds-103_epochs-300_summary.csv",
+      "git_blob_sha": "81f985fc8aa35855925e7bca6b20e862d1bd20d8"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_104/strict_inductive_graphsage_seed-104_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_104/strict_inductive_graphsage_seed-104_predictions.csv",
+      "git_blob_sha": "8106cc06af975bd5e17eba3357bc0b035a538b00"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_104/strict_inductive_graphsage_seeds-104_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_104/strict_inductive_graphsage_seeds-104_epochs-300.csv",
+      "git_blob_sha": "370cd8099cd4c313c16fac0df47778d656436093"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_104/strict_inductive_graphsage_seeds-104_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_104/strict_inductive_graphsage_seeds-104_epochs-300_summary.csv",
+      "git_blob_sha": "b0f46b3f41e46bce44e5d26cb058d738ddedd2b7"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_105/strict_inductive_graphsage_seed-105_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_105/strict_inductive_graphsage_seed-105_predictions.csv",
+      "git_blob_sha": "788b97b3d4616c625a7dc4645a6a7eb06173a055"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_105/strict_inductive_graphsage_seeds-105_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_105/strict_inductive_graphsage_seeds-105_epochs-300.csv",
+      "git_blob_sha": "a7b010ce7228fab0aed417d8a09dcc1ba1d98338"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_105/strict_inductive_graphsage_seeds-105_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_105/strict_inductive_graphsage_seeds-105_epochs-300_summary.csv",
+      "git_blob_sha": "b26182d13fe7e792e85987c02bb729ed28835f66"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_106/strict_inductive_graphsage_seed-106_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_106/strict_inductive_graphsage_seed-106_predictions.csv",
+      "git_blob_sha": "c795afad90eefd43be64646fc6023de6e1efdb8d"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_106/strict_inductive_graphsage_seeds-106_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_106/strict_inductive_graphsage_seeds-106_epochs-300.csv",
+      "git_blob_sha": "e2d72181b655132f15bc30e3c77084d1edafaa3d"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_106/strict_inductive_graphsage_seeds-106_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_106/strict_inductive_graphsage_seeds-106_epochs-300_summary.csv",
+      "git_blob_sha": "95d77f725dc25900644071aa402b95c49f5b79e6"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_107/strict_inductive_graphsage_seed-107_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_107/strict_inductive_graphsage_seed-107_predictions.csv",
+      "git_blob_sha": "04e78f7f57b9d310299b5bb21003ed5a8a535dd2"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_107/strict_inductive_graphsage_seeds-107_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_107/strict_inductive_graphsage_seeds-107_epochs-300.csv",
+      "git_blob_sha": "1705cb4c2cc6da5aaf3a8e6cdcf02220c13878bc"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_107/strict_inductive_graphsage_seeds-107_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_107/strict_inductive_graphsage_seeds-107_epochs-300_summary.csv",
+      "git_blob_sha": "99242daddc0d6e31cee0702a4b36e945d7239216"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_108/strict_inductive_graphsage_seed-108_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_108/strict_inductive_graphsage_seed-108_predictions.csv",
+      "git_blob_sha": "f7045b9ab5b007b359fc1b43d8e5447181a27580"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_108/strict_inductive_graphsage_seeds-108_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_108/strict_inductive_graphsage_seeds-108_epochs-300.csv",
+      "git_blob_sha": "8d2e304243af10af7b4162c1aa91ffcb04182adf"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_108/strict_inductive_graphsage_seeds-108_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_108/strict_inductive_graphsage_seeds-108_epochs-300_summary.csv",
+      "git_blob_sha": "6d01ff0ef1954036dc36cea00bd4b012f1c805f9"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_109/strict_inductive_graphsage_seed-109_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_109/strict_inductive_graphsage_seed-109_predictions.csv",
+      "git_blob_sha": "f469b4fc4290f22b0f4335cbfee48683751f18fc"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_109/strict_inductive_graphsage_seeds-109_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_109/strict_inductive_graphsage_seeds-109_epochs-300.csv",
+      "git_blob_sha": "4ca6a200c7f458901024e7221ef982d688302a6c"
+    },
+    {
+      "legacy": "results/strict/runs/graphsage/seed_109/strict_inductive_graphsage_seeds-109_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/graphsage/seed_109/strict_inductive_graphsage_seeds-109_epochs-300_summary.csv",
+      "git_blob_sha": "14ac516e1a92f3db37b45e3101de69ded5f0111a"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_100/strict_inductive_mlp_seed-100_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_100/strict_inductive_mlp_seed-100_predictions.csv",
+      "git_blob_sha": "6ba2a02fadf438f225a86b215acab795b9a9bdd6"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_100/strict_inductive_mlp_seeds-100_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_100/strict_inductive_mlp_seeds-100_epochs-300.csv",
+      "git_blob_sha": "067d203eb634f0d70d7b0ae88682e14a02613672"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_100/strict_inductive_mlp_seeds-100_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_100/strict_inductive_mlp_seeds-100_epochs-300_summary.csv",
+      "git_blob_sha": "787acc300b9bc9a4d8c8f8a754fc52a8d08d76e2"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_101/strict_inductive_mlp_seed-101_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_101/strict_inductive_mlp_seed-101_predictions.csv",
+      "git_blob_sha": "2d9eb65fc6587377b9441e32808ba7e8d545d342"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_101/strict_inductive_mlp_seeds-101_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_101/strict_inductive_mlp_seeds-101_epochs-300.csv",
+      "git_blob_sha": "259f1b4eb474ea9ddbb81c0602caba47ebfd2ac2"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_101/strict_inductive_mlp_seeds-101_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_101/strict_inductive_mlp_seeds-101_epochs-300_summary.csv",
+      "git_blob_sha": "6b997d15875245af27bc11c16d9c362a023981ac"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_102/strict_inductive_mlp_seed-102_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_102/strict_inductive_mlp_seed-102_predictions.csv",
+      "git_blob_sha": "25687247cb5d9a2fb89e5dedfc891609fe618441"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_102/strict_inductive_mlp_seeds-102_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_102/strict_inductive_mlp_seeds-102_epochs-300.csv",
+      "git_blob_sha": "088a929fcf631b69cd6e75777c6988f2a5706165"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_102/strict_inductive_mlp_seeds-102_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_102/strict_inductive_mlp_seeds-102_epochs-300_summary.csv",
+      "git_blob_sha": "96af9955810a0bb37cd0718f250d2bfdf492dff3"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_103/strict_inductive_mlp_seed-103_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_103/strict_inductive_mlp_seed-103_predictions.csv",
+      "git_blob_sha": "402daaf3ac04957daf8c0a6735dea941ed7bae23"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_103/strict_inductive_mlp_seeds-103_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_103/strict_inductive_mlp_seeds-103_epochs-300.csv",
+      "git_blob_sha": "e107a5111e763f33280d2d26d2c673aa36c3c204"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_103/strict_inductive_mlp_seeds-103_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_103/strict_inductive_mlp_seeds-103_epochs-300_summary.csv",
+      "git_blob_sha": "eda9aeab6751b97787dfb4659d54759272a757bc"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_104/strict_inductive_mlp_seed-104_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_104/strict_inductive_mlp_seed-104_predictions.csv",
+      "git_blob_sha": "87f3f41234eda551eb4267b5ec78748f23e0bf63"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_104/strict_inductive_mlp_seeds-104_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_104/strict_inductive_mlp_seeds-104_epochs-300.csv",
+      "git_blob_sha": "52204554def6aff7f4983b846ff88cc91309d464"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_104/strict_inductive_mlp_seeds-104_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_104/strict_inductive_mlp_seeds-104_epochs-300_summary.csv",
+      "git_blob_sha": "ecb4b7f8b40d9d0540c63f8a5d82935a753a11fb"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_105/strict_inductive_mlp_seed-105_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_105/strict_inductive_mlp_seed-105_predictions.csv",
+      "git_blob_sha": "883b58e16c8cbc819dfe72572c7c7a9399a9127b"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_105/strict_inductive_mlp_seeds-105_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_105/strict_inductive_mlp_seeds-105_epochs-300.csv",
+      "git_blob_sha": "e516dd1a3ffc02fa0e3c8da849723bbe47d37707"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_105/strict_inductive_mlp_seeds-105_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_105/strict_inductive_mlp_seeds-105_epochs-300_summary.csv",
+      "git_blob_sha": "7456cb82e7cfc800d2d4b7abf6e84d6d2e3fd252"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_106/strict_inductive_mlp_seed-106_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_106/strict_inductive_mlp_seed-106_predictions.csv",
+      "git_blob_sha": "959247c13dd7fae261d59ce816253e5ac85997be"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_106/strict_inductive_mlp_seeds-106_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_106/strict_inductive_mlp_seeds-106_epochs-300.csv",
+      "git_blob_sha": "d2682cee8962ce48379aa21207a31817a6370c74"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_106/strict_inductive_mlp_seeds-106_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_106/strict_inductive_mlp_seeds-106_epochs-300_summary.csv",
+      "git_blob_sha": "d38f6f80b5b1a126198447fc071965eabaa396a4"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_107/strict_inductive_mlp_seed-107_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_107/strict_inductive_mlp_seed-107_predictions.csv",
+      "git_blob_sha": "be0558da9b96896c6d06328a896fd984bf1b8887"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_107/strict_inductive_mlp_seeds-107_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_107/strict_inductive_mlp_seeds-107_epochs-300.csv",
+      "git_blob_sha": "553dd811dc3fe34c62b3c6e1d588306a2fbb7e79"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_107/strict_inductive_mlp_seeds-107_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_107/strict_inductive_mlp_seeds-107_epochs-300_summary.csv",
+      "git_blob_sha": "46ad1e6449733195f25a3cb8d3c228c3d5c0dc80"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_108/strict_inductive_mlp_seed-108_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_108/strict_inductive_mlp_seed-108_predictions.csv",
+      "git_blob_sha": "775f10b32af01d99786a00417861fdefc6240b09"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_108/strict_inductive_mlp_seeds-108_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_108/strict_inductive_mlp_seeds-108_epochs-300.csv",
+      "git_blob_sha": "d4f58bfdbd914ef2a95eb92975ca3b8f77a7e75f"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_108/strict_inductive_mlp_seeds-108_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_108/strict_inductive_mlp_seeds-108_epochs-300_summary.csv",
+      "git_blob_sha": "ec187f1665eb500ed1a0fad019c7886451da893f"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_109/strict_inductive_mlp_seed-109_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_109/strict_inductive_mlp_seed-109_predictions.csv",
+      "git_blob_sha": "1ccbff4af98433256b98e5ebb0cb86d74ee1b495"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_109/strict_inductive_mlp_seeds-109_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_109/strict_inductive_mlp_seeds-109_epochs-300.csv",
+      "git_blob_sha": "da2402303a1ef35597feb3673699aceaed5bf430"
+    },
+    {
+      "legacy": "results/strict/runs/mlp/seed_109/strict_inductive_mlp_seeds-109_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/mlp/seed_109/strict_inductive_mlp_seeds-109_epochs-300_summary.csv",
+      "git_blob_sha": "a2e22a09df47886bc027672287569b5c598b9f36"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_100/strict_inductive_x_moe_gnn_seed-100_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_100/strict_inductive_x_moe_gnn_seed-100_predictions.csv",
+      "git_blob_sha": "1c29d741effe866e65c91f53395886ff40128b54"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_100/strict_inductive_x_moe_gnn_seeds-100_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_100/strict_inductive_x_moe_gnn_seeds-100_epochs-300.csv",
+      "git_blob_sha": "e6eb12c3d4c6069631635dc20bf1e38cf267c0cf"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_100/strict_inductive_x_moe_gnn_seeds-100_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_100/strict_inductive_x_moe_gnn_seeds-100_epochs-300_summary.csv",
+      "git_blob_sha": "cbcc366ffb2221cbff1d405e94db6d6d2ad8eada"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_101/strict_inductive_x_moe_gnn_seed-101_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_101/strict_inductive_x_moe_gnn_seed-101_predictions.csv",
+      "git_blob_sha": "98c2da2c6ad1dcc96b8f627d5db38e8241f2705a"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_101/strict_inductive_x_moe_gnn_seeds-101_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_101/strict_inductive_x_moe_gnn_seeds-101_epochs-300.csv",
+      "git_blob_sha": "3e1ea892b30abd045ad76c3eac26b71e01c6c542"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_101/strict_inductive_x_moe_gnn_seeds-101_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_101/strict_inductive_x_moe_gnn_seeds-101_epochs-300_summary.csv",
+      "git_blob_sha": "91c29dfc29b7123f9ff69c7216055dd4a120fa9c"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_102/strict_inductive_x_moe_gnn_seed-102_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_102/strict_inductive_x_moe_gnn_seed-102_predictions.csv",
+      "git_blob_sha": "83d07454d7afe707f6163f745926682cb47285bb"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_102/strict_inductive_x_moe_gnn_seeds-102_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_102/strict_inductive_x_moe_gnn_seeds-102_epochs-300.csv",
+      "git_blob_sha": "0e1c6b79aabef192960e321c2e2000b173a9650f"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_102/strict_inductive_x_moe_gnn_seeds-102_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_102/strict_inductive_x_moe_gnn_seeds-102_epochs-300_summary.csv",
+      "git_blob_sha": "3724a47422db0c714c0ba53845ed0711743f7b84"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_103/strict_inductive_x_moe_gnn_seed-103_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_103/strict_inductive_x_moe_gnn_seed-103_predictions.csv",
+      "git_blob_sha": "def3a49acc6c4468747df4e99f43b658756a248c"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_103/strict_inductive_x_moe_gnn_seeds-103_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_103/strict_inductive_x_moe_gnn_seeds-103_epochs-300.csv",
+      "git_blob_sha": "c57e1e918d5758dfd1e3010e45d106e583594cb7"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_103/strict_inductive_x_moe_gnn_seeds-103_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_103/strict_inductive_x_moe_gnn_seeds-103_epochs-300_summary.csv",
+      "git_blob_sha": "6e3bb171004d490a8435b23ccf0f52a037b52d24"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_104/strict_inductive_x_moe_gnn_seed-104_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_104/strict_inductive_x_moe_gnn_seed-104_predictions.csv",
+      "git_blob_sha": "68bda329666034155181c4e333c01ab3f80dece9"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_104/strict_inductive_x_moe_gnn_seeds-104_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_104/strict_inductive_x_moe_gnn_seeds-104_epochs-300.csv",
+      "git_blob_sha": "025a4a60a91a1223058450bbf9a6af9c4bf2b005"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_104/strict_inductive_x_moe_gnn_seeds-104_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_104/strict_inductive_x_moe_gnn_seeds-104_epochs-300_summary.csv",
+      "git_blob_sha": "0c7d153f2a317f89b3ee8f3da6699fcabbfcd438"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_105/strict_inductive_x_moe_gnn_seed-105_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_105/strict_inductive_x_moe_gnn_seed-105_predictions.csv",
+      "git_blob_sha": "c1808d744a1d4f70c9d699c7552fa115ade09032"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_105/strict_inductive_x_moe_gnn_seeds-105_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_105/strict_inductive_x_moe_gnn_seeds-105_epochs-300.csv",
+      "git_blob_sha": "79ff23db60daf6c924297cecdcffac38f098d685"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_105/strict_inductive_x_moe_gnn_seeds-105_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_105/strict_inductive_x_moe_gnn_seeds-105_epochs-300_summary.csv",
+      "git_blob_sha": "e2dea4ac0a4ece417b0c94129cabcf5e404725a9"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_106/strict_inductive_x_moe_gnn_seed-106_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_106/strict_inductive_x_moe_gnn_seed-106_predictions.csv",
+      "git_blob_sha": "708b1be65eb7447021589ecdc1ed321adbd777f1"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_106/strict_inductive_x_moe_gnn_seeds-106_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_106/strict_inductive_x_moe_gnn_seeds-106_epochs-300.csv",
+      "git_blob_sha": "d7a91b23eba082c70f5728950c8c5417663be29a"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_106/strict_inductive_x_moe_gnn_seeds-106_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_106/strict_inductive_x_moe_gnn_seeds-106_epochs-300_summary.csv",
+      "git_blob_sha": "54b98ac0dae2f559ed04ffde7a6cd89982f44ca9"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_107/strict_inductive_x_moe_gnn_seed-107_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_107/strict_inductive_x_moe_gnn_seed-107_predictions.csv",
+      "git_blob_sha": "97747e0fc9bfa4d87b6e59abf172fea736e6b1eb"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_107/strict_inductive_x_moe_gnn_seeds-107_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_107/strict_inductive_x_moe_gnn_seeds-107_epochs-300.csv",
+      "git_blob_sha": "9de6c54ff4f628720c66a0ce1d5f2d228810faf0"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_107/strict_inductive_x_moe_gnn_seeds-107_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_107/strict_inductive_x_moe_gnn_seeds-107_epochs-300_summary.csv",
+      "git_blob_sha": "093af7e5dfd697e33eebd97f025844c732e72366"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_108/strict_inductive_x_moe_gnn_seed-108_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_108/strict_inductive_x_moe_gnn_seed-108_predictions.csv",
+      "git_blob_sha": "3a2df1cfb84c119bbd20a9b517f995dfd11e7e3a"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_108/strict_inductive_x_moe_gnn_seeds-108_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_108/strict_inductive_x_moe_gnn_seeds-108_epochs-300.csv",
+      "git_blob_sha": "8be6602476d4aa5d2b303d7f021631601bdd41fe"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_108/strict_inductive_x_moe_gnn_seeds-108_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_108/strict_inductive_x_moe_gnn_seeds-108_epochs-300_summary.csv",
+      "git_blob_sha": "a716e7be1b0362a1a2642a053d83f8724f892b72"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_109/strict_inductive_x_moe_gnn_seed-109_predictions.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_109/strict_inductive_x_moe_gnn_seed-109_predictions.csv",
+      "git_blob_sha": "f96b694bb8b507f20025bcdaa94cbb5a11269c92"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_109/strict_inductive_x_moe_gnn_seeds-109_epochs-300.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_109/strict_inductive_x_moe_gnn_seeds-109_epochs-300.csv",
+      "git_blob_sha": "acd6e99afe39a495d86a502674479a7c59e04ec3"
+    },
+    {
+      "legacy": "results/strict/runs/x_moe_gnn/seed_109/strict_inductive_x_moe_gnn_seeds-109_epochs-300_summary.csv",
+      "dataset_path": "results/blte/strict/runs/x_moe_gnn/seed_109/strict_inductive_x_moe_gnn_seeds-109_epochs-300_summary.csv",
+      "git_blob_sha": "bceb5ce6753eea0b2cd7af690fee280819476a39"
+    },
+    {
+      "legacy": "results/tables/AUDIT_STATUS.md",
+      "dataset_path": "results/blte/tables/AUDIT_STATUS.md",
+      "git_blob_sha": "a4bdf91d021978a5bd1ec2a9ba2ef3901b017599"
+    },
+    {
+      "legacy": "results/tables/ablation_summary.csv",
+      "dataset_path": "results/blte/tables/ablation_summary.csv",
+      "git_blob_sha": "1b8bd6fd67525a32eef2b98738e61f557afea5ac"
+    },
+    {
+      "legacy": "results/tables/clean_baseline_10seed.csv",
+      "dataset_path": "results/blte/tables/clean_baseline_10seed.csv",
+      "git_blob_sha": "ce36e3a2e3d9c97469c4e2ffbd5c599f94c9448d"
+    },
+    {
+      "legacy": "results/tables/clean_to_strict_summary.csv",
+      "dataset_path": "results/blte/tables/clean_to_strict_summary.csv",
+      "git_blob_sha": "4ee9ed95b79454785c806f75d99b76e6089a1ab7"
+    },
+    {
+      "legacy": "results/tables/connectivity_analysis.csv",
+      "dataset_path": "results/blte/tables/connectivity_analysis.csv",
+      "git_blob_sha": "ee223958c2570d99e9e282848ca8c014425876d4"
+    },
+    {
+      "legacy": "results/tables/efficiency_summary.csv",
+      "dataset_path": "results/blte/tables/efficiency_summary.csv",
+      "git_blob_sha": "672f798026ef8271c95e7c75cbf4b1476af67cff"
+    },
+    {
+      "legacy": "results/tables/minority_class_summary.csv",
+      "dataset_path": "results/blte/tables/minority_class_summary.csv",
+      "git_blob_sha": "9db5a3f12a87848dfa92e52107633b2ca89de8f2"
+    },
+    {
+      "legacy": "results/tables/statistical_tests.csv",
+      "dataset_path": "results/blte/tables/statistical_tests.csv",
+      "git_blob_sha": "bb9e5f1f630e6f81cd73f005e4388c420b38c891"
+    },
+    {
+      "legacy": "results/tables/strict_inductive_10seed.csv",
+      "dataset_path": "results/blte/tables/strict_inductive_10seed.csv",
+      "git_blob_sha": "f7df0a35dabf7a4154baea1b710da1dedf04db28"
+    }
+  ],
+  "scamsweeper": {
+    "launcher": "experiments/scamsweeper/run.py",
+    "exact_source_root": "experiments/scamsweeper/source",
+    "results": "results/scamsweeper",
+    "snapshot_tar_sha256": "9bf81e5103a3c83db2ef7f2d5068af4cace8555a833753200097063e52dd181b"
+  }
+}

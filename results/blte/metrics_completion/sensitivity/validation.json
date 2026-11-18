@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "lambda_values": [
+    0.0,
+    0.1,
+    0.3,
+    0.5,
+    1.0
+  ],
+  "verified_results": 50,
+  "new_training_runs": 30,
+  "attributed_reused_runs": 20,
+  "seeds_per_lambda": 10,
+  "epochs": 300,
+  "prediction_rows_verified": 547750,
+  "inventory_files_verified": 219,
+  "new_runner_ast_transformations_verified": 3,
+  "reused_artifact_files_byte_identical_to_previously_audited_ablation": 80,
+  "prediction_and_history_hashes_verified": 100,
+  "completion_markers_and_results_verified": 50,
+  "earliest_best_validation_epoch_verified": true,
+  "test_nodes_and_labels_match_across_lambdas": true,
+  "original_summary_values_compared": 60,
+  "max_abs_original_summary_difference": 2.220446049250313e-16,
+  "all_original_summary_metrics_match_within_1e_12": true,
+  "max_auc_recompute_difference": 1.1102230246251565e-16,
+  "max_ap_recompute_difference": 2.631228568361621e-14,
+  "checkpoint_bytes_supplied": false,
+  "training_or_inference_performed_during_audit": false,
+  "limitations": [
+    "20 reused results overlap A0/A6 ablation and must not be counted as independent extra experiments.",
+    "Matching original aggregates does not prove original probability or checkpoint identity; original sensitivity per-seed archive was unavailable.",
+    "AUC and F1 here are computed from the same per-run saved predictions.",
+    "No checkpoints supplied for an independent reload audit."
+  ]
+}

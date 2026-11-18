@@ -1,0 +1,17 @@
+{
+  "archive_sha256": "9bf81e5103a3c83db2ef7f2d5068af4cace8555a833753200097063e52dd181b",
+  "snapshot_files_verified": 2691,
+  "full_runs_independently_checked": 230,
+  "source_inventory_matches_lock": true,
+  "output_file_hashes_match": true,
+  "macro_f1_recomputed_from_predictions": true,
+  "best_epoch_matches_earliest_validation_maximum": true,
+  "strict_forbidden_features_edges_context_edges_all_zero": true,
+  "graph_nodes": 1322252,
+  "graph_edges": 3856855,
+  "graph_isolated_nodes": 0,
+  "labeled_isolated_nodes": 0,
+  "note": "Independent artifact audit; no retraining or new model inference performed.",
+  "ablation_p_values_and_holm_independently_recomputed": true,
+  "equivalent_control_prediction_hashes_match": true
+}
