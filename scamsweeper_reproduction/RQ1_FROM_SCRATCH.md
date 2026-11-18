@@ -163,6 +163,10 @@ python -m pip install -r scamsweeper_reproduction/requirements-rq1.txt
 Only Matplotlib is required from PyPI. The graph pickle is never unpickled and
 NetworkX, PyTorch, CUDA and PyTorch Geometric are not required.
 
+The requirements file pins Matplotlib 3.10.8 so the same environment works on
+Python 3.10, 3.11 and 3.12. Matplotlib 3.11.x requires Python 3.11 or newer and
+must not be used for the documented Python 3.10 path.
+
 ## 8. Extract and hash the released graphs
 
 Windows PowerShell:
