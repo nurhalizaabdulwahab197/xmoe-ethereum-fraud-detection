@@ -61,6 +61,7 @@ class NodeTable:
         self.nonstandard_examples = []
         self.reference = reference or {}
         self.reference_nodes = collections.defaultdict(list)
+        self.isp_one_nodes = []
 
     def add(self, address, attributes):
         if not isinstance(address, str) or not ADDRESS.fullmatch(address):
@@ -71,6 +72,8 @@ class NodeTable:
             raise ValueError("Non-dictionary node attributes")
         if isinstance(address, str):
             normalized = address.lower()
+            if attributes.get("isp") == 1:
+                self.isp_one_nodes.append(normalized)
             source_class = self.reference.get(normalized)
             if source_class is not None:
                 self.reference_nodes[source_class].append({"address": normalized, "isp_present": "isp" in attributes, "isp_value": attributes.get("isp")})
@@ -185,6 +188,7 @@ def inspect(path, nodes, byte_limit, reference=None):
             "stop_reason": reason, "node_attribute_counts": dict(table.keys),
             "node_attribute_values": {k: dict(v) for k, v in table.values.items()},
             "reference_nodes_found": dict(table.reference_nodes),
+            "isp_1_nodes": table.isp_one_nodes,
             "nonstandard_node_keys": table.nonstandard_node_keys,
             "nonstandard_node_key_examples": table.nonstandard_examples,
             "missing_isp_in_sample": table.count - table.keys.get("isp", 0),

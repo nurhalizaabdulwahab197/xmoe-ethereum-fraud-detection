@@ -1,0 +1,34 @@
+{
+  "status": "pass",
+  "scope": "complete static index of every RQ1-normal pair block incident to all 636 RQ4 normal targets",
+  "target_count": 636,
+  "targets_found_as_sources": 636,
+  "targets_without_incident_blocks": [],
+  "block_visits": 3086153,
+  "unique_physical_pair_blocks": 3085016,
+  "duplicate_target_visits_to_physical_blocks": 1137,
+  "unique_edge_records": 38292506,
+  "incoming_block_visits": 1044262,
+  "outgoing_block_visits": 2041891,
+  "incoming_edge_record_visits": 13998396,
+  "outgoing_edge_record_visits": 24351936,
+  "index_invariants": {
+    "graph": "normal",
+    "complete": true,
+    "all_target_incident_pair_blocks": true,
+    "node_and_adjacency_source_counts_match": true,
+    "edges_seen": 142750370,
+    "committed_source_blocks": 12042066
+  },
+  "input_sha256": {
+    "target_plan": "d95bd5291564100b9882217140d60d3fb27cb4750be55698f8b73a43963662ef",
+    "index_summary": "58e0c78f7f52c5b00c742e2cf847ae4d971d79e167fee11b8b5745beae1e138d",
+    "selected_blocks": "ae70e9bec82389ff25751ccf41fd77c44419d97c72f8ece762f9294261534c92"
+  },
+  "code_sha256": {
+    "indexer_recorded_by_index": "1af8d5b250054e7417e7e1b6e9d50c860a40439671528dbf991538fb2eac6b79",
+    "auditor": "ba016385dc4b0bcae1674fbdb4ffe528644f43f42bdb5ee258123aad781d037f"
+  },
+  "training_performed": false,
+  "table_iii_reproduced": false
+}

@@ -10,6 +10,10 @@ The guide includes environment detection, a no-root Node.js setup, audited
 dataset hashes, complete node/edge scans, Table I verification, and figure
 generation. RQ1 is CPU/RAM/storage-bound and does not require a GPU.
 
+The [ScamSweeper reproducibility status](scamsweeper_reproduction/SCAMSWEEPER_RELEASE_AUDIT.md)
+states which released paper results can be reproduced and why RQ2/RQ3 model
+comparisons are not reported.
+
 
 ## Dataset Navigation — BLTE and ScamSweeper
 

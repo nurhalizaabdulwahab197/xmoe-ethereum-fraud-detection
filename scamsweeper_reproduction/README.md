@@ -450,3 +450,13 @@ RQ2/RQ3 model reproduction uses the separate `RQ2&3` artifact. RQ4 phishing
 model reproduction uses the RQ4 artifact. An X-MoE three-class extension built
 from RQ1-derived data must not be presented as the paper's RQ1 model
 reproduction, because paper RQ1 contains no classifier.
+
+The cross-archive reproducibility decision for RQ2, RQ3 and RQ4 is recorded in
+[`SCAMSWEEPER_RELEASE_AUDIT.md`](SCAMSWEEPER_RELEASE_AUDIT.md). RQ2/RQ3 exact
+model claims are not reproducible from the released artifacts, so no substitute
+RQ2/RQ3 experiment is published here. RQ4 graph/schema reproduction is complete, and
+the cross-release transaction index has been validated for all 636 normal
+targets. The exact commands and expected counts are in
+[`RQ4_REPRODUCTION_STATUS.md`](RQ4_REPRODUCTION_STATUS.md). This prepares the
+RQ4 cohort but does not reproduce Table III because the author split/seed,
+executable models/baselines and metric implementation are absent.

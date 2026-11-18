@@ -1,0 +1,105 @@
+{
+  "status": "partial_artifact_reproduction",
+  "graph": {
+    "type": "MultiDiGraph",
+    "nodes": 2973489,
+    "edges": 13551303,
+    "directed": true,
+    "multigraph": true
+  },
+  "label_counts": {
+    "normal": 636,
+    "phish": 1165,
+    "scams": 3125
+  },
+  "label_overlaps": {
+    "normal_phish": 0,
+    "normal_scams": 0,
+    "phish_scams": 0
+  },
+  "graph_coverage": {
+    "normal": {
+      "present": 214,
+      "missing": 422,
+      "missing_first_10": [
+        "0x0000000000004946c0e9f43f4dee607b0ef1fa1c",
+        "0x000000000000541e251335090ac5b47176af4f7e",
+        "0x028fb01ffafe25e278ebb467f69bd79a928cf25e",
+        "0x03e3ff995863828554282e80870b489cc31dc8bc",
+        "0x03e75d7dd38cce2e20ffee35ec914c57780a8e29",
+        "0x059799f2261d37b829c2850cee67b5b975432271",
+        "0x06a0048079ec6571cd1b537418869cde6191d42d",
+        "0x06b8c5883ec71bc3f4b332081519f23834c8706e",
+        "0x0708f87a089a91c65d48721aa941084648562287",
+        "0x0954906da0bf32d5479e25f46056d22f08464cab"
+      ]
+    },
+    "phish": {
+      "present": 1165,
+      "missing": 0,
+      "missing_first_10": []
+    },
+    "scams": {
+      "present": 1,
+      "missing": 3124,
+      "missing_first_10": [
+        "0x000000000022d473030f116ddee9f6b43ac78ba3",
+        "0x000000002651a7206f8d7a23fe4410edf16dbec3",
+        "0x000000009b0e0800549dba4210a24eabbc93f9ef",
+        "0x00000002846f5f08a0b9bc34ed34c0b5e77f4a98",
+        "0x0000000d5377bff1cb2e310362d0bbec826fb425",
+        "0x0000000dc3d9e17e3449e59bb75cb4005ee8aa7f",
+        "0x0000000f7e71bfbcdae6d29aa49ed557afaef9d2",
+        "0x000000b0fc5292c824cfaad9eea42b8040c33eeb",
+        "0x0000010e3cb01bcdc1c70fb1e0e7a06a6d580000",
+        "0x000001c4e699f4a1393914a87a62c4c0afa00000"
+      ]
+    }
+  },
+  "isp": {
+    "count": 1165,
+    "equals_phish_list": true,
+    "isp_not_phish": 0,
+    "phish_not_isp": 0
+  },
+  "node_attribute_keys": {
+    "isp": 2973489
+  },
+  "edge_attribute_keys": {
+    "amount": 13551303,
+    "timestamp": 13551303
+  },
+  "label_incidence": {
+    "normal": {
+      "present_nodes": 214,
+      "nodes_with_incident_edges": 214,
+      "incoming_edge_visits": 608679,
+      "outgoing_edge_visits": 1195201
+    },
+    "phish": {
+      "present_nodes": 1165,
+      "nodes_with_incident_edges": 1165,
+      "incoming_edge_visits": 36455,
+      "outgoing_edge_visits": 23805
+    },
+    "scams": {
+      "present_nodes": 1,
+      "nodes_with_incident_edges": 1,
+      "incoming_edge_visits": 0,
+      "outgoing_edge_visits": 1
+    }
+  },
+  "exact_table3_reproduction_ready": false,
+  "blockers": [
+    "422 of 636 released normal labels are absent from MulDiGraph.pkl",
+    "complete author model/baseline code and configuration are absent",
+    "exact split and metric implementation are absent"
+  ],
+  "rq1_normal_cross_release": {
+    "rq1_normal_isp_1_count": 636,
+    "rq4_normal_list_count": 636,
+    "intersection": 636,
+    "sets_equal": true,
+    "recovery_candidate": true
+  }
+}

@@ -40,6 +40,7 @@ external_data/
 data/raw/RQ1/unpacked/
 scamsweeper_reproduction/results/
 scamsweeper_reproduction/.matplotlib/
+scamsweeper_reproduction/data/
 
 results/checks/gcn_seed108/
 results/strict_fresh/
