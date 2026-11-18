@@ -1,0 +1,12 @@
+.venv*/
+__pycache__/
+*.pyc
+datasets.local*.json
+data/
+upstream-paper/
+checks/
+results/new_runs/
+*.pt
+*.sqlite
+*.zip
+*.npy

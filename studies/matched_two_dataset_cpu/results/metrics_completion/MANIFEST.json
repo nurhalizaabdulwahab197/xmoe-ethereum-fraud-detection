@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-11-12",
+  "series": [
+    {
+      "id": "blte_clean",
+      "expected_rows": 50,
+      "group_by": [
+        "model"
+      ],
+      "expected_groups": [
+        [
+          "mlp"
+        ],
+        [
+          "gcn"
+        ],
+        [
+          "gat"
+        ],
+        [
+          "graphsage"
+        ],
+        [
+          "x_moe_gnn"
+        ]
+      ],
+      "test_nodes": 10955,
+      "description": "BLTE matched clean: five models, ten seeds, 300 epochs.",
+      "evidence_origin": "Original saved predictions; all 100 prediction hashes match published run records."
+    },
+    {
+      "id": "rq1_clean",
+      "expected_rows": 50,
+      "group_by": [
+        "model"
+      ],
+      "expected_groups": [
+        [
+          "mlp"
+        ],
+        [
+          "gcn"
+        ],
+        [
+          "gat"
+        ],
+        [
+          "graphsage"
+        ],
+        [
+          "x_moe_gnn"
+        ]
+      ],
+      "test_nodes": 737,
+      "description": "RQ1 matched clean: five models, ten seeds, 300 epochs.",
+      "evidence_origin": "Original saved predictions; all 100 prediction hashes match published run records."
+    }
+  ],
+  "files_sha256": {
+    "README.md": "513bbbb38956383a42396ffc049d206cab21ed16b481985dc7abdfba0e70e08d",
+    "docs/COMPLETED_METRICS.md": "439d2e03dc25ae911cd11aac62ec9abd098dd68cccadea4288905ac6fc05c47b",
+    "docs/METRIC_METHODS.md": "6dc32dca58441c793b8be6eec660c1078ad12b0ab4f3d93dfdab22b64c15eb61",
+    "docs/RQ1_JOURNAL_PARITY.md": "8ab0b8b6b9c52c0f0991bccdcd4f984c58a44b6ecc4925104107a5bf545ba94f",
+    "results/metrics_completion/AUDIT_PROVENANCE.json": "0877d880a3803d8311c419df1659a41a84d54c20907cedfdc107c004fb555de5",
+    "results/metrics_completion/blte_clean/per_seed.csv": "d7ca271681d64105c8394c6167a502537513b0a5dff1c8884ee45a8c095b4cb8",
+    "results/metrics_completion/blte_clean/summary.csv": "4bd939da658912ac08cae75bb32af1514c3347b114ebccd41ccd4f6659f75f37",
+    "results/metrics_completion/blte_clean/validation.json": "c0815eff2baddde8c71e5008de979b82ecbc619ba0ee55cd1ec087747069739f",
+    "results/metrics_completion/rq1_clean/per_seed.csv": "5c89a92b4d9cecbd8a472ec38e00c72cc09333d5ed8b9c89294b14d75ea9774c",
+    "results/metrics_completion/rq1_clean/summary.csv": "42689b1a43ad0b93bb6f2b6ed17236ee6fc0ca4ed7c1e83181381ffc3e3a09a7",
+    "results/metrics_completion/rq1_clean/validation.json": "c0815eff2baddde8c71e5008de979b82ecbc619ba0ee55cd1ec087747069739f",
+    "scripts/check_completed_metrics.py": "1c6aac78b2a6d3876457060508a27cb4d6f7f87a90a0cc81955c838dc858afd0",
+    "scripts/evaluate_saved_predictions.py": "63f7baeaa60cdd4952a4f1015464368cfddeca97ad8ddabb394d9ec4331cde55",
+    "scripts/test_completed_metrics.py": "392fd2937c5cda7a4be851abe67152394e75e20812fe5ee77de37994b778c338"
+  },
+  "scope_note": "Aggregate metrics only. Counts across series/branches overlap. No per-address data, weights, live-demo or manuscript changes."
+}

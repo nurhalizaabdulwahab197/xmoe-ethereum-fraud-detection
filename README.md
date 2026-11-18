@@ -12,21 +12,23 @@ This README retains the original complete BLTE instructions and adds a separate,
 | BLTE: original detailed instructions | [Part I — BLTE](#part-i--blte-original-detailed-guide) | [experiments/blte](experiments/blte/README.md) | [results/blte](results/blte/README.md) |
 | ScamSweeper/RQ1: step-by-step H200 GPU instructions | [Part II — ScamSweeper](#part-ii--scamsweeper--rq1-complete-gpu-reproduction-guide) | [experiments/scamsweeper](experiments/scamsweeper/README.md) | [results/scamsweeper](results/scamsweeper/README.md) |
 
-Part I preserves the BLTE guide, commands, architecture descriptions and result tables. Its historical statements about a BLTE-only main branch refer to the pre-integration snapshot; main now also contains the separate ScamSweeper suite in Part II. The environments, dataset features and ablation conclusions must be read within their own dataset sections.
+Part I preserves the BLTE guide, commands, architecture descriptions and result tables. Its historical statements about a BLTE-only main branch refer to the pre-integration snapshot; benchmark now contains the separate ScamSweeper suite in Part II. The environments, dataset features and ablation conclusions must be read within their own dataset sections.
 
-## Which Branch Should I Use?
+## Branch Navigation
 
-**Use `main` for the complete BLTE and ScamSweeper clean/strict/A0–A7/sensitivity studies in this README.** ScamSweeper on main includes full five-model reproduction, not only ablation.
+**This is the `benchmark` branch.** It contains the complete BLTE and ScamSweeper benchmark-evaluation guides below. Source-paper reproduction and benchmark evaluation are distinct workflows.
 
-| Branch | Scientific scope | Use it for |
+| Branch | Purpose | Guide |
 |---|---|---|
-| `main` | BLTE original main-study evidence plus the locked ScamSweeper/RQ1 230-run CUDA suite | Reproduce both datasets and read all clean, strict, A0–A7 and sensitivity guides below |
-| `study/blte-reconstruction` | BLTE reconstruction of paper-described/released-code settings, CE controls and PCGrad ON/OFF | Study the separate 120-run reconstruction and 40-run PCGrad evidence |
-| `study/matched-two-dataset-cpu` | Earlier matched CPU study: BLTE 50 + RQ1 50 clean runs, plus separately attributed verification | Reproduce both datasets in that shared historical CPU protocol |
+| main | General X-MoE project overview, architecture and status | [main README](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/blob/main/README.md) |
+| reproduction | Source-study reproduction: BLTE completed; Sweeper in progress; BERT4ETH completed externally, import pending | [reproduction README](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/blob/reproduction/README.md) |
+| benchmark | X-MoE/baseline evaluation: clean, strict, A0–A7, sensitivity and future benchmarks | This complete guide |
 
-`reproduction` and `two-dataset-comparison` remain unchanged compatibility names for the two study branches. The new descriptive names initially point to those same study commits. They do not represent new results or extra experiments. No branch/history is deleted or force-replaced.
+The previous matched two-dataset CPU study is now retained in [studies/matched_two_dataset_cpu](studies/matched_two_dataset_cpu/), with a [complete adapted step-by-step guide](studies/MATCHED_CPU_GUIDE.md). Its 100 clean runs remain a separate historical series; they are not added to or substituted for the 230-run GPU suite.
 
-[Branch guide and exact study boundaries](docs/BRANCH_GUIDE.md) • [All experiment counts](docs/EXPERIMENT_INVENTORY.md).
+Sweeper's completed benchmark runs do not establish completion of source-paper reproduction, which the project owner is still conducting. BERT4ETH code/results will be imported later; its current reproduction status and planned benchmark extension are tracked separately.
+
+[Branch guide](docs/BRANCH_GUIDE.md) • [Experiment inventory](docs/EXPERIMENT_INVENTORY.md).
 
 # Part I — BLTE: Original Detailed Guide
 
@@ -49,7 +51,7 @@ BLTE clean, strict, A0–A7, sensitivity and historical CPU/GPU metrics are cove
 
 This guide reproduces the experiments reported in this repository using processed
 BLTE inputs. Commands below use **Windows PowerShell**, run from the repository
-root on branch `main`. Copy each block separately and wait for completion.
+root on branch `benchmark`. Copy each block separately and wait for completion.
 A backtick must be the final character on a continued PowerShell command line.
 
 1. Clone the repository and create the CPU environment.
@@ -93,7 +95,7 @@ seeds 100–109, with 300 epochs per run. The values are experimental aggregates
 individual checkpoint predictions do not replace these estimates.
 
 The active MLP ten-seed evidence is in `results/clean/reference/mlp_10seed.csv`.
-Part I covers the BLTE main-study protocol. Part II on this same `main` branch contains full ScamSweeper/RQ1 clean, strict, A0–A7 and sensitivity reproduction. The separate `study/matched-two-dataset-cpu` branch preserves the earlier shared CPU study; its results and environment are not substituted for the locked CUDA suite.
+Part I covers the BLTE main-study protocol. Part II on this same `benchmark` branch contains full ScamSweeper/RQ1 clean, strict, A0–A7 and sensitivity reproduction. The separate `studies/matched_two_dataset_cpu` snapshot preserves the earlier shared CPU study; its results and environment are not substituted for the locked CUDA suite.
 
 ## Dataset Summary
 
@@ -405,7 +407,7 @@ The CPU experiments were reproduced using:
 
 ## Repository Structure
 
-| Path on `main` | Purpose |
+| Path on `benchmark` | Purpose |
 |---|---|
 | `src/runner.py` | Clean training and evaluation for five models |
 | `src/models/` | MLP, GCN, GAT, GraphSAGE and X-MoE implementations |
@@ -425,9 +427,9 @@ The CPU experiments were reproduced using:
 | `RESULT_SOURCE_HASHES.json` | Evidence hashes |
 | `FILE_RELOCATION_MAP.json` | Historical-to-current path mapping |
 
-The current branch organization is documented in [Which branch should I use?](#which-branch-should-i-use) and [the branch guide](docs/BRANCH_GUIDE.md). Both datasets' principal clean/strict/ablation/sensitivity code and result records are on main; separate branches preserve distinct reconstruction and historical matched-CPU protocols.
+The current branch organization is documented in [Which branch should I use?](#which-branch-should-i-use) and [the branch guide](docs/BRANCH_GUIDE.md). Both datasets' principal clean/strict/ablation/sensitivity code and result records are on benchmark; separate branches preserve distinct reconstruction and historical matched-CPU protocols.
 
-`main` contains no Streamlit application source or packaged inference checkpoints.
+`benchmark` contains no Streamlit application source or packaged inference checkpoints.
 The paper's LaTeX is maintained separately.
 `src/models/__init__.py` exports model classes; run experiments through the runner.
 
@@ -436,7 +438,7 @@ The paper's LaTeX is maintained separately.
 ## 1. Clone This Repository
 
 ```powershell
-git clone --branch main --single-branch https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git
+git clone --branch benchmark --single-branch https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git
 cd xmoe-ethereum-fraud-detection
 ```
 
@@ -860,7 +862,7 @@ The reference Normal–Phishing coefficient λ_NP = 0.30 is a manuscript referen
 
 ## 11. Ablation Study: A0–A7
 
-The A0–A7 ablation below uses the main study protocol. The `reproduction` branch reports a separate PCGrad ON/OFF ablation under two reconstructed BLTE configurations. [PCGrad ablation results](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/blob/study/blte-reconstruction/README.md#pcgrad-ablation)
+The A0–A7 ablation below uses the main study protocol. The `reproduction` branch reports a separate BLTE PCGrad ON/OFF ablation under two reconstructed BLTE configurations. [PCGrad ablation results](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/blob/reproduction/README.md#pcgrad-ablation)
 
 Runner:
 
@@ -1402,7 +1404,7 @@ If it fails, inspect the error before full training. The smoke test is not a sci
 
 #### Full strict CPU experiments, one model at a time
 
-Activate `.venv-cpu` and run these commands from the `main` repository root.
+Activate `.venv-cpu` and run these commands from the `benchmark` repository root.
 The script selects the strict protocol internally; it has no `--protocol` flag.
 Strict supports saved predictions; its CLI does not expose `--save-checkpoints`.
 
@@ -1556,7 +1558,7 @@ Previously published research demo URL:
 
 This is an external deployment reference. Its current availability and deployed
 version are not established by this repository audit. The application source,
-Streamlit configuration and inference assets are absent from this `main` snapshot,
+Streamlit configuration and inference assets are absent from this benchmark snapshot,
 so this guide provides no local demo launch instructions.
 
 Quantitative claims in this guide use controlled ten-seed experiments. An
@@ -1781,7 +1783,7 @@ To intentionally write the tables supported by this utility from the frozen inpu
 python .\experiments\summarize_results.py --apply
 ```
 
-Review any changed table before publishing. Updating `main` does not update sibling
+Review any changed table before publishing. Updating this benchmark branch does not update sibling
 branches automatically.
 
 ### Verify the published raw strict inventory
@@ -1845,7 +1847,7 @@ This repository claims authorship only for the code and methodology developed he
 
 BLTE uses separate clean/strict/ablation entry points; the captured Sweeper runner schedules all four families together. This difference in CLI organization does not mean Sweeper lacks model reproduction. Its full five-model clean reference is shown in Section S17 below. Follow S4–S15 to reproduce it, then S16–S20 to inspect its outputs.
 
-For the **earlier shared CPU reproduction of both datasets**, use the separate [study/matched-two-dataset-cpu branch](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/tree/study/matched-two-dataset-cpu). That documented 100-run study has BLTE 50 + Sweeper 50 clean runs and its own environment; it is not replaced by the 230-run CUDA extension.
+For the **earlier shared CPU reproduction of both datasets**, use the separate [preserved matched CPU study](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/tree/benchmark/studies/matched_two_dataset_cpu). That documented 100-run study has BLTE 50 + Sweeper 50 clean runs and its own environment; it is not replaced by the 230-run CUDA extension.
 
 ## S1. What Has Been Completed on ScamSweeper?
 
@@ -1948,7 +1950,7 @@ Use a new checkout when preparing a reproduction, so that existing NTU experimen
 ```bash
 cd /data/nurhaliza
 
-git clone --branch main --single-branch \
+git clone --branch benchmark --single-branch \
   https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git \
   xmoe-two-dataset-reproduction
 ```
@@ -2373,11 +2375,10 @@ The canonical external dataset citation/access and redistribution statement must
 | BLTE clean, strict, A0–A7, sensitivity | Part I; `experiments/blte/` | BLTE dataset and historical main-study protocol |
 | ScamSweeper clean, strict, A0–A7, sensitivity | Part II; `experiments/scamsweeper/` | Separate five-feature cohort graph; locked 230 CUDA runs |
 | BLTE historical CPU/GPU comparison | Part I GPU section | Four-GNN historical hardware series; not the Sweeper H200 matrix |
-| BLTE reconstruction and CE control | `reproduction` branch | 120 primary reconstruction runs under two configurations |
+| BLTE reconstruction and CE control | `reproduction` branch, BLTE section | 120 primary reconstruction runs under two configurations |
 | PCGrad ON/OFF | `reproduction` branch | Separate 40-run study; not A0–A7 |
 | Fixed-mask pilots | Their separately documented evidence | Excluded from the principal clean/strict matrices |
 
 BLTE sensitivity metric-completion evidence includes 30 fresh runs plus 20 attributed reused A0/A6 rows. Sweeper executes its own 50 sensitivity runs. Do not add reused rows, supplementary metric reruns or analyses together as if they were all independent experiments.
 
 Historical root paths such as `results/ablation`, `results/clean`, `results/strict` and `results/sensitivity` remain **BLTE compatibility paths**. New dataset-labelled views are `results/blte` and `results/scamsweeper`. See [the path map](docs/DATASET_PATH_MAP.json) for exact correspondence. Numerical results and original scientific implementations are preserved.
-

@@ -19,7 +19,7 @@
 | Convergence / validation selection | Runner selection rules; archived evidence availability varies | 300-epoch histories archived; validation-selected checkpoint, earliest tie |
 | Smoke / preflight | Implementation/input checks, excluded from scientific tables | 10-seed preflight and 23 one-epoch smoke runs, excluded from 230 full runs |
 | Artifact / fixed-mask protocol | Supported historical runner/pilots; not the clean/strict tables | Not part of the locked 230-run matrix |
-| Reconstruction + CE control + PCGrad ON/OFF | Separate reproduction branch: 120 primary rows, 40 PCGrad rows, six separate fixed-mask pilots; public wrapper GPU validation caveat retained | Not conducted in this locked matrix |
+| Reconstruction + CE control + PCGrad ON/OFF | Separate reproduction branch (BLTE section): 120 primary rows, 40 PCGrad rows, six separate fixed-mask pilots; public wrapper GPU validation caveat retained | Not conducted in this locked matrix |
 
 Counts describe each evidence series, not a grand total of independent training jobs. Reused controls, supplementary metric reruns, historical GPU series and overlapping analyses must not be added indiscriminately.
 
@@ -30,7 +30,7 @@ Counts describe each evidence series, not a grand total of independent training 
 | BLTE | [experiments/blte](../experiments/blte/) | [results/blte](../results/blte/) | [docs/blte](blte/) |
 | ScamSweeper/RQ1 | [experiments/scamsweeper](../experiments/scamsweeper/) | [results/scamsweeper](../results/scamsweeper/) | [docs/scamsweeper](scamsweeper/) |
 
-Separate reconstruction/PCGrad branch: [reproduction](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/tree/reproduction). The two-dataset-comparison branch remains a historical independent workstream; this integration does not rewrite it.
+Separate reconstruction/PCGrad branch: [reproduction](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/tree/reproduction). The earlier matched CPU tree is retained under studies/matched_two_dataset_cpu; consult studies/MATCHED_CPU_GUIDE.md for its adapted commands.
 
 ## Shared A0–A7 definitions
 
@@ -39,6 +39,6 @@ A0 full; A1 conflict-aware expert only; A2 GraphSAGE-expert configuration with a
 Definitions align; empirical conclusions differ. BLTE ablation and Sweeper ablation must have separate tables. A2 is not the standalone GraphSAGE baseline. PCGrad ON/OFF is not A0–A7.
 
 
-## Descriptive study branches
+## Branch roles and source-study reproduction status
 
-Main includes full BLTE AND ScamSweeper reproduction, not just Sweeper ablation. See [branch guide](BRANCH_GUIDE.md). `study/blte-reconstruction` preserves the original reproduction study; `study/matched-two-dataset-cpu` preserves the completed earlier 100-run matched clean CPU study and its separately attributed ten-run seed-100 verification. Original branch names remain compatibility references. Dataset-specific training interfaces differ, but clean/strict/A0–A7/sensitivity coverage exists for both datasets on main.
+These experiment records now live on benchmark. Main is the general project entry; reproduction is the source-study workflow. The project owner confirms BLTE reproduction completed, Sweeper source-study reproduction in progress, and BERT4ETH reproduction completed externally with repository import pending. The completed Sweeper 230-run benchmark matrix is not a substitute for the pending source-study reproduction. See BRANCH_GUIDE.md.

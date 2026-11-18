@@ -1,0 +1,15 @@
+{
+  "audit_date": "2026-11-12",
+  "upstream_branch_revisions": {
+    "main": "dd4c988df124f8f27bf71f7741d8103323c315d1",
+    "reproduction": "081a01a7cb0d3429af435f720f4fb1937b10423f",
+    "two-dataset-comparison": "4ee11dbde3b2b365fb7df6d6e2873aee44a84621"
+  },
+  "input_archives_sha256": {
+    "matched_clean": "7529a83313d7cde1368be69e4a1022357a8fdcead6e0699defa728a2c5bcbfa0"
+  },
+  "archive_contents_published": false,
+  "node_predictions_or_checkpoints_published": false,
+  "audit_environment": "Python standard library; no training/inference during metrics recomputation",
+  "scope_note": "The 100 original matched clean study runs are complete: 50 BLTE + 50 RQ1.\nThe ten fresh seed-100 runs are reproduction checks of that study, not a new\nindependent ten-seed study; their newly added AUC has not been separately audited\nhere. BLTE and RQ1 are trained/evaluated separately; there is no merged-dataset\nscore or transferred checkpoint. Features remain dataset-native (23 versus five).\n\n**RQ1 journal 230-run suite: in progress, not yet fully verified.** This status\nreflects the author's report on 12 November 2026; no completed-run count is\nasserted from this cloud checkout. Do not use smoke, synthetic or partially\ncompleted runs as final journal performance results. The implementation-validation\nrecord describes software tests, not scientific completion. The planned 230\nruns comprise clean/strict 100 + A0-A7 80 + sensitivity 50; optional GPU parity is\na separate additional scope. See [RQ1_JOURNAL_PARITY.md](RQ1_JOURNAL_PARITY.md)."
+}

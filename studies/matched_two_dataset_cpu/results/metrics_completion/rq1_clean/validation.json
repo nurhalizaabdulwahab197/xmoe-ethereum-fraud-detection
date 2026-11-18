@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "inventory_files_verified": 308,
+  "matched_runs": 100,
+  "prediction_rows_verified": 584600,
+  "test_labels_and_nodes_match_across_models": true,
+  "input_fingerprints_match_across_models": true,
+  "prediction_hashes_match_published_records": true,
+  "stored_metrics_reconciled": true,
+  "max_abs_ap_delta": 1.6653345369377348e-15,
+  "training_or_inference_performed": false,
+  "scope": "Matched clean BLTE and RQ1 only; not BLTE journal ablation/strict/sensitivity or RQ1 journal 230-run suite.",
+  "auc_definition": "Per-class one-vs-rest ROC-AUC with tie half-credit; macro is unweighted mean of three classes; weighted uses test support.",
+  "ap_definition": "Non-interpolated average precision, grouped thresholds; not trapezoidal PR-AUC.",
+  "summary_definition": "Mean and sample SD across ten seeds, not pooled predictions.",
+  "source_commit": "4ee11dbde3b2b365fb7df6d6e2873aee44a84621"
+}

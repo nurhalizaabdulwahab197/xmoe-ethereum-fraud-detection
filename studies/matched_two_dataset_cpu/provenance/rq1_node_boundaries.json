@@ -1,0 +1,26 @@
+{
+  "normal": {
+    "file": "normal/xlabel_normal.pickle",
+    "file_bytes": 4381824098,
+    "sampled_nodes": 12042066,
+    "node_table_complete": true,
+    "last_opcode_position": 566081193,
+    "next_memo_index_at_boundary": 24084154
+  },
+  "phish": {
+    "file": "phish/phish.pickle",
+    "file_bytes": 3495083610,
+    "sampled_nodes": 10159847,
+    "node_table_complete": true,
+    "last_opcode_position": 492496423,
+    "next_memo_index_at_boundary": 20319717
+  },
+  "scams": {
+    "file": "scams/scams.pickle",
+    "file_bytes": 2852537369,
+    "sampled_nodes": 8736430,
+    "node_table_complete": true,
+    "last_opcode_position": 410701898,
+    "next_memo_index_at_boundary": 17472882
+  }
+}

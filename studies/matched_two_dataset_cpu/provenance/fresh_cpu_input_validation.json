@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-05",
+  "scope": "Fresh checkout on the reference Windows CPU PC; original outer ZIP and nested pickles rebuilt through graph and ten seed inputs; not independent-PC or new model-performance reproduction.",
+  "status": "fresh_zip_input_reconstruction_verified",
+  "python": "3.11.9",
+  "node": "26.13.0",
+  "node_version_evidence": "Reported from the user CPU terminal; source-array equality checked independently.",
+  "graph_files_verified": 4,
+  "seed_arrays_verified": 40,
+  "seeds": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109
+  ],
+  "nodes": 1322252,
+  "directed_pairs": 3856855,
+  "labeled_accounts": 4913,
+  "unlabeled_context_nodes": 1317339,
+  "input_dim": 5,
+  "array_comparison": "All graph and normalized-feature/mask SHA-256 values equal original study.",
+  "scaler_recomputation": "User configure_datasets output confirms mean/scale/variance, mask and normalized-value equality for all ten seeds.",
+  "blte_input_hashes_verified": true,
+  "measured_stage_seconds": {
+    "cohort_aggregation": 985.530999999959,
+    "context_graph": 1280.125
+  },
+  "full_wall_time_recorded": false,
+  "training_performed_by_this_audit": false,
+  "model_inference_performed_by_this_audit": false
+}

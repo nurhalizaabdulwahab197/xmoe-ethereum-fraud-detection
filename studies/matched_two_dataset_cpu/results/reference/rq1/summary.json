@@ -1,0 +1,327 @@
+{
+  "dataset": "rq1",
+  "completed_runs": 50,
+  "planned_runs": 50,
+  "all_complete": true,
+  "scope": "Shared architecture/training/evaluation implementation; BLTE23 versus RQ1-native5 remains an explicit input adaptation. Existing RQ1 outcomes were inspected: supplemental RQ1 analyses are exploratory.",
+  "models": {
+    "mlp": {
+      "seeds": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109
+      ],
+      "metrics": {
+        "accuracy": {
+          "mean": 0.6390773405698779,
+          "sample_std": 0.026496279540256566
+        },
+        "macro_precision": {
+          "mean": 0.6697894718243805,
+          "sample_std": 0.01915322465329296
+        },
+        "macro_recall": {
+          "mean": 0.6984014859751462,
+          "sample_std": 0.020856301389711084
+        },
+        "macro_f1": {
+          "mean": 0.6576957323284583,
+          "sample_std": 0.014045719259661757
+        },
+        "weighted_f1": {
+          "mean": 0.6541279559955085,
+          "sample_std": 0.02311240544659961
+        },
+        "normal_f1": {
+          "mean": 0.7924971844377896,
+          "sample_std": 0.022076182543849146
+        },
+        "phishing_f1": {
+          "mean": 0.49559019468892457,
+          "sample_std": 0.034328482162684366
+        },
+        "scamming_f1": {
+          "mean": 0.6849998178586609,
+          "sample_std": 0.044012510078131076
+        },
+        "phishing_ap": {
+          "mean": 0.3949470048346948,
+          "sample_std": 0.04493429464704625
+        },
+        "scamming_ap": {
+          "mean": 0.8501643158651552,
+          "sample_std": 0.018278296120611832
+        }
+      }
+    },
+    "gcn": {
+      "seeds": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109
+      ],
+      "metrics": {
+        "accuracy": {
+          "mean": 0.8085481682496608,
+          "sample_std": 0.012638891011769493
+        },
+        "macro_precision": {
+          "mean": 0.7492571390054242,
+          "sample_std": 0.022336863938909452
+        },
+        "macro_recall": {
+          "mean": 0.7350809602028158,
+          "sample_std": 0.017694374155475315
+        },
+        "macro_f1": {
+          "mean": 0.7407990924450191,
+          "sample_std": 0.01832962200809499
+        },
+        "weighted_f1": {
+          "mean": 0.8079264018817595,
+          "sample_std": 0.012260197015885169
+        },
+        "normal_f1": {
+          "mean": 0.6585429986596809,
+          "sample_std": 0.04268686180052542
+        },
+        "phishing_f1": {
+          "mean": 0.6761647216238409,
+          "sample_std": 0.027725138067573818
+        },
+        "scamming_f1": {
+          "mean": 0.8876895570515355,
+          "sample_std": 0.00964925905105833
+        },
+        "phishing_ap": {
+          "mean": 0.7492050005176826,
+          "sample_std": 0.030473624052950062
+        },
+        "scamming_ap": {
+          "mean": 0.9306362487546622,
+          "sample_std": 0.011131680799068797
+        }
+      }
+    },
+    "gat": {
+      "seeds": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109
+      ],
+      "metrics": {
+        "accuracy": {
+          "mean": 0.7234735413839891,
+          "sample_std": 0.021144460003527068
+        },
+        "macro_precision": {
+          "mean": 0.6181577513202956,
+          "sample_std": 0.024516676599297786
+        },
+        "macro_recall": {
+          "mean": 0.5675965887700373,
+          "sample_std": 0.022014215952829767
+        },
+        "macro_f1": {
+          "mean": 0.5833569278179079,
+          "sample_std": 0.02090957959910173
+        },
+        "weighted_f1": {
+          "mean": 0.7055508680281081,
+          "sample_std": 0.020947250807437715
+        },
+        "normal_f1": {
+          "mean": 0.41449202629974885,
+          "sample_std": 0.040103821457673064
+        },
+        "phishing_f1": {
+          "mean": 0.4898683797824001,
+          "sample_std": 0.04841736854726255
+        },
+        "scamming_f1": {
+          "mean": 0.845710377371575,
+          "sample_std": 0.02017817223015389
+        },
+        "phishing_ap": {
+          "mean": 0.5200053483498012,
+          "sample_std": 0.06387774523805306
+        },
+        "scamming_ap": {
+          "mean": 0.8582880913475283,
+          "sample_std": 0.02424763371766426
+        }
+      }
+    },
+    "graphsage": {
+      "seeds": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109
+      ],
+      "metrics": {
+        "accuracy": {
+          "mean": 0.8932157394843963,
+          "sample_std": 0.006035916416265328
+        },
+        "macro_precision": {
+          "mean": 0.8518403680398061,
+          "sample_std": 0.010466200258481547
+        },
+        "macro_recall": {
+          "mean": 0.8742820703183047,
+          "sample_std": 0.006583111431890187
+        },
+        "macro_f1": {
+          "mean": 0.861908942942665,
+          "sample_std": 0.007127784123777533
+        },
+        "weighted_f1": {
+          "mean": 0.8941275049597893,
+          "sample_std": 0.005641168440294094
+        },
+        "normal_f1": {
+          "mean": 0.8186517917035899,
+          "sample_std": 0.025296016489625962
+        },
+        "phishing_f1": {
+          "mean": 0.835696991059505,
+          "sample_std": 0.01491622989720292
+        },
+        "scamming_f1": {
+          "mean": 0.9313780460648999,
+          "sample_std": 0.005947285403985621
+        },
+        "phishing_ap": {
+          "mean": 0.9020664901980657,
+          "sample_std": 0.01881797341633756
+        },
+        "scamming_ap": {
+          "mean": 0.9761536576570004,
+          "sample_std": 0.005107834481144442
+        }
+      }
+    },
+    "x_moe_gnn": {
+      "seeds": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109
+      ],
+      "metrics": {
+        "accuracy": {
+          "mean": 0.9170963364993215,
+          "sample_std": 0.009496887794043025
+        },
+        "macro_precision": {
+          "mean": 0.8864347845015839,
+          "sample_std": 0.013188427298618242
+        },
+        "macro_recall": {
+          "mean": 0.9006525031489477,
+          "sample_std": 0.008722618192738438
+        },
+        "macro_f1": {
+          "mean": 0.8923006808610632,
+          "sample_std": 0.010020528199570038
+        },
+        "weighted_f1": {
+          "mean": 0.9173761787091509,
+          "sample_std": 0.009327570346150085
+        },
+        "normal_f1": {
+          "mean": 0.8523969741614282,
+          "sample_std": 0.011261884751610305
+        },
+        "phishing_f1": {
+          "mean": 0.8797917941832003,
+          "sample_std": 0.017805793374103332
+        },
+        "scamming_f1": {
+          "mean": 0.9447132742385611,
+          "sample_std": 0.008250612009920312
+        },
+        "phishing_ap": {
+          "mean": 0.9543358237387144,
+          "sample_std": 0.01023642434193127
+        },
+        "scamming_ap": {
+          "mean": 0.9870405796873809,
+          "sample_std": 0.003369083398065519
+        }
+      }
+    }
+  },
+  "macro_f1_comparisons": [
+    {
+      "baseline": "mlp",
+      "mean_delta": 0.23460494853260486,
+      "raw_signed_rank_p": 0.001953125,
+      "wins": 10,
+      "ties": 0,
+      "losses": 0,
+      "holm_adjusted_p": 0.0078125
+    },
+    {
+      "baseline": "gcn",
+      "mean_delta": 0.1515015884160441,
+      "raw_signed_rank_p": 0.001953125,
+      "wins": 10,
+      "ties": 0,
+      "losses": 0,
+      "holm_adjusted_p": 0.0078125
+    },
+    {
+      "baseline": "gat",
+      "mean_delta": 0.30894375304315524,
+      "raw_signed_rank_p": 0.001953125,
+      "wins": 10,
+      "ties": 0,
+      "losses": 0,
+      "holm_adjusted_p": 0.0078125
+    },
+    {
+      "baseline": "graphsage",
+      "mean_delta": 0.030391737918398276,
+      "raw_signed_rank_p": 0.00390625,
+      "wins": 9,
+      "ties": 0,
+      "losses": 1,
+      "holm_adjusted_p": 0.0078125
+    }
+  ]
+}

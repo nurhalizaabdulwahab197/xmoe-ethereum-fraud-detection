@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "source_commit": "e660a0fbf20eb24ad5d519404489e996b92eec52",
+  "runtime_versions": {
+    "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "torch": "2.14.1+cpu",
+    "torch-geometric": "2.8.0.post1",
+    "numpy": "2.4.6",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.17.1",
+    "psutil": "7.2.2"
+  },
+  "models": [
+    "mlp",
+    "gcn",
+    "gat",
+    "graphsage",
+    "x_moe_gnn"
+  ],
+  "seeds": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109
+  ],
+  "epochs": 300,
+  "device": "cpu",
+  "threads": 24,
+  "deterministic": true,
+  "optimizer": {
+    "name": "Adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0005
+  },
+  "preprocessing": "Training-only StandardScaler; no additional runner log1p",
+  "split": "Two-stage stratified train_test_split(.30 then .50), same seed for both stages",
+  "training_options": {
+    "base_loss": "weighted_ce",
+    "calibrate_class_bias": false,
+    "expert_loss_weight": 0.25,
+    "scam_specialist_loss_weight": 0.5,
+    "x_moe_expert_task_loss_weight": 1.0,
+    "x_moe_normal_phishing_penalty": 0.3
+  },
+  "selection": "Highest validation Macro-F1, earliest on ties; no patience early stopping",
+  "metrics": "Original source score including macro P/R/F1, weighted F1, per-class P/R/F1, phishing/scamming AP and confusion cells",
+  "memory_execution": "Same policy for both datasets: GAT activation recomputation + 32768 edge chunks; X-MoE expert recomputation",
+  "resource_limits": {
+    "max_rss_gib": 20,
+    "min_available_gib": 4,
+    "timeout_seconds": 21600
+  },
+  "input_contract": "Dataset-native features with declared names/units/limits; input_dim inferred. No padding or false common-feature equivalence.",
+  "statistics": "Paired conditional-exact two-sided Wilcoxon signed-rank, exact zeros omitted, average ranks for ties; Holm over four Macro-F1 baseline comparisons.",
+  "scope": "Shared architecture/training/evaluation implementation; BLTE23 versus RQ1-native5 remains an explicit input adaptation. Existing RQ1 outcomes were inspected: supplemental RQ1 analyses are exploratory."
+}

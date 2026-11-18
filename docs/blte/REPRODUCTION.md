@@ -1,6 +1,6 @@
-> Scope: BLTE only. This guide preserves the historical commands and evidence paths. For the new dataset-labelled launchers see [experiments/blte](../../experiments/blte/README.md); for Sweeper see [its separate guide](../../experiments/scamsweeper/README.md). Older statements that main covers only BLTE describe the pre-integration snapshot.
+> Scope: detailed BLTE benchmark evaluation. Clone the benchmark branch and run commands from its root. Source-paper reconstruction is documented separately on reproduction.
 
-# BLTE: detailed historical reproduction guide
+# X-MoE for Ethereum Fraud Detection
 
 This repository provides a reproducible implementation for multi-class Ethereum address fraud detection under severe class imbalance and sparse graph connectivity. It includes conventional graph baselines, a feature-only MLP baseline, the proposed X-MoE framework, manuscript-aligned ablation and sensitivity experiments, strict node-inductive evaluation, reference result summaries, and metric-audit utilities.
 
@@ -23,7 +23,7 @@ BLTE clean, strict, A0–A7, sensitivity and historical CPU/GPU metrics are cove
 
 This guide reproduces the experiments reported in this repository using processed
 BLTE inputs. Commands below use **Windows PowerShell**, run from the repository
-root on branch `main`. Copy each block separately and wait for completion.
+root on branch `benchmark`. Copy each block separately and wait for completion.
 A backtick must be the final character on a continued PowerShell command line.
 
 1. Clone the repository and create the CPU environment.
@@ -417,7 +417,7 @@ The paper's LaTeX is maintained separately.
 ## 1. Clone This Repository
 
 ```powershell
-git clone --branch main --single-branch https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git
+git clone --branch benchmark --single-branch https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git
 cd xmoe-ethereum-fraud-detection
 ```
 
