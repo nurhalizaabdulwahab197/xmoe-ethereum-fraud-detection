@@ -29,7 +29,7 @@ Updated 2026-11-12: completed per-seed and per-class metrics are available in [t
 | GraphSAGE | 89.32 ± 0.60 | 85.18 ± 1.05 | 87.43 ± 0.66 | 86.19 ± 0.71 | 96.71 ± 0.31 |
 | X-MoE | 91.71 ± 0.95 | 88.64 ± 1.32 | 90.07 ± 0.87 | 89.23 ± 1.00 | 98.02 ± 0.30 |
 
-**RQ1 journal 230-run suite is still in progress; full scientific completion has not been verified.** The completed 100-run clean study is a separate result series. BLTE and RQ1 remain separate benchmarks, not concatenated training data.
+**The separate 230-run RQ1 GPU suite is complete and documented in [main](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/tree/main#part-ii--scamsweeperrq1-gpu-experiment-suite).** The completed 100-run clean study is a separate result series. BLTE and RQ1 remain separate benchmarks, not concatenated training data.
 
 ## Completed study and reproduction checks
 
@@ -189,14 +189,13 @@ It separates package/setup checks, raw ZIP reconstruction and training checks.
 
 | Branch | Purpose |
 |---|---|
-| `main` | Existing BLTE clean/strict evaluation, ablations and supporting results |
+| `main` | BLTE clean/strict evaluation and the separate completed ScamSweeper/RQ1 GPU suite |
 | `reproduction` | Separate BLTE reconstruction under released-code and paper-described GPU configurations |
-| `demo/streamlit` | Existing demonstration application |
-| `two-dataset-comparison` | This matched CPU study on BLTE and RQ1 |
+| `benchmark` | This matched CPU study on BLTE and RQ1 |
 
 The `reproduction` branch uses a different runtime and source-fidelity
 preprocessing. It is not the configuration used for these 100 runs. Updating one
-branch does not update its siblings or the deployed demo.
+branch does not update its siblings.
 
 ## Completed main study: results across seeds 100–109
 
@@ -293,12 +292,12 @@ checkout and reactivate `.venv-cpu` before using Python.
 ## 2. Clone this branch into its own folder
 
 ```powershell
-git clone --branch two-dataset-comparison https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git xmoe-two-dataset
+git clone --branch benchmark https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection.git xmoe-two-dataset
 cd xmoe-two-dataset
 git branch --show-current
 ```
 
-Expected branch: `two-dataset-comparison`. Run all subsequent blocks from this
+Expected branch: `benchmark`. Run all subsequent blocks from this
 folder. If the target directory already exists, preserve it and choose a new
 name rather than overwriting it. Do not switch branches or pull code changes
 while preparation/training is active. Record the exact revision:
@@ -825,3 +824,4 @@ artifacts from their providers and follow their attribution/redistribution terms
 See [docs/DATASETS.md](docs/DATASETS.md) for provenance and expected hashes.
 See [docs/VALIDATION_STATUS.md](docs/VALIDATION_STATUS.md) for the exact release
 checks completed and the remaining fresh-install/raw-rebuild validation scope.
+
