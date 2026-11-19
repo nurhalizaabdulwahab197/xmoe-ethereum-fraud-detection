@@ -29,7 +29,7 @@ Updated 2026-11-12: completed per-seed and per-class metrics are available in [t
 | GraphSAGE | 89.32 ± 0.60 | 85.18 ± 1.05 | 87.43 ± 0.66 | 86.19 ± 0.71 | 96.71 ± 0.31 |
 | X-MoE | 91.71 ± 0.95 | 88.64 ± 1.32 | 90.07 ± 0.87 | 89.23 ± 1.00 | 98.02 ± 0.30 |
 
-**The separate 230-run RQ1 GPU suite is complete and documented in [main](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/tree/main#part-ii--scamsweeperrq1-gpu-experiment-suite).** The completed 100-run clean study is a separate result series. BLTE and RQ1 remain separate benchmarks, not concatenated training data.
+**The separate 230-run RQ1 GPU suite is complete and documented in [main](https://github.com/nurhalizaabdulwahab197/xmoe-ethereum-fraud-detection/tree/main).** The completed 100-run clean study is a separate result series. BLTE and RQ1 remain separate benchmarks, not concatenated training data.
 
 ## Completed study and reproduction checks
 
@@ -824,4 +824,3 @@ artifacts from their providers and follow their attribution/redistribution terms
 See [docs/DATASETS.md](docs/DATASETS.md) for provenance and expected hashes.
 See [docs/VALIDATION_STATUS.md](docs/VALIDATION_STATUS.md) for the exact release
 checks completed and the remaining fresh-install/raw-rebuild validation scope.
-
