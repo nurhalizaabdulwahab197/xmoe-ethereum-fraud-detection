@@ -546,7 +546,7 @@ The BLTE reconstruction evaluates the reference methods and our proposed extensi
 
 We therefore extend the evaluation through the clean and strict protocols provided in the `main` branch. The clean protocol fits preprocessing on training nodes only, while the strict protocol further restricts graph connections according to its documented visibility rules. These experiments assess whether the observed performance persists under more controlled information access. They complement the reconstruction and are reported separately because their input preparation and evaluation conditions differ.
 
-Runtime versions also differ from the historical main-branch environment. Do not directly subtract a main-branch Full-X-MoE score from this audit's CE score and attribute the gap to PCGrad. Existing main results are not overwritten or automatically promoted by reproduction runs. Demo deployment remains on its separate branch.
+Runtime versions also differ from the historical main-branch environment. Do not directly subtract a main-branch Full-X-MoE score from this audit's CE score and attribute the gap to PCGrad. Existing main results are not overwritten or automatically promoted by reproduction runs.
 
 ### 19. Candidate directory layout
 
@@ -599,3 +599,4 @@ The upstream dataset and code remain subject to their own terms. Include the ups
 ## Validation scope
 
 Static package checks verify the distributed files. The local audit verifies the archived run evidence. GPU testing of the portable wrapper is a separate validation step.
+
