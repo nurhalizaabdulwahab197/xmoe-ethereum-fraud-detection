@@ -79,8 +79,9 @@ seeds 100–109, with 300 epochs per run. The values are experimental aggregates
 individual checkpoint predictions do not replace these estimates.
 
 The active MLP ten-seed evidence is in `results/clean/reference/mlp_10seed.csv`.
-This `main` release covers BLTE. The `two-dataset-comparison` branch is a separate
-workstream; its experiments are outside the reproduction commands in this guide.
+Part I covers BLTE; Part II documents the separate ScamSweeper/RQ1 GPU suite.
+The `benchmark` branch contains the matched CPU comparison of BLTE and RQ1;
+its experiments are outside the reproduction commands in this section.
 
 ## Dataset Summary
 
@@ -412,13 +413,13 @@ The CPU experiments were reproduced using:
 | `RESULT_SOURCE_HASHES.json` | Evidence hashes |
 | `FILE_RELOCATION_MAP.json` | Historical-to-current path mapping |
 
-At the documentation audit on 16 November 2026, the repository has three branches:
+The repository is organized into three active branches:
 
 | Branch | Scope |
 |---|---|
-| `main` | BLTE experiment code, reference results, metric audits, tables and figures documented here |
+| `main` | BLTE experiments and the separate completed ScamSweeper/RQ1 GPU suite documented here |
 | `reproduction` | Separate reconstructed BLTE reproduction and PCGrad ablation workstream |
-| `two-dataset-comparison` | Separate dataset-comparison workstream |
+| `benchmark` | Matched CPU comparison of BLTE and ScamSweeper/RQ1; formerly `two-dataset-comparison` |
 
 `main` contains no Streamlit application source or packaged inference checkpoints.
 The paper's LaTeX is maintained separately.
@@ -2034,3 +2035,4 @@ The canonical external dataset citation/access and redistribution statement must
 BLTE sensitivity metric-completion evidence includes 30 fresh runs plus 20 attributed reused A0/A6 rows. Sweeper executes its own 50 sensitivity runs. Do not add reused rows, supplementary metric reruns or analyses together as if they were all independent experiments.
 
 Historical root paths such as `results/ablation`, `results/clean`, `results/strict` and `results/sensitivity` remain **BLTE compatibility paths**. New dataset-labelled views are `results/blte` and `results/scamsweeper`. See [the path map](docs/DATASET_PATH_MAP.json) for exact correspondence. Numerical results and original scientific implementations are preserved.
+
